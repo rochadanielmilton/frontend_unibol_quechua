@@ -1,0 +1,188 @@
+<template>
+  <div class="container-fluid text-center">
+  <div class="row">
+    <div class="mb-3">
+      <div class="d-grid col-6-mx-auto offset-md-9">        
+              <button class="btn btn-success">
+                <!-- <i class="fa-solid fa-user-plus"></i> -->
+                <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  
+               </button></div>    
+     </div>
+  </div>
+   <div class="row">
+      <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
+        <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
+          <div class="table-responsive">
+              <table class="table table-bordered table-hover col-12">
+                  <thead class="pb-4">
+                    <tr>
+                      <th>
+                        #
+                      </th>
+                      <th class="d-none d-sm-block pb-4">
+                        C.I.
+                      </th>
+                      <th >
+                        NOMBRES
+                      </th>
+                      <th class="d-none d-sm-block">
+                        APELLIDO-P.
+                      </th>
+                      <th>
+                        APELLIDO-M.
+                      </th> 
+                      <th>
+                        CELULAR
+                      </th> 
+                      <th>
+                        CARRERA
+                      </th>
+                      <th>
+                        AÑO DE INGRESO
+                      </th>
+                      <th>
+                        AÑO CURSADO
+                      </th>
+                      <th>
+                        OBS.1
+                      </th>
+                      <th>
+                        OBS.2
+                      </th>                      
+                      <th>
+                        ESTADO
+                      </th>
+                      <th>
+                        ACCIONES
+                      </th>
+                    </tr></thead>
+                  <tbody class="table-group-divider" id="contenido">
+                    <tr v-for="estudiante,i  in estudiantes" :key="estudiante.ci_estudiante">
+                        <td>{{ i+1 }}</td>
+                        <td class="d-none d-sm-block pb-4">{{ estudiante.ci_estudiante }}</td>
+
+                        <td>{{ estudiante.nombres }}</td>
+                        <td>{{ estudiante.apellidoP }}</td>
+                        <td >{{ estudiante.apellidoM }}</td>
+
+                        <td class="d-none d-sm-block pb-4">{{ estudiante.celular }}</td>
+                          <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
+                        <td>{{ estudiante.nombre_carrera }}</td>
+                        <td>{{ estudiante.anio_ingreso }}</td>
+                        <td>{{ estudiante.anio_cursado }}</td>
+                        <td>{{ estudiante.obs1 }}</td>
+                        <td>{{ estudiante.obs2 }}</td>
+                        <!-- <td>{{ estudiante.id_carrera }}</td> -->
+                        <td>{{ estudiante.estado  }}</td>
+                        <td>
+                           
+                            <router-link :to="{path:'/estudiante/materias-cursadas/'+estudiante.ci_estudiante}"  class="btn btn-success">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </router-link>                          
+                            <router-link :to="{path:'/estudiante/edit/'+estudiante.ci_estudiante}" class="btn btn-warning">
+                                <i class="fa-solid fa-edit"></i>
+                            </router-link> &nbsp;
+                            <button   class="btn btn-danger" v-on:click="eliminar(estudiante.ci_estudiante,estudiante.nombres)">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <!-- FUNCIONA PERO NO ESTA ESTILIZADO -->
+                            <!-- <b-button v-b-tooltip.hover title="Tooltip directive content">
+                              Hover Me
+                            </b-button> -->
+                        </td>
+                    </tr>                    
+                  </tbody>
+              </table>
+          <!-- </div> -->
+      </div>
+    </div>
+  </div>
+
+</template>
+
+<script>
+// @ is an alias to /src
+//import {ref} from 'vue';
+import axios from "axios";
+import {confirmar1, show_alerta} from '../../funciones';
+//import {ref} from 'vue';
+// const provincias = computed(()=>{
+//         return this.provincias = this.getProvincias()
+// })
+//const provincias = ref([]);
+ //const contador =ref(0);
+export default {
+  name: 'EstudianteView',
+  data(){
+    return {estudiantes:null,carreras:[],principal:'',message:''}
+  },
+  mounted(){
+    this.getEstudiantes();
+    //this.getMateriasCursadas();
+    //ruta de navegacion despues de la accion eliminar
+    this.principal='/estudiantes';
+  },
+  methods:{
+    getEstudiantes(){
+            axios.get('http://127.0.0.1:8000/estudiantes/estudiantes/')
+            .then(            
+                response =>(
+                    this.estudiantes = response.data                        
+                )
+            );
+            
+    },eliminar(id,nombre){
+    //   for (let index = 0; index < 10; index++) {
+    //     sendRequest('POST',{
+    //     "id":999,
+    //     "nombre_provincia": "TEST-PROVINCIAS",
+    //     "id_departamento": null
+    // },'http://127.0.0.1:8000/parametros/provincias/','ProvinciaS Eliminada');              
+    //   }
+      const ruta = 'estudiantes/estudiantes/'+id+'/';
+      confirmar1(id,nombre,ruta,this.principal);      
+    },
+    getCarrera(id){      
+      axios.get('http://127.0.0.1:8000/parametros/carreras/'+id+'/')
+            .then(            
+                response =>(
+                    this.carreras[id] = response.data['nombre_carrera']
+                )
+            );
+          return this.carreras[id]
+    },getMateriasCursadas(id){
+          axios.get('http://127.0.0.1:8000/estudiantes/obtenerAsignaturasCursadas/'+id)
+            .then(            
+                response =>{
+                    
+                    if(!response.data.message){
+                      console.log('psando normal');
+                    //this.message = response.data.message,
+                    this.ci_estudiante=response.data['estudiante']['ci_estudiante'],
+                    this.nombres=response.data['estudiante']['nombres'],
+                    this.apellidoP=response.data['estudiante']['apellidoP'],
+                    this.apellidoM=response.data['estudiante']['apellidoM'],
+                    this.numero_registro=response.data['estudiante']['numero_registro'],
+                    this.nombre_carrera=response.data['estudiante']['nombre_carrera'],
+
+                    this.fecha_emision=response.data['fecha_emision'],
+
+                    this.materias = this.sortGestion(response.data['datos'])
+                    
+                    //this.materias = response.data['datos']
+                     }else{
+                      this.message = response.data.message
+                      console.log('aki esta el error'+response.data.message);
+                    }
+
+                  
+                    
+                }
+            ).catch(error => { 
+          console.log(error)
+          show_alerta(error,'error')
+        });                         
+    }
+  }
+}
+</script>
