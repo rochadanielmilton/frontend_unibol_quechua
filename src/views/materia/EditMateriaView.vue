@@ -159,7 +159,7 @@ export default {
                 )
             )             
     },
-    guardar(){
+    async guardar(){
       event.preventDefault();
       if(this.nombre_asignatura.trim()==='')
       {
@@ -181,7 +181,7 @@ export default {
 
        
         //const parametros={nombre_provincia:this.nombre.trim()};
-        sendRequest('PUT',parametros,this.url,'Materia Actualizada Exitosamente!',this.principal);
+       await sendRequest('PUT',parametros,this.url,'Materia Actualizada Exitosamente!',this.principal);
         this.$router.push('/materias')
       }
     }

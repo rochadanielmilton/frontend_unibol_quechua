@@ -87,7 +87,7 @@ export default {
       );
     }
     ,
-    guardar(){
+    async guardar(){
       event.preventDefault();
       if(this.nombre_carrera.trim()==='')
       {
@@ -106,7 +106,7 @@ export default {
        
         //const parametros={nombre_provincia:this.nombre.trim()};
         //const principal = '/carreras';
-        sendRequest('PUT',parametros,this.url,'Carrera Actualizada Exitosamente!',this.principal);
+        await sendRequest('PUT',parametros,this.url,'Carrera Actualizada Exitosamente!',this.principal);
         this.$router.push('/materias')
       }
     }

@@ -80,6 +80,8 @@ export async function  sendRequest(metodo,parametros,url,mensaje,principal='/')
     await axios({method:metodo,url:url,data:parametros}).then(resultado=>{
         console.log(principal);
         const status = resultado.status;
+        //const datos =resultado.data.asignaturas_inscritas
+        //console.log(datos);
         // if(status ==='success')
         //CUANDO SE ELIMINAR
         if(status ===204)
@@ -92,8 +94,9 @@ export async function  sendRequest(metodo,parametros,url,mensaje,principal='/')
         }
         //CUANDO SE CREA
         else if(status ===201)
-        {
-            show_alerta(mensaje,'success')
+        {            
+            show_alerta(mensaje,'success');                        
+
             // window.setTimeout(()=>{
             //     window.location.href='/'
             // ,3000});

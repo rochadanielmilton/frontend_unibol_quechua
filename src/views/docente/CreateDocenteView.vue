@@ -75,7 +75,7 @@ export default {
   }
   ,methods:
   {
-    guardar(){
+    async guardar(){
       
       event.preventDefault();
       if(this.nombres.trim()==='')
@@ -145,7 +145,7 @@ export default {
                           };
         //console.log(parametros);
         
-        sendRequest('POST',parametros,this.url,'Docente Guardado Exitosamente!',this.principal);
+       await sendRequest('POST',parametros,this.url,'Docente Guardado Exitosamente!',this.principal);
         this.$router.push('/docentes')
       }
     }

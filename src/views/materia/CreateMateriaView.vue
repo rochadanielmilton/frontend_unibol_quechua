@@ -116,7 +116,7 @@ export default {
                 )
             );            
     },
-    guardar(){
+    async guardar(){
       
       event.preventDefault();
       if(this.nombre_asignatura.trim()==='')
@@ -185,7 +185,7 @@ export default {
                           pre_requisito2:this.pre_requisito2,
                           anio_asignado:this.anio_asignado
                           };        
-        sendRequest('POST',parametros,this.url,'Materia Guardada Exitosamente!',this.principal);
+       await sendRequest('POST',parametros,this.url,'Materia Guardada Exitosamente!',this.principal);
         this.$router.push('/materias')
       }
     }

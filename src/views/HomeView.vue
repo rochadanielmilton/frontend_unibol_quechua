@@ -41,19 +41,24 @@ export default {
   
   name: 'HomeView',
   data(){
-    return {provincias:null}
+    return {provincias:null,datos:null}
   },
   mounted(){
-    this.getProvincias();
+    this.datos = this.getProvincias();
+    console.log(this.datos.result);
+
+
   },
   methods:{
-    getProvincias(){
-            axios.get('http://127.0.0.1:8000/parametros/provincias/')
+    async getProvincias(){
+          await  axios.get('http://127.0.0.1:8000/parametros/provincias/')
             .then(            
                 response =>(
                     this.provincias = response.data                
                 )
             );
+            return this.provincias
+            
     },eliminar(id,nombre){
     //   for (let index = 0; index < 10; index++) {
     //     sendRequest('POST',{

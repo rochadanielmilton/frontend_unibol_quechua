@@ -357,7 +357,7 @@ export default {
           show_alerta(error,'error')
         });           
     },
-    guardar(){
+    async guardar(){
       event.preventDefault();
       
       // if(this.ci_especial!=='')
@@ -423,7 +423,7 @@ export default {
 
         //const parametros={nombre_provincia:this.nombre.trim()};
         console.log(parametros);
-        sendRequest('PUT',parametros,this.url,'Estudiante Actualizado Exitosamente!',this.principal);
+        await sendRequest('PUT',parametros,this.url,'Estudiante Actualizado Exitosamente!',this.principal);
         this.$router.push('/estudiantes')
       }
     }

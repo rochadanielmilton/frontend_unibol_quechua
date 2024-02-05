@@ -103,7 +103,7 @@ export default {
       );
     }
     ,
-    guardar(){
+    async guardar(){
       event.preventDefault();
       if(this.nombres.trim()==='')
       {
@@ -124,7 +124,7 @@ export default {
        
         //const parametros={nombre_provincia:this.nombre.trim()};
         const principal = '/docentes';
-        sendRequest('PUT',parametros,this.url,'Docente Actualizado Exitosamente!',principal);
+        await sendRequest('PUT',parametros,this.url,'Docente Actualizado Exitosamente!',principal);
         this.$router.push('/docentes')
         
       }
