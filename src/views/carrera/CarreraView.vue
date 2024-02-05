@@ -3,9 +3,8 @@
   <div class="row">
     <div class="mb-3">
       <div class="d-grid col-6-mx-auto offset-md-9">
-              <button class="btn btn-success">
-                <i class="fa-solid fa-building-columns"></i> 
-                <router-link to="/carrera/create" class="nav-link active" href="#">Nueva Carrera</router-link>        
+              <button class="btn btn-success">                
+                <router-link to="/carrera/create" class="nav-link active" href="#">Nueva Carrera</router-link><i class="fa-solid fa-building-columns"></i> 
               </button></div>   
                  
      </div>
@@ -14,8 +13,8 @@
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive">
-              <table class="table table-bordered table-hover col-12">
-                  <thead>
+              <table class="table table-bordered table-hover table-striped col-12">
+                  <thead class="table-light">
                     <tr>                     
                       <th >
                         CODIGO CARRERA
@@ -44,6 +43,9 @@
                         <td>
                             <router-link :to="{path:'/carrera/edit/'+carrera.codigo_carrera}" class="btn btn-warning">
                                 <i class="fa-solid fa-edit"></i>
+                            </router-link> &nbsp;
+                            <router-link :to="{path:'/carrera/mostrarmalla/'+carrera.codigo_carrera}" class="btn btn-warning">
+                                <i class="fa-solid fa-table"></i>
                             </router-link> &nbsp;
                             <button   class="btn btn-danger" v-on:click="eliminar(carrera.codigo_carrera,carrera.nombre_carrera)">
                                 <i class="fa-solid fa-trash"></i>

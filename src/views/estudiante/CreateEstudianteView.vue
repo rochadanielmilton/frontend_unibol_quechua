@@ -39,7 +39,7 @@
            
             <div class="input-group mb-3">   
               <input type="text" v-model="direccion" id="direccion" class="form-control" maxlength="50" placeholder="Direccion" required>
-              <input type="text" v-model="celular" id="celular" class="form-control" maxlength="50" placeholder="Celular" required>
+              <input type="number" v-model="celular" id="celular" class="form-control" maxlength="50" placeholder="Celular" required>
             </div>
           
             <div class="input-group mb-3">
@@ -175,7 +175,7 @@
             </div>
 
             <div class="input-group mb-3">   
-              <input type="text" v-model="numero_archivo" id="numero_archivo" class="form-control" maxlength="100" placeholder="Numero de Archivo" required>
+              <input type="number" v-model="numero_archivo" id="numero_archivo" class="form-control" maxlength="100" placeholder="Numero de Archivo" required>
             </div>
 
             <!-- AÑADIDOS -->
@@ -294,7 +294,7 @@ export default {
     {
       this.mostrar_especial=!this.mostrar_especial;
     },           
-    guardar(){
+    async guardar(){
       if(this.ci_especial!=='')
       {
         const sin_complemento =this.ci_especial.split('-')[0];
@@ -412,7 +412,8 @@ export default {
         // }
         // console.log(contenido); 
         // sendRequest('POST',contenido,this.url,'Estudiante Guardado Exitosamente!',this.principal);
-        sendRequest('POST',parametros,this.url,'Estudiante Guardado Exitosamente!',this.principal);
+        await sendRequest('POST',parametros,this.url,'Estudiante Guardado Exitosamente!',this.principal);
+        this.$router.push('/estudiantes')
       }
     },
     getIdiomas()

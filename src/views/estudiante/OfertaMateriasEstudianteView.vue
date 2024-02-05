@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="container-fluid text-center"> -->
-  <div class="container-fluid" id="contenido-global">
+  <div class="container-fluid" id="contenido-global" v-if="ofertaMaterias.length>0">
   <div class="row">
     <div class="mb-3 fw-bold">       
 
@@ -46,8 +46,8 @@
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive text-center">
-              <table class="table table-bordered table-hover col-12">
-                  <thead class="pb-4">
+              <table class="table table-bordered table-hover table-striped col-12" >
+                  <thead class="pb-4 table-light">
                     <tr>
                       <th>
                         #
@@ -111,6 +111,9 @@
                     </tr>                    
                   </tbody>
               </table>
+              <div>
+                
+              </div>
               
 
           <!-- </div> -->
@@ -128,6 +131,16 @@
     </div>
 
   </div>
+  <div v-else>
+    <button @click="this.$router.back()" class="btn btn-warning col auto"><i class="fa-solid fa-arrow-left"></i>
+      ATRAS
+    </button>
+    &nbsp; 
+    <button  class="btn btn-warning col-6 text-center">
+                    NO HAY OFERTA DE MATERIAS PARA EL ESTUDIANTE: {{`${apellidoP} ${apellidoM} ${nombres}`}}
+    </button> 
+  </div>
+  
 
 </template>
 
@@ -138,6 +151,10 @@ import axios from "axios";
 import {show_alerta,sendRequest} from '../../funciones';
 //para usar navegacion en la vista
 import {  useRoute } from "vue-router";
+
+//librerias para la exportacion en pdf
+//import jsPDF from "jspdf";
+//import autoTable from "jspdf-autotable";
 
 
 //const router = useRouter(); 
@@ -173,7 +190,7 @@ export default {
     getAsignaturasNoCursadas(){
           axios.get(this.url)
             .then(            
-                response =>(                    
+                response =>(
                     this.ci_estudiante=response.data['estudiante']['ci_estudiante'],
                     this.nombres=response.data['estudiante']['nombres'],
                     this.apellidoP=response.data['estudiante']['apellidoP'],
@@ -194,7 +211,7 @@ export default {
         });
         //console.log(this.materias+'sss');
         console.log(this.url);
-        console.log('aki'+this.carreras);
+        console.log('aki'+this.ofertaMaterias);
             
     },
     addAsignatura(){
@@ -205,7 +222,7 @@ export default {
       //sendRequest('PUT',parametros,this.url,'Estudiante Actualizado Exitosamente!',this.principal);                          
 
     //soporta asunc and await
-    },guardarInscripcion()
+    },async guardarInscripcion()
     {
       
       const parametros = {ci_estudiante:this.ci_estudiante,
@@ -224,9 +241,9 @@ export default {
       //   show_alerta(error,'error')
       // });
       
-      sendRequest('POST',parametros,ruta,'Estudiante inscrito Exitosamente!',this.principal); 
+      await sendRequest('POST',parametros,ruta,'Estudiante inscrito Exitosamente!',this.principal);       
       //router.push({ path: '/estudiantes' })
-      this.$router.push('/estudiantes');
+      this.$router.push('/estudiante/habilitados');
     }
   }
 }

@@ -3,9 +3,8 @@
   <div class="row">
     <div class="mb-3">
       <div class="d-grid col-6-mx-auto offset-md-9">
-              <button class="btn btn-success">
-                <i class="fa-solid fa-graduation-cap"></i> 
-                <router-link to="/docente/create" class="nav-link active" href="#">Nuevo Docente</router-link>        
+              <button class="btn btn-success">                
+                <router-link to="/docente/create" class="nav-link active" href="#">Nuevo Docente</router-link> &nbsp;<i class="fa-solid fa-graduation-cap"></i>  
               </button></div>   
                  
      </div>
@@ -14,8 +13,8 @@
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive">
-              <table class="table table-bordered table-hover col-12">
-                  <thead>
+              <table class="table table-bordered table-hover table-striped col-12">
+                  <thead class="table-light">
                     <tr>                     
                       <th >
                         NOMBRES
@@ -116,7 +115,7 @@ export default {
     //linea adicional recientemente añadida
       const principal = '/docentes';
       const ruta = 'docentes/docentes/'+id+'/';
-      confirmar1(id,nombre,ruta,principal);      
+      confirmar1(id,nombre,ruta,principal);          
     },   
   }
 }

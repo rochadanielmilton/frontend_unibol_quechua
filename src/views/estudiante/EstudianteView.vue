@@ -1,61 +1,65 @@
 <template>
-  <div class="container-fluid text-center">
+<div class="container-fluid text-center" >
   <div class="row">
     <div class="mb-3">
       <div class="d-grid col-6-mx-auto offset-md-9">        
-              <button class="btn btn-success">
-                <!-- <i class="fa-solid fa-user-plus"></i> -->
-                <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  
+              <button class="btn btn-success">                 
+                <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
                </button></div>    
      </div>
   </div>
-   <div class="row">
+   <div class="row" >
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive">
-              <table class="table table-bordered table-hover col-12">
-                  <thead class="pb-4">
+              <table  class="table table-bordered table-hover table-striped">
+                  <thead class="pb-4 table-light" v-if="estudiantes">
                     <tr>
-                      <th>
+                      <th class="col">
                         #
                       </th>
-                      <th class="d-none d-sm-block pb-4">
+                      <th class="d-none d-sm-block pb-4 col">
                         C.I.
                       </th>
-                      <th >
+                      <th class="col">
                         NOMBRES
                       </th>
-                      <th class="d-none d-sm-block">
+                      <th class="d-none d-sm-block col">
                         APELLIDO-P.
                       </th>
-                      <th>
+                      <th class="col">
                         APELLIDO-M.
                       </th> 
-                      <th>
+                      <th class="col">
                         CELULAR
                       </th> 
-                      <th>
+                      <th class="col">
                         CARRERA
                       </th>
-                      <th>
+                      <th class="col">
                         AÑO DE INGRESO
                       </th>
-                      <th>
+                      <th class="col">
                         AÑO CURSADO
                       </th>
-                      <th>
+                      <th class="col-1">
                         OBS.1
                       </th>
-                      <th>
+                      <th class="col-1">
                         OBS.2
                       </th>                      
-                      <th>
+                      <th class="col-1">
                         ESTADO
                       </th>
-                      <th>
+                      <th class="col-2">
                         ACCIONES
                       </th>
                     </tr></thead>
+                      
+                    <div v-else>
+                      <img src="loading.gif" alt="iamgen">
+                    </div>
+
                   <tbody class="table-group-divider" id="contenido">
                     <tr v-for="estudiante,i  in estudiantes" :key="estudiante.ci_estudiante">
                         <td>{{ i+1 }}</td>
@@ -78,7 +82,7 @@
                            
                             <router-link :to="{path:'/estudiante/materias-cursadas/'+estudiante.ci_estudiante}"  class="btn btn-success">
                                 <i class="fa-solid fa-user-graduate"></i>
-                            </router-link>                          
+                            </router-link> &nbsp;                          
                             <router-link :to="{path:'/estudiante/edit/'+estudiante.ci_estudiante}" class="btn btn-warning">
                                 <i class="fa-solid fa-edit"></i>
                             </router-link> &nbsp;
@@ -93,10 +97,14 @@
                     </tr>                    
                   </tbody>
               </table>
+              
           <!-- </div> -->
       </div>
-    </div>
+    </div>        
   </div>
+
+  
+
 
 </template>
 
@@ -123,14 +131,14 @@ export default {
     this.principal='/estudiantes';
   },
   methods:{
-    getEstudiantes(){
-            axios.get('http://127.0.0.1:8000/estudiantes/estudiantes/')
+    async getEstudiantes(){
+           await axios.get('http://127.0.0.1:8000/estudiantes/estudiantes/')
             .then(            
                 response =>(
                     this.estudiantes = response.data                        
                 )
             );
-            
+        console.log(this.estudiantes);
     },eliminar(id,nombre){
     //   for (let index = 0; index < 10; index++) {
     //     sendRequest('POST',{
@@ -140,7 +148,8 @@ export default {
     // },'http://127.0.0.1:8000/parametros/provincias/','ProvinciaS Eliminada');              
     //   }
       const ruta = 'estudiantes/estudiantes/'+id+'/';
-      confirmar1(id,nombre,ruta,this.principal);      
+      confirmar1(id,nombre,ruta,this.principal);  
+      //this.$router.push('/estudiantes')    
     },
     getCarrera(id){      
       axios.get('http://127.0.0.1:8000/parametros/carreras/'+id+'/')

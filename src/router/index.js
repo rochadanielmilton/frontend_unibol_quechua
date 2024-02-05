@@ -138,6 +138,11 @@ const routes = [
     component: EditCarreraView
   },
   {
+    path: '/carrera/mostrarmalla/:id',
+    name: 'mostrarmall',
+    component: () => import(/* webpackChunkName: "about" */ '../views/carrera/MostrarMallaCarreraView.vue')
+  },
+  {
     path: '/reportes',
     name: 'reportes',
     component: ReporteView

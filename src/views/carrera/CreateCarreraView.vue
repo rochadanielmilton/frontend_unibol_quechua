@@ -52,7 +52,7 @@ export default {
   name: 'CreateEstudianteView',
   data(){
     return {
-      id:0,codigo_carrera:'',nombre_carrera:'',descripcion:'',estado:'',
+      id:0,codigo_carrera:0,nombre_carrera:'',descripcion:'',estado:'',
       url:'http://127.0.0.1:8000/parametros/carreras/',
       principal:''      
       //nombre:'',url:'http://127.0.0.1:8000/estudiantes/estudiantes/'
@@ -130,6 +130,7 @@ export default {
         //console.log(parametros);
         
         sendRequest('POST',parametros,this.url,'Carrera Guardada Exitosamente!',this.principal);
+        this.$router.push('/carreras')
       }
     }
   }

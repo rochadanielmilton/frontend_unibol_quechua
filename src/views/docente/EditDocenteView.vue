@@ -22,13 +22,13 @@
             <div class="input-group mb-3 ">
               <span class="input-group-text"><i class="fa-solid fa-user"></i>
               </span>
-              <input type="text" v-model="ci" id="ci" class="form-control col-md-4" maxlength="50" placeholder="C.I." required>                 
+              <input type="number" v-model="ci" id="ci" class="form-control col-md-4" maxlength="50" placeholder="C.I." required>                 
             </div>
             
             <div class="input-group mb-3">  
               <span class="input-group-text"><i class="fa-solid fa-phone"></i>
               </span> 
-              <input type="text" v-model="celular" id="celular" class="form-control" maxlength="50" placeholder="Celular" required>
+              <input type="number" v-model="celular" id="celular" class="form-control" maxlength="50" placeholder="Celular" required>
               <span class="input-group-text"><i class="fa-solid fa-location-dot"></i>
               </span> 
               <input type="text" v-model="direccion" id="direccion" class="form-control" maxlength="50" placeholder="Direccion" required>              
@@ -125,6 +125,8 @@ export default {
         //const parametros={nombre_provincia:this.nombre.trim()};
         const principal = '/docentes';
         sendRequest('PUT',parametros,this.url,'Docente Actualizado Exitosamente!',principal);
+        this.$router.push('/docentes')
+        
       }
     }
   }

@@ -3,9 +3,8 @@
   <div class="row">
     <div class="mb-3">
       <div class="d-grid col-6-mx-auto offset-md-9">
-              <button class="btn btn-success">
-                <i class="fa-solid fa-graduation-cap"></i> 
-                <router-link to="/materia/create" class="nav-link active" href="#">Nueva Materia</router-link>
+              <button class="btn btn-success">                
+                <router-link to="/materia/create" class="nav-link active" >Nueva Materia</router-link> <i class="fa-solid fa-graduation-cap"></i> 
               </button>
       </div>
      </div>
@@ -14,9 +13,12 @@
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive">
-              <table class="table table-bordered table-hover">
-                  <thead>
+              <table class="table table-bordered table-hover table-striped">
+                  <thead class="table-light">
                     <tr>                     
+                      <th>
+                        #
+                      </th>
                       <th>
                         CODIGO
                       </th>
@@ -52,8 +54,8 @@
                       </th>
                     </tr></thead>
                   <tbody class="table-group-divider" id="contenido">
-                    <tr v-for="materia in materias" :key="materia.id">
-                      
+                    <tr v-for="materia,i in materias" :key="materia.id">
+                        <td>{{ i+1 }}</td>
                         <td>{{ materia.codigo_asignatura }}</td>
                         <td>{{ materia.nombre_asignatura }}</td>
                         <td>{{ materia.descripcion }}</td>
@@ -146,6 +148,7 @@ export default {
       
       const ruta = 'parametros/asignaturas/'+id+'/';
       confirmar1(id,nombre,ruta,this.principal);      
+      //this.$router.push('/materias')
     }
   }
 }

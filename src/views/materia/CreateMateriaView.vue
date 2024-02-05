@@ -9,7 +9,7 @@
           <form @submit="guardar">                      
             
             <div class="input-group mb-3">     
-              <input type="text" v-model="codigo_asignatura" id="nombres" class="form-control" maxlength="100" placeholder="Codigo Materia" required>              
+              <input type="text" v-model="codigo_asignatura" id="nombres" class="form-control" maxlength="30" placeholder="Codigo Materia" required>              
             </div>
 
             
@@ -35,15 +35,15 @@
                       
 
             <div class="input-group mb-3">   
-              <input type="text" v-model="horas_practicas" id="horas_practicas" class="form-control" maxlength="50" placeholder="Horas Practicas" required>
-              <input type="text" v-model="horas_teoricas" id="horas_teoricas" class="form-control" maxlength="50" placeholder="Horas Teoricas" required>
+              <input type="number" v-model="horas_practicas" id="horas_practicas" class="form-control" maxlength="50" placeholder="Horas Practicas" required>
+              <input type="number" v-model="horas_teoricas" id="horas_teoricas" class="form-control" maxlength="50" placeholder="Horas Teoricas" required>
             </div>
                     
            
             <div class="input-group mb-3 ">
               <span class="input-group-text"><i class="fa-solid fa-helmet-safety"></i>
               </span>
-              <input type="text"  v-model="total_horas"  id="total_horas" class="form-control col-md-4" maxlength="50" placeholder="Total Horas" required>                 
+              <input type="number"  v-model="total_horas"  id="total_horas" class="form-control col-md-4" maxlength="50" placeholder="Total Horas" required>                 
             </div>
 
             <div class="input-group mb-3">
@@ -186,6 +186,7 @@ export default {
                           anio_asignado:this.anio_asignado
                           };        
         sendRequest('POST',parametros,this.url,'Materia Guardada Exitosamente!',this.principal);
+        this.$router.push('/materias')
       }
     }
   }

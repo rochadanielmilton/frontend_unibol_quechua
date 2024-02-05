@@ -40,8 +40,8 @@
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive text-center">
-              <table class="table table-bordered table-hover col-12">
-                  <thead class="pb-4">
+              <table class="table table-bordered table-hover table-striped col-12">
+                  <thead class="pb-4 table-light" v-if="estudiantes">
                     <tr>
                       <th>
                         #
@@ -73,6 +73,9 @@
                         ACCIONES
                       </th>
                     </tr></thead>
+                    <!-- <div v-else>
+                      <img src="loading.gif" alt="iamgen">
+                    </div> -->
                   <tbody class="table-group-divider" id="contenido">
                     <tr v-for="estudiante,i  in estudiantes" :key="estudiante.ci_estudiante">
                         <td>{{ i+1 }}</td>
@@ -159,7 +162,7 @@ export default {
           console.log(error)
           show_alerta(error,'error')
         });
-        console.log('s'+this.estudiantes);
+        //console.log('s'+this.estudiantes);
             
     }
   }

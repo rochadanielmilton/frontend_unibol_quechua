@@ -78,7 +78,7 @@ export function confirmar1(id,nombre,ruta,principal='/')
 export async function  sendRequest(metodo,parametros,url,mensaje,principal='/')
 {
     await axios({method:metodo,url:url,data:parametros}).then(resultado=>{
-        console.log(resultado);
+        console.log(principal);
         const status = resultado.status;
         // if(status ==='success')
         //CUANDO SE ELIMINAR
@@ -106,7 +106,7 @@ export async function  sendRequest(metodo,parametros,url,mensaje,principal='/')
             // window.setTimeout(()=>{
             //     window.location.href='/'
             // ,3000});
-            setTimeout(() => window.location.href=principal, 1000);
+            //setTimeout(() => window.location.href=principal, 1000);
         }
         else{
             let listado='';

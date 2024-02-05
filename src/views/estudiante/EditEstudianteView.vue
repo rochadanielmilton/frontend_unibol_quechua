@@ -45,7 +45,7 @@
            
             <div class="input-group mb-3">   
               <input type="text" v-model="direccion" id="direccion" class="form-control" maxlength="100" placeholder="Direccion" required>
-              <input type="text" v-model="celular" id="celular" class="form-control" maxlength="100" placeholder="Celular" required>
+              <input type="number" v-model="celular" id="celular" class="form-control" maxlength="100" placeholder="Celular" required>
             </div>
           
             <div class="input-group mb-3">                            
@@ -148,7 +148,7 @@
             </div>
 
             <div class="input-group mb-3">   
-              <input type="text" v-model="numero_archivo" id="numero_archivo" class="form-control" maxlength="100" placeholder="Numero de Archivo" required>
+              <input type="number" v-model="numero_archivo" id="numero_archivo" class="form-control" maxlength="100" placeholder="Numero de Archivo" required>
             </div>            
 
             <!-- AÑADIDOS -->
@@ -424,6 +424,7 @@ export default {
         //const parametros={nombre_provincia:this.nombre.trim()};
         console.log(parametros);
         sendRequest('PUT',parametros,this.url,'Estudiante Actualizado Exitosamente!',this.principal);
+        this.$router.push('/estudiantes')
       }
     }
   }
