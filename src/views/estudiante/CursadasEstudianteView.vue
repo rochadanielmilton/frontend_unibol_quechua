@@ -2,7 +2,8 @@
   <!-- <div class="container-fluid text-center"> -->
   <div v-if="materias" class="container-fluid" id="contenido-global">
   <div class="row">
-    <div class="mb-3 fw-bold">       
+    <div class="col-lg-10 offset-lg-1">
+    <div class="mb-3 fw-bold ">       
 
             <div class="mb-3 fs-4 text-center">                 
              HISTORIAL ACADEMICO DE AVANCE GENERAL
@@ -28,15 +29,18 @@
               APELLIDOS Y NOMBRES:      {{`${apellidoP} ${apellidoM} ${nombres}`}}
             </div>
 
+            <div class="d-flex justify-content-between ">
             <div class=" mb-3">                 
               FECHA DE EMISION :         {{`${fecha_emision}`}}
             </div>
             <div>
-            <button   class="btn btn-warning" @click="exportPDF">                           
+            <button   class="btn btn-warning " @click="exportPDF">                           
               GENERAR PDF : <i class="fa-solid fa-file-pdf"></i>
               </button>
             </div>
+          </div>
 
+     </div>
      </div>
   </div>
 
@@ -44,6 +48,7 @@
    <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
+        <div class="col-lg-10 offset-lg-1">
           <div class="table-responsive text-center">
               <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12">
                   <thead v-if="materias" class="pb-4 table-light">
@@ -113,7 +118,8 @@
                   </tbody>
               </table>
           <!-- </div> -->
-      </div>
+          </div>
+        </div>
     </div>
   </div>
 

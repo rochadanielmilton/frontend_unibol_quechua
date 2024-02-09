@@ -43,14 +43,14 @@
 
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Materias
+                      Asignaturas
                      </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li>
-                        <router-link to="/materias" class="nav-link active" aria-current="page" href="#">Mostrar Materias</router-link>                        
+                        <router-link to="/asignaturas" class="nav-link active" aria-current="page" href="#">MostrarAsignaturas</router-link>                        
                       </li>
                       <li>
-                        <router-link to="/materia/create" class="nav-link active" href="#">Crear Materia</router-link>                        
+                        <router-link to="/asignatura/create" class="nav-link active" href="#">Crear Asignaturas</router-link>                        
                       </li>                      
                     </ul>
                   </li>
@@ -69,20 +69,23 @@
                     </ul>
                   </li>
 
-                   <li class="nav-item dropdown">
+                   <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Reportes
                      </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li>
                         <router-link to="/reportes" class="nav-link active" aria-current="page" href="#">Mostrar Reporte</router-link>                        
-                      </li>
-                      
+                      </li> -->
+                    
+                      <!-- not necessary -->
                       <!-- <li>
                         <router-link to="/carrera/create" class="nav-link active" href="#">Crear Carrera</router-link>                        
-                      </li>                       -->
-                    </ul>
-                  </li>
+                      </li>  
+                    
+                    -->
+                    <!-- </ul>
+                  </li> -->
 
                 </ul>
               </div>

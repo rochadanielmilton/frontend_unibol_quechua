@@ -1,25 +1,38 @@
 <template>
-<div class="container-fluid text-center" >
+<div class="container-fluid my-5" >
   <div class="row">
     <div class="mb-3">
-      <!-- <div class="d-flex justify-content-around">         -->
-              <button class="btn btn-success col-3">                 
-                <i class="fa-solid fa-table"></i>  <router-link to="/estudiante/curso-preparatorio" class="nav-link active" href="#">ESTUDIANTES CURSO PREPARATORIO</router-link>   
-               </button> &nbsp; 
-              <button class="btn btn-success col-3 ">                 
-                <i class="fa-solid fa-user-plus"></i>  <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link> 
+      <!-- <div class="offset-7">         -->
+              <button class="btn btn-success col-4 offset-8 ">                 
+                <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
                </button>
-
       <!-- </div>     -->
      </div>
   </div>
-   <div class="row" >
+   <div  class="row" >
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-        <div class="col-lg-10 offset-lg-1">
+        <div class="col-lg-11 offset-lg-1">
           <div class="table-responsive">
-              <table  class="table table-bordered table-hover table-striped">
-                  <thead class="pb-4 table-light" v-if="estudiantes">
+            <DataTable  ref="table" id="datatable"  :data="estudiantes" :columns="columns" class="table table-bordered table-striped display" :options="{ select: true ,responsive: {        
+                            },autoWidth:false,dom:'Bfrtip',
+                            buttons : [{
+                              extend : 'selected',
+                              text : 'Edit',
+                              name : 'edit'
+                          }],
+                            columnDefs:[{
+                               width:'40%',target:[6],
+                              width:'10%',target:[7],
+                            }],
+                            language:{
+                                      search:'Buscar',zeroRecord:'No hay registros que mostrar',
+                                      info:'Mostrando desde _START_ a _END_ de _TOTAL_ registros',
+                                      infoFiltered:'(Filtrados de _MAX_ registros)',
+                                      paginate:{first:'Primero',previous:'Anterior',next:'Siguiente',last:'Ultimo'}
+                            }}" :key="columns.length" >
+                  <thead class="pb-4 table-light">
+                    <!-- v-if="estudiantes" -->
                     <tr>
                       <th class="col">
                         #
@@ -28,7 +41,7 @@
                       <th>
                         C.I.
                       </th>
-                      <th class="col-1">
+                      <th class="col-">
                         NOMBRES
                       </th>
                       <th>
@@ -40,13 +53,13 @@
                       <th class="col">
                         CELULAR
                       </th> 
-                      <th class="col-2">
+                      <th class="col">
                         CARRERA
                       </th>
-                      <th class="col-1">
+                      <th class="col">
                         AÑO DE INGRESO
                       </th>
-                      <th class="col-1">
+                      <th class="col">
                         AÑO CURSADO
                       </th>
                       <!-- <th class="col-1">
@@ -55,57 +68,20 @@
                       <th class="col-1">
                         OBS.2
                       </th>                       -->
-                      <th class="col-1">
+                      <th class="col">
                         ESTADO
                       </th>
-                      <th class="col-2">
+                      <th class="col">
                         ACCIONES
                       </th>
                     </tr></thead>
+                    <tbody>                      
+                    </tbody>
                       
-                    <div v-else>
+                    <!-- <div v-else>
                       <img src="loading.gif" alt="iamgen">
-                    </div>
-
-                  <tbody class="table-group-divider" id="contenido">
-                    <tr v-for="estudiante,i  in estudiantes" :key="estudiante.ci_estudiante">
-                        <td>{{ i+1 }}</td>
-                        <!-- <td class="d-none d-sm-block pb-4">{{ estudiante.ci_estudiante }}</td> -->
-                        <td>{{ estudiante.ci_estudiante }}</td>
-
-                        <td>{{ estudiante.nombres }}</td>
-                        <td>{{ estudiante.apellidoP }}</td>
-                        <td >{{ estudiante.apellidoM }}</td>
-
-                        <td>{{ estudiante.celular }}</td>
-                          <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
-                        <td>{{ estudiante.nombre_carrera }}</td>
-                        <td>{{ estudiante.anio_ingreso }}</td>
-                        <td>{{ estudiante.anio_cursado }}</td>
-                        <!-- <td>{{ estudiante.obs1 }}</td>
-                        <td>{{ estudiante.obs2 }}</td> -->
-                        <!-- <td>{{ estudiante.id_carrera }}</td> -->
-                        <td>{{ estudiante.estado  }}</td>
-                        <td>
-                           
-                            <router-link :to="{path:'/estudiante/materias-cursadas/'+estudiante.ci_estudiante}"  class="btn btn-success" >
-                                <i class="fa-solid fa-user-graduate"></i>
-                            </router-link> &nbsp;                          
-                            <router-link :to="{path:'/estudiante/edit/'+estudiante.ci_estudiante}" class="btn btn-warning">
-                                <i class="fa-solid fa-edit"></i>
-                            </router-link> &nbsp;
-                            <button   class="btn btn-danger" v-on:click="eliminar(estudiante.ci_estudiante,estudiante.nombres)">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                            <!-- FUNCIONA PERO NO ESTA ESTILIZADO -->
-                            <!-- <b-button v-b-tooltip.hover title="Tooltip directive content">
-                              Hover Me
-                            </b-button> -->
-                        </td>
-                    </tr>                    
-                  </tbody>
-              </table>
-              
+                    </div>                                 -->
+              </DataTable>            
           <!-- </div> -->
       </div>
     </div>
@@ -122,6 +98,12 @@
 //import {ref} from 'vue';
 import axios from "axios";
 import {confirmar1, show_alerta} from '../../funciones';
+
+import DataTable from 'datatables.net-vue3';
+import DataTableLib from 'datatables.net-bs5';
+import 'datatables.net-responsive-bs5';
+DataTable.use(DataTableLib);
+
 //import {ref} from 'vue';
 // const provincias = computed(()=>{
 //         return this.provincias = this.getProvincias()
@@ -129,9 +111,39 @@ import {confirmar1, show_alerta} from '../../funciones';
 //const provincias = ref([]);
  //const contador =ref(0);
 export default {
+  components: {DataTable},
   name: 'EstudianteView',
   data(){
-    return {estudiantes:null,carreras:[],principal:'',message:''}
+    return {
+      estudiantes:null,carreras:[],principal:'',message:'',dt: null, 
+      columns:[
+       {data:null,render:function(data,type,row,meta)
+       {return `${meta.row+1}`}},
+       {data:'ci_estudiante'},
+       {data:'nombres'},
+
+       {data:'apellidoP'},
+       {data:'apellidoM'},
+       {data:'celular'},
+       {data:'nombre_carrera'},
+       {data:'anio_ingreso'},
+       {data:'anio_cursado'},
+       {data:'estado'},
+       {
+        data:'ci_estudiante',
+        render:function(data){
+          return `<button   data-id=${data} class="btn btn-danger" id="edit" @click="eliminar(${data.ci_estudiante},${data.nombres})">
+                                <i class="fa-solid fa-trash"></i>
+                  </button> &nbsp;
+                  <router-link data-id=${data} :to="{path:'/estudiante/edit/'+ci_estudiante}" class="btn btn-warning">
+                                <i class="fa-solid fa-edit"></i>
+                            </router-link>
+                  
+                  `
+        }
+       },       
+     ]     
+    }
   },
   mounted(){
     this.getEstudiantes();
@@ -148,7 +160,7 @@ export default {
                 )
             );
         console.log(this.estudiantes);
-    },eliminar(id,nombre){
+    },eliminar(id,nombre=''){
     //   for (let index = 0; index < 10; index++) {
     //     sendRequest('POST',{
     //     "id":999,
@@ -204,3 +216,12 @@ export default {
   }
 }
 </script>
+
+<style>
+@import 'bootstrap';
+@import 'datatables.net-bs5';
+
+/* @import 'datatables.net-dt';
+@import 'datatables.net-responsive-dt'; */
+
+</style>

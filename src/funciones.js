@@ -75,6 +75,40 @@ export function confirmar1(id,nombre,ruta,principal='/')
         }
     })
 }
+export async function confirmarRegistroP(ci_postulante,nombre)
+{  
+    const url= 'http://127.0.0.1:8000/administracion/registrarNueboEstudiante/'+ci_postulante+'/';
+    // let complemento_ruta =ruta.split('/')[0];
+    // if(complemento_ruta==='parametros')
+    // {   
+    //     complemento_ruta =ruta.split('/')[1];
+    // }
+    // const resumido = complemento_ruta.charAt(0).toUpperCase()+complemento_ruta.slice(1);
+    // const nombre_ruta= resumido.substring(0,resumido.length -1);
+
+
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass:{confirmButton: 'btn btn-success me-3',cancelButton:'btn btn-danger'},
+        buttonsStyling:false
+    });
+
+    swalWithBootstrapButtons.fire({
+        title:'Esta seguro que desea inscribir al Estudiante: '+nombre,
+        text:'Se inscribira al estudiante ',
+        icon:'question',
+        showCancelButton:true,
+        confirmButtonText:'<i class="fa-solid fa-check"></i> Si, Inscribir',
+        cancelButtonText:'<i class="fa-solid fa-ban"></i>Cancelar'
+    }).then(result =>{
+        if(result.isConfirmed)
+        {            
+             sendRequest('GET',{id:ci_postulante},url,'Estudiante inscrito Satisfactoriamente!','estudiantes-preparatorio');    
+        }else{
+            show_alerta('Operacion cancelada','info');
+        }
+    })
+}
 export async function  sendRequest(metodo,parametros,url,mensaje,principal='/')
 {
     await axios({method:metodo,url:url,data:parametros}).then(resultado=>{
@@ -109,6 +143,10 @@ export async function  sendRequest(metodo,parametros,url,mensaje,principal='/')
             // window.setTimeout(()=>{
             //     window.location.href='/'
             // ,3000});
+            if(principal==='estudiantes-preparatorio')
+            {
+                setTimeout(() => window.location.href='/estudiantes', 1000);
+            }            
             //setTimeout(() => window.location.href=principal, 1000);
         }
         else{
@@ -124,7 +162,8 @@ export async function  sendRequest(metodo,parametros,url,mensaje,principal='/')
         //const {data} =error.data
         console.log(error)
         console.log(error.response.data)
-        show_alerta(error,'error')
+        //show_alerta(error,'error')
+        show_alerta('No se pudo completar la Accion','error')
       });
 }
 

@@ -117,13 +117,9 @@
 
             <div class="input-group mb-3">  
               <!-- <span class="input-group-text"><i class="fa-solid fa-user"></i> Fotografia</span> &nbsp; -->
-              <!-- <input ref="file" @change="cargar()"  type="file"> -->              
-              <!-- <input ref="file" @change="cargarFoto()"  accept="image/*" type="file" class="form-control" placeholder="Fotografia"> -->
-              <input @change="cargarFoto($event)"  accept="image/*" type="file" class="form-control" placeholder="Fotografia" >
-              <!-- <input type="text" v-model="fotografia" id="fotografia" class="form-control" maxlength="50" placeholder="Fotografia"> -->
-            
+              <!-- <input ref="file" @change="cargar()"  type="file"> -->
 
-            <!-- <input type="text" v-model="fotografia" id="fotografia" class="form-control" maxlength="300" placeholder="Fotografia" > -->
+            <input type="text" v-model="fotografia" id="fotografia" class="form-control" maxlength="300" placeholder="Fotografia" >
             </div>
             <div class="input-group mb-3">   
               <select class="form-select" id="estado_civil" required v-model="estado_civil">
@@ -276,7 +272,7 @@ export default {
       fotografia:'',estado_civil:'',idioma_nativo:'',idioma_regular:'',email:'',nacionalidad:'',numero_archivo:'',
       homologacion:'',estado_homologacion:'',convalidacion:'',estado_convalidacion:'',egresado:'',estado_egresado:'',titulado:'',descripcion_titulado:'',
       numero_registro:0,obs1:'',obs2:'',obs3:'',estado:'',descripcion_estado:'',baja:'',codigo_carrera:0,
-      ci_especial:'',photography:'',fileFoto:null,
+      ci_especial:'',
       idiomas:null,carreras:null,principal:'',provincias:null,departamentos:null,noencontrado:true,
       url:'http://127.0.0.1:8000/estudiantes/estudiantes'
     }
@@ -302,12 +298,6 @@ export default {
      this.principal='/estudiantes';
   },
   methods:{
-    cargarFoto(event){
-      console.log('por aca'+event.target.files[0].name);
-
-      this.photography=event.target.files[0].name;
-      this.fileFoto=event.target.files[0];
-    },
     getEstudiante(){
       axios.get(this.url).then(
         response =>(
@@ -335,7 +325,6 @@ export default {
           this.tipo_ingreso=response.data['tipo_ingreso'],
 
           this.fotografia=response.data['fotografia'],
-          
           this.estado_civil=response.data['estado_civil'],
           this.idioma_nativo=response.data['idioma_nativo'],
           this.idioma_regular=response.data['idioma_regular'],
@@ -449,8 +438,7 @@ export default {
                           //munic_nacimiento:this.munic_nacimiento,
 
                           tipo_ingreso:this.tipo_ingreso,
-                          fotografia:this.photography,
-                          //fotografia:this.fotografia,
+                          fotografia:this.fotografia,
                           estado_civil:this.estado_civil,
                           idioma_nativo:this.idioma_nativo,
                           idioma_regular:this.idioma_regular,

@@ -459,7 +459,7 @@ export default {
                         finalY+=10;  
                     
                     doc.setTextColor(10);
-                    doc.setFontSize(8).setFont(undefined, 'bold');
+                    doc.setFontSize(10).setFont(undefined, 'bold');
                     doc.text(`
                        APELLIDOS Y NOMBRES:                                  
                        CEDULA DE IDENTIDAD:
@@ -488,7 +488,7 @@ export default {
 
 
 
-                       finalY+=45; 
+                       finalY+=55; 
                     //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
                     //doc.setFontSize(9);
                     
@@ -500,9 +500,7 @@ export default {
                         `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
-                        //finalY+=10; 
-                        //COMENTADO POR MUCHJO ESPACIO   
-                        //finalY+=10;    
+                        finalY+=20;    
 
                     //PRIMERA FORMA FINALIZADA 
                     // autoTable(doc, { 
@@ -523,50 +521,19 @@ export default {
 
                     //SEGUNDA FORMA FINALIZADA
                     autoTable(doc, {       
-                      //QUITANDO ESPACIO
-                      //startY: finalY + 20,               
-                      startY: finalY + 10,               
+                      startY: finalY + 20,               
                       head: headers,
                       body:asignaturas_tabla,
                       //theme:'grid',theme:'striped',theme:'plain'
                       theme:'plain',
-                      tableLineColor:[0,0,0],tableLineWidth:0.2,
-                      styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
+                      tableLineColor:[0,0,0],tableLineWidth:0.5,
+                      styles: {fontSize:9,cellWidth:'wrap',halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
                       //columnStyles:{color}
                       
                     });
                     finalY = doc.lastAutoTable.finalY
-                    finalY+=30; 
-
-                    doc.setTextColor(10);
-                      doc.setFontSize(8).setFont(undefined, 'normal');                      
-                      doc.text(`
-                        FIRMA ESTUDIANTE
-                        `, -10, finalY);
-                        //finalY+=25;    
-                        //añadimos 20+50 por el tamaño de las imagenes
-                        //finalY+=10; 
-                        
-                        doc.setTextColor(10);
-                      doc.setFontSize(8).setFont(undefined, 'normal');                      
-                      doc.text(`
-                        RESP. INSCRIPCION
-                        `,(doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
-                        //finalY+=25;    
-                        //añadimos 20+50 por el tamaño de las imagenes
-                        //finalY+=10;   
-
-                        doc.setTextColor(10);
-                      doc.setFontSize(8).setFont(undefined, 'normal');                      
-                      doc.text(`
-                      FIRMA DIRECTOR
-                        `, (doc.internal.pageSize.getWidth()/2)+120, finalY,null,null,"center");
-                        //finalY+=25;    
-                        //añadimos 20+50 por el tamaño de las imagenes
-                        finalY+=15;  
-
-                        
+                    finalY+=20; 
 
                     //INICIO REIMPRESION DE DOCUMENTO DE INSCRIPCION
                     //INICIANDO LOS ENCABEZADOS Y FORMATO DE PRESENTACION
@@ -623,7 +590,7 @@ export default {
                         finalY+=10;  
                     
                     doc.setTextColor(10);
-                    doc.setFontSize(8).setFont(undefined, 'bold');
+                    doc.setFontSize(10).setFont(undefined, 'bold');
                     doc.text(`
                        APELLIDOS Y NOMBRES:                                  
                        CEDULA DE IDENTIDAD:
@@ -652,7 +619,7 @@ export default {
 
 
 
-                       finalY+=45; 
+                       finalY+=55; 
                     //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
                     //doc.setFontSize(9);
                     
@@ -664,55 +631,23 @@ export default {
                         `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
-                        //QUITANDO ESPACIO
-                        //finalY+=20;    
-
-                    
+                        finalY+=20;    
 
                     //SEGUNDA FORMA FINALIZADA
-                    autoTable(doc, {      
-                      //QUITANDO ESPACIO
-                      //startY: finalY + 20,               
-                      startY: finalY + 10,                                      
+                    autoTable(doc, {       
+                      startY: finalY + 20,               
                       head: headers,
                       body:asignaturas_tabla,
                       //theme:'grid',theme:'striped',theme:'plain'
                       theme:'plain',
                       tableLineColor:[0,0,0],tableLineWidth:0.5,
-                      styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
+                      styles: {fontSize:9,cellWidth:'wrap',halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
                       //columnStyles:{color}
                       
                     });
                     finalY = doc.lastAutoTable.finalY
-                    finalY+=30; 
-
-                    doc.setTextColor(10);
-                      doc.setFontSize(8).setFont(undefined, 'normal');                      
-                      doc.text(`
-                        FIRMA ESTUDIANTE
-                        `, -10, finalY);
-                        //finalY+=25;    
-                        //añadimos 20+50 por el tamaño de las imagenes
-                        //finalY+=10; 
-                        
-                        doc.setTextColor(10);
-                      doc.setFontSize(8).setFont(undefined, 'normal');                      
-                      doc.text(`
-                        RESP. INSCRIPCION
-                        `,(doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
-                        //finalY+=25;    
-                        //añadimos 20+50 por el tamaño de las imagenes
-                        //finalY+=10;   
-
-                        doc.setTextColor(10);
-                      doc.setFontSize(8).setFont(undefined, 'normal');                      
-                      doc.text(`
-                      FIRMA DIRECTOR
-                        `, (doc.internal.pageSize.getWidth()/2)+120, finalY,null,null,"center");
-                        //finalY+=25;    
-                        //añadimos 20+50 por el tamaño de las imagenes
-                        finalY+=20;  
+                    finalY+=20; 
 
                     //FIN DOCUMENTO DE REGISTRO DE INSCRIPCION
 

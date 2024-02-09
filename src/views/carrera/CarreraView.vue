@@ -25,12 +25,12 @@
                       <th>
                         DESCRIPCION
                       </th> 
-                      <th class="d-none d-sm-block pb-4">
+                      <th>
                         ESTADO
                       </th>                      
-                      <th>
+                      <th class="col-2">
                         ACCIONES
-                      </th>
+                      </th >
                     </tr></thead>
                   <tbody class="table-group-divider" id="contenido">
                     <tr v-for="carrera in carreras" :key="carrera.codigo_carrera">
@@ -39,7 +39,7 @@
                         <td>{{ carrera.nombre_carrera }}</td>
                         <td >{{ carrera.descripcion }}</td>
 
-                        <td class="d-none d-sm-block pb-4">{{ carrera.estado }}</td>                        
+                        <td >{{ carrera.estado }}</td>                        
                         <td>
                             <router-link :to="{path:'/carrera/edit/'+carrera.codigo_carrera}" class="btn btn-warning">
                                 <i class="fa-solid fa-edit"></i>

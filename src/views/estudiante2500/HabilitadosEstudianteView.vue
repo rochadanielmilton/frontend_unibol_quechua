@@ -39,7 +39,6 @@
    <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-        <div class="col-lg-10 offset-lg-1">
           <div class="table-responsive text-center">
               <table class="table table-bordered table-hover table-striped col-12">
                   <thead class="pb-4 table-light" v-if="estudiantes">
@@ -115,7 +114,6 @@
                   </tbody>
               </table>
           <!-- </div> -->
-         </div>
       </div>
     </div>
   </div>

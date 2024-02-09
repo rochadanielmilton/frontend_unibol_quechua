@@ -10,6 +10,7 @@ import EditEstudianteView from "../views/estudiante/EditEstudianteView.vue";
 import CursadasEstudianteView from "../views/estudiante/CursadasEstudianteView.vue";
 import HabilitadosEstudianteView from "../views/estudiante/HabilitadosEstudianteView.vue";
 import OfertaMateriasEstudianteView from "../views/estudiante/OfertaMateriasEstudianteView.vue";
+import EstudianteCursoPreparatorioView from "../views/estudiante/EstudianteCursoPreparatorioView.vue";
 
 
 //import DocenteView from "../views/docente/DocenteView.vue";
@@ -91,6 +92,12 @@ const routes = [
     component: OfertaMateriasEstudianteView
   },
   {
+    path: '/estudiante/curso-preparatorio',
+    name: 'estudiantespreparatorio',
+    //component: EstudianteView
+   component: EstudianteCursoPreparatorioView
+  },
+  {
     path: '/docentes',
     name: 'docentes',
     //component: DocenteView
@@ -106,20 +113,19 @@ const routes = [
     name: 'editardocente',
     component: EditDocenteView
   },
-
   {
-    path: '/materias',
-    name: 'materias',
+    path: '/asignaturas',
+    name: 'asignaturas',
     component: MateriaView
   },
   {
-    path: '/materia/create',
-    name: 'crearmateria',
+    path: '/asignatura/create',
+    name: 'crearasignatura',
     component: CreateMateriaView
   },
   {
-    path: '/materia/edit/:id',
-    name: 'editarmateria',
+    path: '/asignatura/edit/:id',
+    name: 'editarasignatura',
     component: EditMateriaView
   },
   {
@@ -147,6 +153,23 @@ const routes = [
     name: 'reportes',
     component: ReporteView
   },
+
+  // {
+  //   path: '/departamentos',
+  //   name: 'departamentos',
+  //   component: MateriaView
+  // },
+  // {
+  //   path: '/departamento/create',
+  //   name: 'creardepartamento',
+  //   component: CreateMateriaView
+  // },
+  // {
+  //   path: '/departamento/edit/:id',
+  //   name: 'editardepartamento',
+  //   component: EditMateriaView
+  // },
+  
   // {
   //   path: '/reportes',
   //   name: 'reportes',

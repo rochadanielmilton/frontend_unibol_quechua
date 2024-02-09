@@ -25,19 +25,19 @@
                       <th>
                         APELLIDO-M.
                       </th> 
-                      <th class="d-none d-sm-block pb-4">
+                      <th >
                         C.I.
                       </th>
                       <th>
                         CELULAR
                       </th> 
-                      <th class="d-none d-sm-block pb-4">
+                      <th >
                         DIRECCION
                       </th>
                       <th>
                         PROFESION
                       </th>
-                      <th class="d-none d-sm-block">
+                      <th >
                         ESTADO
                       </th>
                       <th>
@@ -51,12 +51,12 @@
                         <td>{{ docente.apellidop }}</td>
                         <td >{{ docente.apellidom }}</td>
 
-                        <td class="d-none d-sm-block pb-4">{{ docente.ci }}</td>
+                        <td >{{ docente.ci }}</td>
 
                         <td >{{ docente.celular }}</td>
-                        <td class="d-none d-sm-block pb-4">{{ docente.direccion }}</td>
+                        <td >{{ docente.direccion }}</td>
                         <td >{{ docente.profesion  }}</td>
-                        <td class="d-none d-sm-block pb-4">{{ docente.estado  }}</td>
+                        <td >{{ docente.estado  }}</td>
                         <td>
                             <router-link :to="{path:'/docente/edit/'+docente.id}" class="btn btn-warning">
                                 <i class="fa-solid fa-edit"></i>

@@ -1,17 +1,41 @@
 <template>
   <!-- <div class="container-fluid text-center"> -->
-  <div v-if="asignaturas" class="container-fluid" id="contenido-global">
+  <div v-if="materias" class="container-fluid" id="contenido-global">
   <div class="row">
-    <div class="mb-3 fw-bold ">       
+    <div class="mb-3 fw-bold">       
 
             <div class="mb-3 fs-4 text-center">                 
-             MALLA CURRICULAR : {{ `${id}`}}
+             HISTORIAL ACADEMICO DE AVANCE GENERAL
+            </div>
+
+            <div class=" mb-3">                 
+              APELLIDOS Y NOMBRES:    {{`${apellidoP} ${apellidoM} ${nombres}`}}
             </div>
             
-            <button   class="btn btn-warning offset-1" @click="exportPDF">                           
+            <div class=" mb-3">                 
+              CEDULA DE IDENTIDAD:     {{`${ci_estudiante}`}}
+            </div>
+
+            <div class=" mb-3">                 
+              NRO DE REGISTRO:       {{`${numero_registro}`}}
+            </div>
+
+            <div class=" mb-3">                 
+              CARRERA:         {{`${nombre_carrera}`}}
+            </div>
+
+            <div class=" mb-3">                 
+              APELLIDOS Y NOMBRES:      {{`${apellidoP} ${apellidoM} ${nombres}`}}
+            </div>
+
+            <div class=" mb-3">                 
+              FECHA DE EMISION :         {{`${fecha_emision}`}}
+            </div>
+            <div>
+            <button   class="btn btn-warning" @click="exportPDF">                           
               GENERAR PDF : <i class="fa-solid fa-file-pdf"></i>
               </button>
-      <!-- </div> -->
+            </div>
 
      </div>
   </div>
@@ -20,29 +44,33 @@
    <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-        <div class="col-lg-10 offset-lg-1">
           <div class="table-responsive text-center">
-              <table id="malla_curricular" class="table table-striped table-bordered table-hover col-12">
-                  <thead v-if="asignaturas" class="pb-4 table-light align-middle">
+              <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12">
+                  <thead v-if="materias" class="pb-4 table-light">
                     <tr>
                       <th>
                         #
                       </th>
                       <th>
-                        CODIGO CARRERA
+                        GESTION
                       </th>
                       <th>
-                        NOMBRE CARRERA
-                      </th>                    
+                        SIGLA CODIGO
+                      </th> 
+                   
                       <th>
-                        CODIGO ASIGNATURA
+                        ASIGNATURA
                       </th>
                       <th >
-                        NOMBRE ASIGNATURA
-                      </th>                      
+                        HRS. ACAD.
+                      </th>
+                      
                       <th>
-                        DESCRIPCION
-                      </th>                       
+                        PREREQUISITOS
+                      </th> 
+                      <th>
+                        CALIFICACION NUMERAL
+                      </th>                 
                       <th>
                         ESTADO
                       </th>   
@@ -57,15 +85,15 @@
                       </th> -->
                     </tr></thead>
                   <tbody class="table-group-divider" id="contenido">
-                    <tr v-for="asignatura,i  in asignaturas" :key="asignatura">
+                    <tr v-for="materia,i  in materias" :key="materia">
                         <td>{{ i+1 }}</td>
-                        <td>{{ asignatura.codigo_carrera }}</td>
-                        <td>{{ asignatura.nombre_carrera }}</td>
-                        <td>{{ asignatura.codigo_asignatura }}</td>
-                        <td>{{ asignatura.nombre_asignatura }}</td>
-                        <td>{{ asignatura.descripcion }}</td>
-                        <td>{{ asignatura.estado }}</td>
-                        
+                        <td>{{ materia.anio_cursado }}</td>
+                        <td>{{ materia.codigo_asignatura }}</td>
+                        <td>{{ materia.nombre_asignatura }}</td>
+                        <td>{{ materia.total_horas }}</td>
+                        <td>{{ materia.pre_requisitos }}</td>
+                        <td>{{ materia.nota_num_final }}</td>
+                        <td>{{ materia.estado_gestion_espaniol}}</td>
                         <!-- <td></td>
                         <td></td> -->
                         <!-- <td>{{ estudiante.nombre_asignatura }}</td> -->
@@ -86,7 +114,6 @@
               </table>
           <!-- </div> -->
       </div>
-    </div> 
     </div>
   </div>
 
@@ -112,12 +139,12 @@ import autoTable from "jspdf-autotable";
 //const provincias = ref([]);
  //const contador =ref(0);
 export default {
-  name: 'MOstrarMallaCarreraView',
+  name: 'AprobadasEstudianteView',
   data(){
-    return {principal:'',
-    id:0,codigo_carrera:'',nombre_carrera:'',codigo_asignatura:'',nombre_asignatura:'',descripcion:'',estado:'',
-    message:'',asignaturas:null,
-    url:'http://127.0.0.1:8000/parametros/mallaAcademica'
+    return {estudiantes:null,carreras:[],principal:'',
+    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',numero_registro:'',nombre_carrera:'',fecha_emision:'',grado:'',
+    materias:null,message:'',
+    url:'http://127.0.0.1:8000/estudiantes/obtenerAsignaturasCursadas'
   }
   },
   mounted(){
@@ -125,9 +152,9 @@ export default {
      this.id = route.params.id;
       
      this.url = this.url + '/' +this.id+'/';
-    this.getMallaAcademica();
+    this.getMateriasCursadas();
     //ruta de navegacion despues de la accion eliminar
-    this.principal='/estudiantes';    
+    this.principal='/estudiantes';
   },
   methods:{
     clickMe(){
@@ -139,6 +166,7 @@ export default {
     },
     async exportPDF() {
                   //first try
+                  //parameters:orientation,unit,format
                   // const doc = new jsPDF('p', 'pt', 'A4');
                   
                   
@@ -151,7 +179,9 @@ export default {
                   //   doc.save(pdfName + '.pdf');
 
                   //second try
-                  const doc = new jsPDF({unit: 'px'});
+                  //const doc = new jsPDF({unit: 'px'});
+                  const doc = new jsPDF({orientation:'p',unit:'px',format:'letter'});
+                  //const doc = new jsPDF('l','px,','letter');
                   doc.setFontSize(12); 
                   //let setY=15;
 
@@ -217,12 +247,16 @@ export default {
                   //       doc.internal.pageSize.height - 10,
                   //       {align: 'left'}
                   //     );
-                  //   }                     
+                  //   } 
 
+                    //<!--  -->
+                    //RELLENADO DE FORMA INICIAL()
                     //RELLENADO DE DATOS DEL ESTUDIANTE:
                     //INICIO PRIMERA FORMA
-                    doc.setTextColor(100);
+
+                    doc.setTextColor(10);
                     doc.setFontSize(15);
+
                     // doc.text(`
                     //   Primer comentario                                        
                     //    `, 10, setY);
@@ -230,11 +264,30 @@ export default {
                     let finalY = doc.lastAutoTable.finalY || 10
 
                     //doc.addImage("https://picsum.photos/200", "JPEG", doc.internal.pageSize.width-80, finalY+20, 50, 50);
-                  
-                    //DEFINICION GENERAL
-                    // await doc.addImage("../../ministerio.jpg", "JPG", 30, finalY+20, 60, 60);
-                    // await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width-80, finalY+20, 50, 50);
-                    //RESTA GENERAL A TODO DE 15PX
+
+                    //await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width-80, finalY+20, 50, 50);
+                    //await doc.addImage("../../caracteristicas-bosques-tropicales.jpg", "JPG", 30, finalY+20, 50, 50);
+                    
+                    //<!-- -->
+                    //PRIMER EJEMPLO DE PRUEBA EXITOSO
+                    // doc.text(`
+                    //    HISTORIAL ACADEMICO DE AVANCE GENERAL                                                      
+                    //    `, 20, finalY);
+                    //                   //finalY+=25;    
+                    //    finalY+=20;    
+                    // //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
+                    // doc.setFontSize(10);
+                    // doc.text(`                            
+                    //    APELLIDOS Y NOMBRES: ${this.apellidoP} ${this.apellidoM} ${this.nombres}                                  
+                    //    CEDULA DE IDENTIDAD: ${this.ci_estudiante}
+                    //    NRO DE REGISTRO: ${this.numero_registro}
+                    //    CARRERA: ${this.nombre_carrera}
+                    //    FECHA DE EMISION: ${this.fecha_emision}
+                    //    NIVEL DE FORMACION: ${this.grado}
+                    //    `,80, finalY);
+                    //    finalY+=35;     
+                    
+                    //INICIANDO LOS ENCABEZADOS Y FORMATO DE PRESENTACION
                     await doc.addImage("../../ministerio.jpg", "JPG", 15, finalY+5, 60, 60);
                     await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width-65, finalY+5 , 50, 50);
                     
@@ -266,35 +319,33 @@ export default {
                        `, (doc.internal.pageSize.getWidth()/2)-5, finalY,null,null,"center");
                        //finalY+=25;    
                        //añadimos 20+50 por el tamaño de las imagenes
-                       finalY+=20; 
+                       finalY+=15; 
 
                     doc.setTextColor(10);
                     doc.setFontSize(10);
                     doc.text(`
-                       MALLA CURRICULAR  : ${this.id}  
-                       ${this.asignaturas[0].nombre_carrera}  
-
-                       `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                       APELLIDOS Y NOMBRES: ${this.apellidoP} ${this.apellidoM} ${this.nombres}                                  
+                       CEDULA DE IDENTIDAD: ${this.ci_estudiante}
+                       NRO DE REGISTRO: ${this.numero_registro}
+                       CARRERA: ${this.nombre_carrera}
+                       FECHA DE EMISION: ${this.fecha_emision}
+                       NIVEL DE FORMACION: ${this.grado}
+                       `, 30, finalY);
                        //finalY+=25;    
                        //añadimos 20+50 por el tamaño de las imagenes
-                       finalY+=15;    
+                       finalY+=35; 
                     //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
-                    doc.setFontSize(10);
+                    doc.setFontSize(9);
                     
-                    // doc.text(`                            
-                    //    APELLIDOS Y NOMBRES: ${this.apellidoP} ${this.apellidoM} ${this.nombres}                                  
-                    //    CEDULA DE IDENTIDAD: ${this.ci_estudiante}
-                    //    NRO DE REGISTRO: ${this.numero_registro}
-                    //    CARRERA: ${this.nombre_carrera}
-                    //    FECHA DE EMISION: ${this.fecha_emision}
-                    //    NIVEL DE FORMACION: ${this.grado}
-                    //    `,80, finalY);
-                    //    finalY+=35;                   
-                    
+
                     //PRIMERA FORMA FINALIZADA 
                     autoTable(doc, { 
                       startY: finalY + 20,
-                      html: '#malla_curricular' })
+                      html: '#materias_cursadas' ,
+                      //styles: {font: 'arial',fontSize:9}
+                      styles: {fontSize:9,halign: 'left'}
+                      
+                    })
 
                       finalY = doc.lastAutoTable.finalY
 
@@ -330,7 +381,7 @@ export default {
       console.log(data);
       return data;
     },
-    getMallaAcademicas(){
+    getMateriasCursadas(){
           axios.get(this.url)
             .then(            
                 response =>{
@@ -338,15 +389,17 @@ export default {
                     //if(!response.data.message){
                       //console.log('psando normal');
                     this.message = response.data.message,
+                    this.ci_estudiante=response.data['estudiante']['ci_estudiante'],
+                    this.nombres=response.data['estudiante']['nombres'],
+                    this.apellidoP=response.data['estudiante']['apellidoP'],
+                    this.apellidoM=response.data['estudiante']['apellidoM'],
+                    this.numero_registro=response.data['estudiante']['numero_registro'],
+                    this.nombre_carrera=response.data['estudiante']['nombre_carrera'],
 
-                    this.codigo_carrera=response.data['codigo_carrera'],
-                    this.nombre_carrera=response.data['nombre_carrera'],
-                    this.codigo_asignatura=response.data['codigo_asignatura'],
-                    this.nombre_asignatura=response.data['nombre_asignatura'],
-                    this.descripcion=response.data['descripcion'],
-                    this.estado=response.data['estado']
-                                        
-                    //this.materias = this.sortGestion(response.data['datos'])
+                    this.fecha_emision=response.data['fecha_emision'],
+                    this.grado=response.data['grado'],
+
+                    this.materias = this.sortGestion(response.data['datos'])
                     
                     //this.materias = response.data['datos']
                     // }else{
@@ -359,8 +412,9 @@ export default {
             ).catch(error => { 
           console.log(error)
           show_alerta(this.message,'error')
-          this.$router.push('/carreras')
-        });              
+          this.$router.push('/estudiantes')
+        });
+        //console.log(this.materias+'sss');        
             
     },eliminar(id,nombre){
     //   for (let index = 0; index < 10; index++) {
@@ -371,16 +425,17 @@ export default {
     // },'http://127.0.0.1:8000/parametros/provincias/','ProvinciaS Eliminada');              
     //   }
       const ruta = 'estudiantes/estudiantes/'+id+'/';
-      confirmar1(id,nombre,ruta,this.principal);      
+      confirmar1(id,nombre,ruta,this.principal);
+      this.$router.push('/estudiantes')    
     },
-    getMallaAcademica(){      
-      axios.get(this.url)
+    getCarrera(id){      
+      axios.get('http://127.0.0.1:8000/parametros/carreras/'+id+'/')
             .then(            
-                response =>(                    
-                    this.asignaturas = response.data
+                response =>(
+                    this.carreras[id] = response.data['nombre_carrera']
                 )
             );
-          return this.asignaturas;
+          return this.carreras[id]
     },
 
   }

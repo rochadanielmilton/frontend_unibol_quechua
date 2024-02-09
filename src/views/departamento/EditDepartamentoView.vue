@@ -11,7 +11,7 @@
 
             <div class="input-group mb-3">
                 <div class="input-group mb-3">   
-                  CODIGO ASIGNATURA:
+                  CODIGO MATERIA:
                </div> 
               <div :value="codigo_asignatura" id="codigo_asignatura" class="input-group mb-3 d-inline p-2 bg-primary text-white rounded">{{ codigo_asignatura }}</div> 
               <!-- <input type="text" v-model="codigo_carrera" id="codigo_carrera" class="form-control" maxlength="50" placeholder="Codigo Carrera" required>               -->
@@ -181,8 +181,8 @@ export default {
 
        
         //const parametros={nombre_provincia:this.nombre.trim()};
-       await sendRequest('PUT',parametros,this.url,'Asignatura Actualizada Exitosamente!',this.principal);
-        this.$router.push('/asignaturas')
+       await sendRequest('PUT',parametros,this.url,'Materia Actualizada Exitosamente!',this.principal);
+        this.$router.push('/materias')
       }
     }
   }
