@@ -3,13 +3,13 @@
     <div class="row">
       <div class="mb-3">
         <!-- <div class="d-flex justify-content-around">         -->
-        <button class="btn btn-success col-3">
+        <button class="btn btn-success col-2">
           <i class="fa-solid fa-table"></i> <router-link to="/estudiante/curso-preparatorio" class="nav-link active"
-            href="#">ESTUDIANTES CURSO PREPARATORIO</router-link>
+            href="#">ESTUDIANTES-PREPARATORIO</router-link>
         </button> &nbsp;
-        <button class="btn btn-success col-3 ">
+        <button class="btn btn-success col-2 ">
           <i class="fa-solid fa-user-plus"></i> <router-link to="/estudiante/create" class="nav-link active"
-            href="#">Nuevo Estudiante</router-link>
+            href="#">NUEVO ESTUDIANTE</router-link>
         </button>
 
         <!-- </div>     -->
@@ -20,7 +20,7 @@
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
       <div class="col-lg-10 offset-lg-1">
         <div class="table-responsive">
-          <table class="table table-bordered table-hover table-striped">
+          <table class="table table-bordered table-hover table-striped fixed small responsive">
             <thead class="pb-4 table-light" v-if="estudiantes">
               <tr>
                 <th class="col">

@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
 
-import CreateView from '../views/CreateView.vue';
-import EditView from "../views/EditView.vue";
+// import HomeView from '../views/HomeView.vue';
+// import CreateView from '../views/CreateView.vue';
+// import EditView from "../views/EditView.vue";
 
-//import EstudianteView from "../views/estudiante/EstudianteView.vue";
+import EstudianteView from "../views/estudiante2500/EstudianteView.vue";
 import CreateEstudianteView from '../views/estudiante/CreateEstudianteView.vue';
 import EditEstudianteView from "../views/estudiante/EditEstudianteView.vue";
 import CursadasEstudianteView from "../views/estudiante/CursadasEstudianteView.vue";
@@ -31,8 +31,7 @@ import ReporteView from "../views/ReporteView.vue"
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    redirect: '/estudiantes'
   },
   {
     path: '/about',
@@ -50,16 +49,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../components/UploadFile.vue')
   },
-  {
-    path: '/create',
-    name: 'create',
-    component: CreateView
-  },
-  {
-    path: '/edit/:id',
-    name: 'edit',
-    component: EditView
-  },
+  // {
+  //   path: '/create',
+  //   name: 'create',
+  //   component: CreateView
+  // },
+  // {
+  //   path: '/edit/:id',
+  //   name: 'edit',
+  //   component: EditView
+  // },
   {
     path: '/estudiantes',
     name: 'estudiantes',
@@ -95,7 +94,13 @@ const routes = [
     path: '/estudiante/curso-preparatorio',
     name: 'estudiantespreparatorio',
     //component: EstudianteView
-   component: EstudianteCursoPreparatorioView
+    component: EstudianteCursoPreparatorioView
+  },
+  {
+    path: '/estudiante/datatable',
+    name: 'estudiantesdatatable',
+    component: EstudianteView
+
   },
   {
     path: '/docentes',
@@ -153,6 +158,11 @@ const routes = [
     name: 'reportes',
     component: ReporteView
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/estudiantes'
+  },
+
 
   // {
   //   path: '/departamentos',
@@ -169,7 +179,7 @@ const routes = [
   //   name: 'editardepartamento',
   //   component: EditMateriaView
   // },
-  
+
   // {
   //   path: '/reportes',
   //   name: 'reportes',

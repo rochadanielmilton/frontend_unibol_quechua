@@ -1,13 +1,12 @@
 <template>
           <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary"> -->
           <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-            <div class="container-fluid">
+            <div class="container">
               <a class="navbar-brand" href="#">Menu Principal</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
-
-
+               
 
               <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                 <ul class="navbar-nav">
@@ -23,7 +22,7 @@
                         <router-link to="/estudiante/create" class="nav-link active" href="#">Crear Estudiante</router-link>                        
                       </li> 
                       <li>
-                        <router-link to="/estudiante/habilitados" class="nav-link active" href="#">Habilitados</router-link>                        
+                        <router-link to="/estudiante/habilitados" class="nav-link active" href="#">HabilitadosInscripcion</router-link>                        
                       </li>                      
                     </ul>
                   </li>

@@ -218,7 +218,8 @@ export default {
               }    
                this.methodThatForcesUpdate();    
               //console.log(asignaturas_tabla);
-              this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
+              //aqui estaba ggenerar reporte oficial
+              //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
               //this.$router.push('/estudiantes');
               //this.$router.push('/estudiante/habilitados');
               
@@ -228,15 +229,15 @@ export default {
               {      
                 //console.log('se isncribio al estudiantes');      
                   show_alerta(mensaje,'success'); 
-                  //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
+                    //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
                   setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);           
+                  this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
                   //optimizar este codigo que redirija a la la misma lista de habilitados
                   //this.$router.push('/estudiantes');
                   //this.methodThatForcesUpdate();
                   //console.log('oir aki'+datos);                      
               }        
             });
-
     },
     async generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta)
     {
@@ -675,7 +676,9 @@ export default {
                     //FIN DOCUMENTO DE REGISTRO DE INSCRIPCION
 
                     //doc.table(1, 1, this.generateData(100), headers1, { autoSize: true });
-                    await doc.save('inscripcion.pdf');                                
+                    //await doc.save('inscripcion.pdf');  
+                    await window.open(doc.output('bloburl'), '_blank');
+
                   //var doc = new jsPDF('p', 'pt', 'A4');
                     // margins = {
                     //     top: 80,

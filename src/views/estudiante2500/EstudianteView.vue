@@ -12,15 +12,15 @@
    <div  class="row" >
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-        <div class="col-lg-11 offset-lg-1">
+        <div class="col-lg-12 offset-lg-0">
           <div class="table-responsive">
-            <DataTable  ref="table" id="datatable"  :data="estudiantes" :columns="columns" class="table table-bordered table-striped display" :options="{ select: true ,responsive: {        
-                            },autoWidth:false,dom:'Bfrtip',
+            <DataTable  ref="table" id="datatable"  :data="estudiantes" :columns="columns" class="table table-bordered table-striped display fixed small" :options="{ select: true ,responsive: true,autoWidth:false,dom:'Bfrtip',
                             buttons : [{
                               extend : 'selected',
                               text : 'Edit',
                               name : 'edit'
-                          }],
+                          }],pageLength:5,
+                          //responsivePriority: 1,                                                   
                             columnDefs:[{
                                width:'40%',target:[6],
                               width:'10%',target:[7],
@@ -218,10 +218,42 @@ export default {
 </script>
 
 <style>
-@import 'bootstrap';
+/*@import 'bootstrap';*/
 @import 'datatables.net-bs5';
 
-/* @import 'datatables.net-dt';
-@import 'datatables.net-responsive-dt'; */
+/*@import 'datatables.net-dt';*/
+@import 'datatables.net-responsive-dt'; 
+
+.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+    content: "-";
+    background-color: #d33333;
+}
+.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+    top: 33%;
+    left: 5px;
+    height: 1em;
+    width: 1em;
+    margin-top: -5px;
+    display: block;
+    position: absolute;
+    color: white;
+    border: .15em solid white;
+    border-radius: 1em;
+    box-shadow: 0 0 0.2em #444;
+    box-sizing: content-box;
+    text-align: center;
+    text-indent: 0 !important;
+    font-family: "Courier New",Courier,monospace;
+    line-height: 1em;
+    content: "+";
+    /* background-color: #31b131; */
+    background-color: #74a2ff;
+    
+}
 
 </style>
