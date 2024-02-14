@@ -157,8 +157,8 @@ export default {
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',anio_ingreso:'',
     anio_actual:0,
     materias:null,keycon: 0,
-    //url:'http://127.0.0.1:8000/administracion/obtenerEstudiantesInscripcion/',
-    url:'http://192.168.30.9:8000/administracion/obtenerEstudiantesInscripcion/',
+    url:'http://127.0.0.1:8000/administracion/obtenerEstudiantesInscripcion/',
+    //url:'http://192.168.30.9:8000/administracion/obtenerEstudiantesInscripcion/',
     ruta:'../loading.gif'
   }
   },
