@@ -497,7 +497,7 @@ export default {
                       //theme:'grid',theme:'striped',theme:'plain'
                       theme:'plain',
                       tableLineColor:[0,0,0],tableLineWidth:0.2,
-                      styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
+                      styles: {fontSize:5,cellWidth:'wrap',halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
                       //columnStyles:{color}
                       
@@ -645,7 +645,7 @@ export default {
                       //theme:'grid',theme:'striped',theme:'plain'
                       theme:'plain',
                       tableLineColor:[0,0,0],tableLineWidth:0.5,
-                      styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
+                      styles: {fontSize:5,cellWidth:'wrap',halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
                       //columnStyles:{color}
                       
