@@ -39,9 +39,9 @@
    <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-        <div class="col-lg-12 offset-lg-0">
+        <div class="col-lg-10 offset-lg-1">
           <div class="table-responsive text-center">
-              <table class="table table-bordered table-hover table-striped col-12" :key="keycon" v-if="keycon>=0">
+              <table class="table table-bordered table-hover table-striped col-12 small" :key="keycon" v-if="keycon>=0">
                   <thead class="pb-4 table-light" v-if="estudiantes">
                     <tr>
                       <th>
@@ -74,9 +74,9 @@
                         ACCIONES
                       </th>
                     </tr></thead>
-                    <!-- <div v-else>
-                      <img src="loading.gif" alt="iamgen">
-                    </div> -->
+                    <div v-else>
+                      <img :src="ruta" alt="iamgen">
+                    </div>
                   <tbody class="table-group-divider" id="contenido" :key="keycon">
                     <tr v-for="estudiante,i  in estudiantes" :key="i" :id="estudiante.ci_estudiante">
                         <td>{{ i+1 }}</td>
@@ -101,14 +101,15 @@
                               <i class="fa-solid fa-school"></i>
                             </button>     -->
                             <router-link :to="{path:'/estudiante/ofertas/'+estudiante.ci_estudiante}" class="btn btn-warning" v-if="estudiante.inscrito_gestion=='no'" :key="keycon">
-                                INSCRIBIR<i class="fa-solid fa-school"></i>
+                                INSCRIBIR
+                                <!-- <i class="fa-solid fa-school"></i> -->
                             </router-link>&nbsp;
                             <button   class="btn btn-success disabled" v-else >
                               INSCRITO
-                              <i class="fa-solid fa-school"></i>
+                              <!-- <i class="fa-solid fa-school"></i> -->
                             </button>&nbsp;
                             
-                            <button   class="btn btn-success" v-if="estudiante.anio_cursado==='PRIMER AÑO'&&estudiante.inscrito_gestion=='no'" @click="inscribirPrimerAnio(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+                            <button   class="btn btn-success" v-if="estudiante.anio_ingreso===this.anio_actual&&estudiante.inscrito_gestion=='no'" @click="inscribirPrimerAnio(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
                               INS-DIRECTA
                               <!-- <i class="fa-solid fa-school"></i> -->
                             </button>
@@ -153,9 +154,11 @@ export default {
   name: 'AprobadasEstudianteView',
   data(){
     return {estudiantes:null,carreras:[],principal:'',
-    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',
+    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',anio_ingreso:'',
+    anio_actual:0,
     materias:null,keycon: 0,
-    url:'http://127.0.0.1:8000/administracion/obtenerEstudiantesInscripcion/'
+    url:'http://127.0.0.1:8000/administracion/obtenerEstudiantesInscripcion/',
+    ruta:'../loading.gif'
   }
   },
   mounted(){
@@ -365,8 +368,8 @@ export default {
                     //    finalY+=35;     
                     
                     //INICIANDO LOS ENCABEZADOS Y FORMATO DE PRESENTACION
-                    await doc.addImage("../../ministerio.jpg", "JPG", 15, finalY+5, 60, 60);
-                    await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width-65, finalY+5 , 50, 50);
+                    await doc.addImage("../../ministerio.jpg", "JPG",  doc.internal.pageSize.width-65, finalY+5, 60, 60);                    
+                    await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", 15, finalY+5 , 50, 50);
                     
                     doc.setTextColor(10);
                     doc.setFontSize(10).setFont(undefined, 'bold');
@@ -402,7 +405,7 @@ export default {
                       doc.setTextColor(10);
                       doc.setFontSize(10).setFont(undefined, 'bold');                      
                       doc.text(`
-                        BOLETA DE INSCRIPCION 2024
+                        BOLETA DE INSCRIPCIÓN 2024
                         `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
@@ -417,16 +420,20 @@ export default {
                         //añadimos 20+50 por el tamaño de las imagenes
                         finalY+=10;  
                     
-                    doc.setTextColor(10);
-                    doc.setFontSize(8).setFont(undefined, 'bold');
-                    doc.text(`
-                       APELLIDOS Y NOMBRES:                                  
-                       CEDULA DE IDENTIDAD:
-                        NUMERO DE REGISTRO: 
-                                   CARRERA:
-                          FECHA DE EMISION:
-                       
-                       `, -20, finalY);
+                      doc.setTextColor(10);
+                      doc.setFontSize(8).setFont(undefined, 'bold');
+                      doc.text(`
+                      APELLIDOS Y NOMBRES:                                  
+                      CÉDULA DE IDENTIDAD:                                   
+                      NÚMERO DE REGISTRO:                                   
+                      CARRERA:                                   
+                      FECHA DE EMISIÓN:                                   
+                        
+                        `, -10, finalY);
+
+
+                    
+                      
                       //  NRO DE REGISTRO: ${this.numero_registro}
 
                       //  FECHA DE EMISION: ${this.fecha_emision}
@@ -455,7 +462,7 @@ export default {
                     doc.setTextColor(10);
                       doc.setFontSize(10).setFont(undefined, 'bold');                      
                       doc.text(`
-                        PROGRAMACION DE ASIGNATURAS GESTION 2024
+                        PROGRAMACIÓN DE ASIGNATURAS GESTIÓN 2024
                         `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
@@ -510,7 +517,7 @@ export default {
                         doc.setTextColor(10);
                       doc.setFontSize(8).setFont(undefined, 'normal');                      
                       doc.text(`
-                        RESP. INSCRIPCION
+                        RESP. INSCRIPCIÓN
                         `,(doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
@@ -528,9 +535,9 @@ export default {
                         
 
                     //INICIO REIMPRESION DE DOCUMENTO DE INSCRIPCION
-                    //INICIANDO LOS ENCABEZADOS Y FORMATO DE PRESENTACION
-                    await doc.addImage("../../ministerio.jpg", "JPG", 15, finalY+5, 60, 60);
-                    await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width-65, finalY+5 , 50, 50);
+                    //INICIANDO LOS ENCABEZADOS Y FORMATO DE PRESENTACION                    
+                    await doc.addImage("../../ministerio.jpg", "JPG", doc.internal.pageSize.width-65, finalY+5, 60, 60);
+                    await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", 15, finalY+5 , 50, 50);
                     
                     doc.setTextColor(10);
                     doc.setFontSize(10).setFont(undefined, 'bold');
@@ -566,7 +573,7 @@ export default {
                        doc.setTextColor(10);
                       doc.setFontSize(10).setFont(undefined, 'bold');                      
                       doc.text(`
-                        BOLETA DE INSCRIPCION 2024
+                        BOLETA DE INSCRIPCIÓN 2024
                         `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
@@ -581,16 +588,16 @@ export default {
                         //añadimos 20+50 por el tamaño de las imagenes
                         finalY+=10;  
                     
-                    doc.setTextColor(10);
-                    doc.setFontSize(8).setFont(undefined, 'bold');
-                    doc.text(`
-                       APELLIDOS Y NOMBRES:                                  
-                       CEDULA DE IDENTIDAD:
-                        NUMERO DE REGISTRO: 
-                                   CARRERA:
-                          FECHA DE EMISION:
-                       
-                       `, -20, finalY);
+                      doc.setTextColor(10);
+                      doc.setFontSize(8).setFont(undefined, 'bold');
+                      doc.text(`
+                      APELLIDOS Y NOMBRES:                                  
+                      CÉDULA DE IDENTIDAD:                                   
+                      NÚMERO DE REGISTRO:                                   
+                      CARRERA:                                   
+                      FECHA DE EMISIÓN:                                   
+                          
+                          `, -10, finalY);
                       //  NRO DE REGISTRO: ${this.numero_registro}
 
                       //  FECHA DE EMISION: ${this.fecha_emision}
@@ -619,7 +626,7 @@ export default {
                     doc.setTextColor(10);
                       doc.setFontSize(10).setFont(undefined, 'bold');                      
                       doc.text(`
-                        PROGRAMACION DE ASIGNATURAS GESTION 2024
+                        PROGRAMACIÓN DE ASIGNATURAS GESTIÓN 2024
                         `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
@@ -658,7 +665,7 @@ export default {
                         doc.setTextColor(10);
                       doc.setFontSize(8).setFont(undefined, 'normal');                      
                       doc.text(`
-                        RESP. INSCRIPCION
+                        RESP. INSCRIPCIÓN
                         `,(doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
@@ -677,7 +684,18 @@ export default {
 
                     //doc.table(1, 1, this.generateData(100), headers1, { autoSize: true });
                     //await doc.save('inscripcion.pdf');  
-                    await window.open(doc.output('bloburl'), '_blank');
+
+                    // var blobPDF =  new Blob([ doc.output('blob') ], { type : 'application/pdf'});
+                    // var blobUrl = URL.createObjectURL(blobPDF);  //<--- THE ERROR APPEARS HERE
+                    // window.open(blobUrl);  
+
+                    //doc.output('dataurlnewwindow');
+
+                     await window.open(doc.output('bloburl'), '_blank');
+                    
+
+                                  
+                    
 
                   //var doc = new jsPDF('p', 'pt', 'A4');
                     // margins = {
@@ -692,7 +710,8 @@ export default {
             .then(            
                 response =>(                    
 
-                    this.estudiantes=response.data
+                    this.estudiantes=response.data['estudiantes'],
+                    this.anio_actual=response.data['anio_actual']
                     //this.materias = response.data['datos']
                     
                 )
@@ -706,3 +725,9 @@ export default {
   }
 }
 </script>
+<style>
+/* body {
+    font-size: .875rem;
+    line-height: 1.25rem;
+} */
+</style>

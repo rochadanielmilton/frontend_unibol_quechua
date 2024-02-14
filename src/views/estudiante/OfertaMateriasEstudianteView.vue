@@ -2,29 +2,30 @@
   <!-- <div class="container-fluid text-center"> -->
   <div class="container-fluid" id="contenido-global" v-if="ofertaMaterias.length>0">
   <div class="row">
+    <div class="col-lg-10 offset-lg-1">
     <div class="mb-3 fw-bold">       
 
-            <div class="mb-3 fs-4 text-center">                 
+            <div class="mb-3 fs-5 text-center">                 
              OFERTA DE MATERIAS PARA LA INSCRIPCION:
             </div>
 
-            <div class=" mb-3">                 
+            <div class="fs-6">                 
               APELLIDOS Y NOMBRES:    {{`${apellidoP} ${apellidoM} ${nombres}`}}
             </div>
             
-            <div class=" mb-3">                 
+            <div class="fs-6">                 
               CEDULA DE IDENTIDAD:     {{`${ci_estudiante}`}}
             </div>
 
-            <div class=" mb-3">                 
+            <div class="fs-6">                 
               CODIGO DE CARRERA:       {{`${codigo_carrera}`}}
             </div>
 
-            <div class=" mb-3">                 
+            <div class="fs-6">                 
               NOMBRE DE CARRERA:         {{`${nombre_carrera}`}}
             </div>
 
-            <div class=" mb-3">                 
+            <div class="fs-6">                 
               AÑO CURSADO:      {{`${anio_cursado}`}}
             </div>
 
@@ -39,12 +40,14 @@
             </div> -->
 
      </div>
+    </div>
   </div>
 
 
    <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
+          <div class="col-lg-10 offset-lg-1">
           <div class="table-responsive text-center">
               <table class="table table-bordered table-hover table-striped col-12" >
                   <thead class="pb-4 table-light">
@@ -118,15 +121,18 @@
 
           <!-- </div> -->
       </div>
+     </div>
     </div>
 
     <div class="row">
-      <div class="mb-3 mt-3 pa-3">
-        <div class="d-grid col-6-mx-auto offset-md-6">        
-                <button class="btn btn-warning" @click="guardarInscripcion">
-                  <!-- <i class="fa-solid fa-user-plus"></i> -->
-                  INSCRIBIR
-                </button></div>    
+      <div class="col-lg-2 offset-lg-9">
+        <div class="mb-3 mt-3 pa-3">
+          <div class="d-grid col-10-mx-auto offset-md-0">        
+                  <button class="btn btn-success col-auto" @click="guardarInscripcion">
+                    <!-- <i class="fa-solid fa-user-plus"></i> -->
+                    INSCRIBIR
+                  </button></div>    
+        </div>
       </div>
     </div>
 
@@ -717,7 +723,9 @@ export default {
                     //FIN DOCUMENTO DE REGISTRO DE INSCRIPCION
 
                     //doc.table(1, 1, this.generateData(100), headers1, { autoSize: true });
-                    await doc.save('inscripcion.pdf');                                
+                    
+                    //await doc.save(`inscripcion_${this.apellidoP} ${this.apellidoM} ${this.nombres}.pdf`); 
+                    await window.open(doc.output('bloburl'), '_blank');                               
                   //var doc = new jsPDF('p', 'pt', 'A4');
                     // margins = {
                     //     top: 80,

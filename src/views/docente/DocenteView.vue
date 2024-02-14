@@ -14,7 +14,7 @@
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped col-12">
-                  <thead class="table-light">
+                  <thead class="table-light" v-if="docentes">
                     <tr>                     
                       <th >
                         NOMBRES
@@ -44,6 +44,9 @@
                         ACCIONES
                       </th>
                     </tr></thead>
+                    <div v-else>
+                      <img :src="ruta" alt="iamgen">
+                    </div>
                   <tbody class="table-group-divider" id="contenido">
                     <tr v-for="docente in docentes" :key="docente.id">
                       
@@ -89,7 +92,7 @@ import {confirmar1} from '../../funciones';
 export default {
   name: 'DocenteView',
   data(){
-    return {docentes:null}
+    return {docentes:null,ruta:'../loading.gif'}
   },
   mounted(){
     this.getDocentes();      

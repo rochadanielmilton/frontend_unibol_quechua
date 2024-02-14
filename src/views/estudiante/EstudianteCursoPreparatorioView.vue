@@ -5,7 +5,7 @@
       <div class="col-lg-10 offset-lg-1">
         <div class="mb-3 fw-bold ">
 
-          <div class="mb-3 fs-4 text-center">
+          <div class="mb-3 fs-5 text-center">
             ESTUDIANTES DEL CURSO PREPARATORIO
           </div>
           <!-- 
@@ -44,7 +44,7 @@
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
       <div class="col-lg-10 offset-lg-1">
         <div class="table-responsive text-center">
-          <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12">
+          <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12 small">
             <thead v-if="estudiantesP" class="pb-4 table-light">
               <tr>
                 <th>
@@ -79,6 +79,9 @@
                 </th>
               </tr>
             </thead>
+            <div v-else>
+                      <img :src="ruta" alt="iamgen">
+            </div>
             <tbody class="table-group-divider" id="contenido">
               <tr v-for="estudiante, i  in estudiantesP" :key="estudiante">
                 <td>{{ i + 1 }}</td>
@@ -102,11 +105,12 @@
                   <button class="btn btn-warning"
                     @click="confirmarRegistro(estudiante.ci_postulante, `${estudiante.nombres_p} ${estudiante.apellido_paterno_p} ${estudiante.apellido_materno_p}`)"
                     v-if="estudiante.registrado == 'no'">
-                    REGISTRAR-ESTUDIANTE <i class="fa-solid fa-school"></i>
+                    REGISTRAR 
+                    <!-- <i class="fa-solid fa-school"></i> -->
                   </button>
                   <button class="btn btn-success disabled" v-else>
-                    ESTUDIANTE-INSCRITO
-                    <i class="fa-solid fa-school"></i>
+                    INSCRITO
+                    <!-- <i class="fa-solid fa-school"></i> -->
                   </button>
                 </td>
               </tr>
@@ -145,7 +149,8 @@ export default {
       estudiantesP: null, principal: '',
       ci_estudiante: '', nombres: '', apellidoP: '', apellidoM: '', nota_final: '', estado_inscrito: '',
       message: '',
-      url: 'http://127.0.0.1:8000/administracion/obtenerPostulates/'
+      url: 'http://127.0.0.1:8000/administracion/obtenerPostulates/',
+      ruta:'../loading.gif'
     }
   },
   mounted() {
@@ -455,3 +460,9 @@ export default {
   }
 }
 </script>
+<style>
+body {
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+</style>

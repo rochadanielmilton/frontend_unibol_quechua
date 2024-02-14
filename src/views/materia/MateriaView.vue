@@ -14,7 +14,7 @@
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped">
-                  <thead class="table-light">
+                  <thead class="table-light" v-if="materias">
                     <tr>                     
                       <th>
                         #
@@ -53,6 +53,9 @@
                         ACCIONES
                       </th>
                     </tr></thead>
+                    <div v-else>
+                      <img :src="ruta" alt="iamgen">
+                    </div>
                   <tbody class="table-group-divider" id="contenido">
                     <tr v-for="materia,i in materias" :key="materia.id">
                         <td>{{ i+1 }}</td>
@@ -98,7 +101,7 @@ import {confirmar1, show_alerta} from '../../funciones';
 export default {
   name: 'MateriaView',
   data(){
-    return {materias:null,docente:'',docs:[],principal:''}
+    return {materias:null,docente:'',docs:[],principal:'',ruta:'../loading.gif'}
   },
   mounted(){
     this.getMaterias();
@@ -153,3 +156,6 @@ export default {
   }
 }
 </script>
+<style>
+
+</style>

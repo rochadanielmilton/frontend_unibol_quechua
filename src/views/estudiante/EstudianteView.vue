@@ -3,13 +3,13 @@
     <div class="row">
       <div class="mb-3">
         <!-- <div class="d-flex justify-content-around">         -->
-        <button class="btn btn-success col-2">
+        <button class="btn btn-outline-success col-2">
           <i class="fa-solid fa-table"></i> <router-link to="/estudiante/curso-preparatorio" class="nav-link active"
-            href="#">ESTUDIANTES-PREPARATORIO</router-link>
+            >ESTUDIANTES-PREPARATORIO</router-link>
         </button> &nbsp;
-        <button class="btn btn-success col-2 ">
+        <button class="btn btn-outline-success col-2 ">
           <i class="fa-solid fa-user-plus"></i> <router-link to="/estudiante/create" class="nav-link active"
-            href="#">NUEVO ESTUDIANTE</router-link>
+            >NUEVO ESTUDIANTE</router-link>
         </button>
 
         <!-- </div>     -->
@@ -92,13 +92,24 @@
                 <td>
 
                   <router-link :to="{ path: '/estudiante/materias-cursadas/' + estudiante.ci_estudiante }"
-                    class="btn btn-success">
+                    class="btn btn-outline-success" 
+                    >
+                    <!-- data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Historial Academico" -->
                     <i class="fa-solid fa-user-graduate"></i>
                   </router-link> &nbsp;
-                  <router-link :to="{ path: '/estudiante/edit/' + estudiante.ci_estudiante }" class="btn btn-warning">
+                  <router-link :to="{ path: '/estudiante/edit/' + estudiante.ci_estudiante }" class="btn btn-outline-warning"  
+                    >
+                    <!-- data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Editar" -->
                     <i class="fa-solid fa-edit"></i>
                   </router-link> &nbsp;
-                  <button class="btn btn-danger" v-on:click="eliminar(estudiante.ci_estudiante, estudiante.nombres)">
+                  <button class="btn btn-outline-danger" v-on:click="eliminar(estudiante.ci_estudiante, estudiante.nombres)" >
+                    <!-- data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Eliminar" -->
                     <i class="fa-solid fa-trash"></i>
                   </button>
                   <!-- FUNCIONA PERO NO ESTA ESTILIZADO -->
@@ -128,6 +139,7 @@ import { confirmar1, show_alerta } from '../../funciones';
 // })
 //const provincias = ref([]);
 //const contador =ref(0);
+import { Tooltip } from 'bootstrap'
 export default {
   name: 'EstudianteView',
   data() {
@@ -138,6 +150,9 @@ export default {
     //this.getMateriasCursadas();
     //ruta de navegacion despues de la accion eliminar
     this.principal = '/estudiantes';
+    new Tooltip(document.body, {
+      selector: "[data-bs-toggle='tooltip']",
+    })
   },
   methods: {
     async getEstudiantes() {
@@ -204,3 +219,9 @@ export default {
   }
 }
 </script>
+<style>
+/* body {
+    font-size: .875rem;
+    line-height: 1.25rem;
+} */
+</style>

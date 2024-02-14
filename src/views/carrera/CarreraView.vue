@@ -2,9 +2,9 @@
   <div class="container text-center">
   <div class="row">
     <div class="mb-3">
-      <div class="d-grid col-6-mx-auto offset-md-9">
+      <div class="d-grid col-3-mx-auto offset-md-9">
               <button class="btn btn-success">                
-                <router-link to="/carrera/create" class="nav-link active" href="#">Nueva Carrera</router-link><i class="fa-solid fa-building-columns"></i> 
+                  <router-link to="/carrera/create" class="nav-link active">Nueva Carrera</router-link><i class="fa-solid fa-building-columns"></i>
               </button></div>   
                  
      </div>
@@ -14,7 +14,7 @@
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped col-12">
-                  <thead class="table-light">
+                  <thead class="table-light" v-if="carreras">
                     <tr>                     
                       <th >
                         CODIGO CARRERA
@@ -32,6 +32,9 @@
                         ACCIONES
                       </th >
                     </tr></thead>
+                    <div v-else>
+                      <img :src="ruta" alt="iamgen">
+                    </div>
                   <tbody class="table-group-divider" id="contenido">
                     <tr v-for="carrera in carreras" :key="carrera.codigo_carrera">
                       
@@ -75,7 +78,7 @@ import {confirmar1} from '../../funciones';
 export default {
   name: 'DocenteView',
   data(){
-    return {carreras:null,url:'http://127.0.0.1:8000/parametros/carreras/',principal:''}
+    return {carreras:null,url:'http://127.0.0.1:8000/parametros/carreras/',principal:'',ruta:'../loading.gif'}
   },
   mounted(){
     this.getCarreras();

@@ -3,39 +3,39 @@
   <div v-if="materias" class="container-fluid" id="contenido-global">
   <div class="row">
     <div class="col-lg-10 offset-lg-1">
-    <div class="mb-3 fw-bold ">       
+    <div class="mb-3 fw-bold  ">       
 
-            <div class="mb-3 fs-4 text-center">                 
+            <div class="mb-3 fs-5 text-center">                 
              HISTORIAL ACADEMICO DE AVANCE GENERAL
             </div>
 
-            <div class=" mb-3">                 
+            <div class="  fs-6">                 
               APELLIDOS Y NOMBRES:    {{`${apellidoP} ${apellidoM} ${nombres}`}}
             </div>
             
-            <div class=" mb-3">                 
+            <div class="  fs-6">                 
               CEDULA DE IDENTIDAD:     {{`${ci_estudiante}`}}
             </div>
 
-            <div class=" mb-3">                 
+            <div class="  fs-6">                 
               NRO DE REGISTRO:       {{`${numero_registro}`}}
             </div>
 
-            <div class=" mb-3">                 
+            <div class="  fs-6">                 
               CARRERA:         {{`${nombre_carrera}`}}
             </div>
 
-            <div class=" mb-3">                 
+            <div class=" fs-6">                 
               APELLIDOS Y NOMBRES:      {{`${apellidoP} ${apellidoM} ${nombres}`}}
             </div>
 
             <div class="d-flex justify-content-between ">
-            <div class=" mb-3">                 
+            <div class=" mb-3 fs-6">                 
               FECHA DE EMISION :         {{`${fecha_emision}`}}
             </div>
             <div>
             <button   class="btn btn-warning " @click="exportPDF">                           
-              GENERAR PDF : <i class="fa-solid fa-file-pdf"></i>
+              <strong> GENERAR PDF :</strong> <i class="fa-solid fa-file-pdf"></i>
               </button>
             </div>
           </div>
@@ -50,7 +50,7 @@
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
         <div class="col-lg-10 offset-lg-1">
           <div class="table-responsive text-center">
-              <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12">
+              <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12 small">
                   <thead v-if="materias" class="pb-4 table-light">
                     <tr>
                       <th>
@@ -121,6 +121,8 @@
           </div>
         </div>
     </div>
+    <b-table striped hover :items="materias">
+    </b-table>
   </div>
 
 </template>
@@ -327,21 +329,46 @@ export default {
                        //añadimos 20+50 por el tamaño de las imagenes
                        finalY+=15; 
 
+
                     doc.setTextColor(10);
-                    doc.setFontSize(10);
+                    doc.setFontSize(10).setFont(undefined, 'bold');                      
                     doc.text(`
-                       APELLIDOS Y NOMBRES: ${this.apellidoP} ${this.apellidoM} ${this.nombres}                                  
-                       CEDULA DE IDENTIDAD: ${this.ci_estudiante}
-                       NRO DE REGISTRO: ${this.numero_registro}
-                       CARRERA: ${this.nombre_carrera}
-                       FECHA DE EMISION: ${this.fecha_emision}
-                       NIVEL DE FORMACION: ${this.grado}
-                       `, 30, finalY);
+                      HISTORIAL ACADÉMICO DE AVANCE GENERAL
+                      `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                      //finalY+=25;    
+                      //añadimos 20+50 por el tamaño de las imagenes
+                      finalY+=20;  
+
+                    doc.setTextColor(10);
+                    doc.setFontSize(8);
+                    doc.text(`
+                       APELLIDOS Y NOMBRES:                                  
+                       CÉDULA DE IDENTIDAD: 
+                       NRO DE REGISTRO: 
+                       CARRERA: 
+                       FECHA DE EMISIÓN: 
+                       NIVEL DE FORMACIÓN: 
+                       `, -10, finalY);
                        //finalY+=25;    
                        //añadimos 20+50 por el tamaño de las imagenes
-                       finalY+=35; 
+                       //finalY+=35; 
                     //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
-                    doc.setFontSize(9);
+                    //doc.setFontSize(9);
+
+                       doc.setTextColor(100);
+                       doc.text(`
+                       ${this.apellidoP} ${this.apellidoM} ${this.nombres}                         
+                       ${this.ci_estudiante}                       
+                       ${this.numero_registro}                                
+                       ${this.nombre_carrera}
+                       ${this.fecha_emision}
+                       ${this.grado}
+                       `, (doc.internal.pageSize.getWidth()/2)-150, finalY);
+
+
+
+                       finalY+=35; 
+
                     
 
                     //PRIMERA FORMA FINALIZADA 
@@ -349,7 +376,11 @@ export default {
                       startY: finalY + 20,
                       html: '#materias_cursadas' ,
                       //styles: {font: 'arial',fontSize:9}
-                      styles: {fontSize:9,halign: 'left'}
+                      //styles: {fontSize:9,halign: 'left'},
+                      theme:'plain',
+                      tableLineColor:[0,0,0],tableLineWidth:0.2,
+                      styles: {fontSize:6,halign: 'center'},
+                      bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
                       
                     })
 
@@ -368,7 +399,10 @@ export default {
                     // });
 
                     //doc.table(1, 1, this.generateData(100), headers1, { autoSize: true });
-                    await doc.save('example.pdf');                                
+
+                    //await doc.save(`${this.apellidoP} ${this.apellidoM} ${this.nombres}`);      
+                    await window.open(doc.output('bloburl'), '_blank');
+                    
                   //var doc = new jsPDF('p', 'pt', 'A4');
                     // margins = {
                     //     top: 80,
@@ -447,3 +481,9 @@ export default {
   }
 }
 </script>
+<style>
+body {
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+</style>
