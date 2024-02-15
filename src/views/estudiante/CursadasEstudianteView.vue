@@ -25,9 +25,9 @@
               CARRERA:         {{`${nombre_carrera}`}}
             </div>
 
-            <div class=" fs-6">                 
+            <!-- <div class=" fs-6">                 
               APELLIDOS Y NOMBRES:      {{`${apellidoP} ${apellidoM} ${nombres}`}}
-            </div>
+            </div> -->
 
             <div class="d-flex justify-content-between ">
             <div class=" mb-3 fs-6">                 

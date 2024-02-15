@@ -72,10 +72,10 @@
                         <td >{{ materia.pre_requisito2  }}</td>
                         <td >{{ materia.anio_asignado  }}</td>
                         <td>
-                            <router-link :to="{path:'/asignatura/edit/'+materia.codigo_asignatura}" class="btn btn-warning">
+                            <router-link :to="{path:'/asignatura/edit/'+materia.codigo_asignatura}" class="btn btn-outline-warning">
                                 <i class="fa-solid fa-edit"></i>
                             </router-link> &nbsp;
-                            <button class="btn btn-danger" @:click="eliminar(materia.codigo_asignatura,materia.nombre_asignatura)">
+                            <button class="btn btn-outline-danger" @:click="eliminar(materia.codigo_asignatura,materia.nombre_asignatura)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
