@@ -256,7 +256,7 @@ import { show_alerta,sendRequest } from "../../funciones";
 import { useRoute } from "vue-router";
 //import {ref} from 'vue';
 import axios from 'axios';
-
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'EditEstudianteView',
   // setup(){
@@ -279,7 +279,7 @@ export default {
       numero_registro:0,obs1:'',obs2:'',obs3:'',estado:'',descripcion_estado:'',baja:'',codigo_carrera:0,
       ci_especial:'',photography:'',fileFoto:null,
       idiomas:null,carreras:null,principal:'',provincias:null,departamentos:null,noencontrado:true,
-      url:'http://127.0.0.1:8000/estudiantes/estudiantes'
+      url:BASE_URL+'/estudiantes/estudiantes'
     }
   },
    mounted() {
@@ -379,7 +379,7 @@ export default {
     },
     getIdiomas()
     {
-      axios.get('http://127.0.0.1:8000/parametros/idiomasOriginarios/')
+      axios.get(BASE_URL+'/parametros/idiomasOriginarios/')
             .then(            
                 response =>(
                     this.idiomas = response.data                        
@@ -391,7 +391,7 @@ export default {
     },
     getCarreras()
     {
-      axios.get('http://127.0.0.1:8000/parametros/carreras/')
+      axios.get(BASE_URL+'/parametros/carreras/')
             .then(            
                 response =>(
                     this.carreras = response.data                        
@@ -403,7 +403,7 @@ export default {
     },
    async getProvincias()
     {
-      await axios.get('http://127.0.0.1:8000/parametros/provincias/')
+      await axios.get(BASE_URL+'/parametros/provincias/')
             .then(            
                 response =>(
                     this.provincias = response.data                        
@@ -412,7 +412,7 @@ export default {
     },
     async getDepartamentos()
     {
-      await axios.get('http://127.0.0.1:8000/parametros/departamentos/')
+      await axios.get(BASE_URL+'/parametros/departamentos/')
             .then(            
                 response =>(
                     this.departamentos = response.data                        

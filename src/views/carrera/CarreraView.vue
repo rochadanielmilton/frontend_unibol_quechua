@@ -75,10 +75,11 @@ import {confirmar1} from '../../funciones';
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'DocenteView',
   data(){
-    return {carreras:null,url:'http://127.0.0.1:8000/parametros/carreras/',principal:'',ruta:'../loading.gif'}
+    return {carreras:null,url:BASE_URL+'/parametros/carreras/',principal:'',ruta:'../loading.gif'}
   },
   mounted(){
     this.getCarreras();

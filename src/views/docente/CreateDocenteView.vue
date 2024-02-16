@@ -61,12 +61,13 @@
 <script>
 // @ is an alias to /src
 import { show_alerta,sendRequest } from "../../funciones";
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'CreateEstudianteView',
   data(){
     return {
       id:0,nombres:'',apellidop:'',apellidom:'',ci:'',celular:0,direccion:'',profesion:'',estado:'',principal:'',
-      url:'http://127.0.0.1:8000/docentes/docentes/'
+      url:BASE_URL+'/docentes/docentes/'
       //nombre:'',url:'http://127.0.0.1:8000/estudiantes/estudiantes/'
     }
   },mounted(){

@@ -53,13 +53,13 @@ import { show_alerta,sendRequest } from "../../funciones";
 import { useRoute } from "vue-router";
 //import {ref,computed} from 'vue';
 import axios from 'axios';
-
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'EditDocenteView',
   data(){
     return {
       id:0,codigo_carrera:'',nombre_carrera:'',descripcion:'',estado:'',
-      url:'http://127.0.0.1:8000/parametros/carreras',
+      url:BASE_URL+'/parametros/carreras',
       principal:''
     }
   },

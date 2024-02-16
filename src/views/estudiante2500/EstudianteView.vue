@@ -110,6 +110,7 @@ DataTable.use(DataTableLib);
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   components: {DataTable},
   name: 'EstudianteView',
@@ -153,7 +154,7 @@ export default {
   },
   methods:{
     async getEstudiantes(){
-           await axios.get('http://127.0.0.1:8000/estudiantes/estudiantes/')
+           await axios.get(BASE_URL+'/estudiantes/estudiantes/')
             .then(            
                 response =>(
                     this.estudiantes = response.data                        
@@ -173,7 +174,7 @@ export default {
       //this.$router.push('/estudiantes')    
     },
     getCarrera(id){      
-      axios.get('http://127.0.0.1:8000/parametros/carreras/'+id+'/')
+      axios.get(BASE_URL+'/parametros/carreras/'+id+'/')
             .then(            
                 response =>(
                     this.carreras[id] = response.data['nombre_carrera']
@@ -181,7 +182,7 @@ export default {
             );
           return this.carreras[id]
     },getMateriasCursadas(id){
-          axios.get('http://127.0.0.1:8000/estudiantes/obtenerAsignaturasCursadas/'+id)
+          axios.get(BASE_URL+'/estudiantes/obtenerAsignaturasCursadas/'+id)
             .then(            
                 response =>{
                     
@@ -224,16 +225,16 @@ export default {
 /*@import 'datatables.net-dt';*/
 @import 'datatables.net-responsive-dt'; 
 
-.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
+table.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
     position: relative;
     padding-left: 30px;
     cursor: pointer;
 }
-.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
     content: "-";
     background-color: #d33333;
 }
-.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     top: 33%;
     left: 5px;
     height: 1em;
@@ -251,7 +252,7 @@ export default {
     font-family: "Courier New",Courier,monospace;
     line-height: 1em;
     content: "+";
-    /* background-color: #31b131; */
+    background-color: #31b131;
     background-color: #74a2ff;
     
 }

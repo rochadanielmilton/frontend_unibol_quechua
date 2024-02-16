@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 let docentes_ = [];
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 
 export function show_alerta(mensaje, icono, foco = '') {
     if (foco !== '') {
@@ -15,7 +16,7 @@ export function show_alerta(mensaje, icono, foco = '') {
     });
 }
 export function confirmar(id, nombre) {
-    const url = 'http://127.0.0.1:8000/parametros/provincias/' + id + '/';
+    const url = BASE_URL+'/parametros/provincias/' + id + '/';
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: { confirmButton: 'btn btn-success me-3', cancelButton: 'btn btn-danger' },
@@ -38,7 +39,7 @@ export function confirmar(id, nombre) {
     })
 }
 export function confirmar1(id, nombre, ruta, principal = '/') {
-    const url = 'http://127.0.0.1:8000/' + ruta;
+    const url = BASE_URL +'/'+ ruta;
     let complemento_ruta = ruta.split('/')[0];
     if (complemento_ruta === 'parametros') {
         complemento_ruta = ruta.split('/')[1];
@@ -69,7 +70,7 @@ export function confirmar1(id, nombre, ruta, principal = '/') {
     })
 }
 export async function confirmarRegistroP(ci_postulante, nombre) {
-    const url = 'http://127.0.0.1:8000/administracion/registrarNueboEstudiante/' + ci_postulante + '/';
+    const url = BASE_URL+'/administracion/registrarNueboEstudiante/' + ci_postulante + '/';
     // let complemento_ruta =ruta.split('/')[0];
     // if(complemento_ruta==='parametros')
     // {   
@@ -101,7 +102,7 @@ export async function confirmarRegistroP(ci_postulante, nombre) {
     })
 }
 export async function inscripcionDirectaN(ci_estudiante, nombres) {
-    const url = 'http://127.0.0.1:8000/administracion/inscribirEstudiantePrimerAnio/' + ci_estudiante + '/';
+    const url = BASE_URL+'/administracion/inscribirEstudiantePrimerAnio/' + ci_estudiante + '/';
     // let complemento_ruta =ruta.split('/')[0];
     // if(complemento_ruta==='parametros')
     // {   
@@ -188,7 +189,7 @@ export async function sendRequest(metodo, parametros, url, mensaje, principal = 
 }
 
 export function getDocs() {
-    axios.get('http://127.0.0.1:8000/docentes/docentes/')
+    axios.get(BASE_URL+'/docentes/docentes/')
         .then(
             response => (
                 docentes_ = response.data

@@ -146,6 +146,7 @@ import autoTable from "jspdf-autotable";
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'AprobadasEstudianteView',
   data(){
@@ -156,7 +157,7 @@ export default {
     promedio_todas:'',
     promedio_aprobadas:'',
     materias:null,message:'',
-    url:'http://127.0.0.1:8000/estudiantes/obtenerAsignaturasCursadas'
+    url:BASE_URL+'/estudiantes/obtenerAsignaturasCursadas'
   }
   },
   mounted(){
@@ -515,7 +516,7 @@ export default {
       this.$router.push('/estudiantes')    
     },
     getCarrera(id){      
-      axios.get('http://127.0.0.1:8000/parametros/carreras/'+id+'/')
+      axios.get(BASE_URL+'/parametros/carreras/'+id+'/')
             .then(            
                 response =>(
                     this.carreras[id] = response.data['nombre_carrera']

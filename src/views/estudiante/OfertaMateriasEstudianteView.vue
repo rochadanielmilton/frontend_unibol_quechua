@@ -171,6 +171,7 @@ import autoTable from "jspdf-autotable";
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'AprobadasEstudianteView',
   setup(){
@@ -181,7 +182,7 @@ export default {
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',
 
     ofertaMaterias:[],estado1:false,
-    url:'http://127.0.0.1:8000/administracion/obtenerAsignaturasNoCursadas'
+    url:BASE_URL+'/administracion/obtenerAsignaturasNoCursadas'
   }
   },
   mounted(){
@@ -246,7 +247,7 @@ export default {
                           //asignaturas:this.asignaturas};
       //console.log(parametros);
 
-       const ruta = 'http://127.0.0.1:8000/administracion/inscribirEstudiante/';
+       const ruta = BASE_URL+'/administracion/inscribirEstudiante/';
 
       //  axios({method:'POST',url:ruta,data:parametros}).then(resultado=>{
       //    console.log(resultado);

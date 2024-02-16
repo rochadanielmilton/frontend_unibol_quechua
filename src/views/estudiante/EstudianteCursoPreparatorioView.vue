@@ -135,7 +135,7 @@ import html2pdf from "html2pdf.js";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 //import {ref} from 'vue';
 // const provincias = computed(()=>{
 //         return this.provincias = this.getProvincias()
@@ -149,7 +149,7 @@ export default {
       estudiantesP: null, principal: '',
       ci_estudiante: '', nombres: '', apellidoP: '', apellidoM: '', nota_final: '', estado_inscrito: '',
       message: '',
-      url: 'http://127.0.0.1:8000/administracion/obtenerPostulates/',
+      url: BASE_URL+'/administracion/obtenerPostulates/',
       ruta:'../loading.gif'
     }
   },

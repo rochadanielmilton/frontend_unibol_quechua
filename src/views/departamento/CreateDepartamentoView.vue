@@ -81,13 +81,14 @@
 // @ is an alias to /src
 import { show_alerta,sendRequest } from "../../funciones";
 import axios from 'axios';
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'CreateMateriaView',
   data(){
     return {      
       id:0,codigo_asignatura:'',nombre_asignatura:'',descripcion:'',id_docente:'',horas_practicas:'',horas_teoricas:'',total_horas:'',
       pre_requisito1:'',pre_requisito2:'',anio_asignado:'',docentes:null,anios_asignados:null,principal:'',
-      url:'http://127.0.0.1:8000/parametros/asignaturas/'
+      url:BASE_URL+'/parametros/asignaturas/'
       //nombre:'',url:'http://127.0.0.1:8000/estudiantes/estudiantes/'
     }
   },
@@ -100,7 +101,7 @@ export default {
   {
     getDocentes()
     {
-      axios.get('http://127.0.0.1:8000/docentes/docentes/')
+      axios.get(BASE_URL+'/docentes/docentes/')
             .then(            
                 response =>(
                     this.docentes = response.data                        
@@ -109,7 +110,7 @@ export default {
     },
     getAniosAsignados()
     {
-      axios.get('http://127.0.0.1:8000/parametros/aniosCarreras/')
+      axios.get(BASE_URL+'/parametros/aniosCarreras/')
             .then(            
                 response =>(
                     this.anios_asignados = response.data                        

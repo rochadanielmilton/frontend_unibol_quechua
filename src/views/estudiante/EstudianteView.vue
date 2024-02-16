@@ -140,13 +140,15 @@ import { confirmar1, show_alerta } from '../../funciones';
 //const provincias = ref([]);
 //const contador =ref(0);
 import { Tooltip } from 'bootstrap'
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'EstudianteView',
   data() {
-    return { estudiantes: null, carreras: [], principal: '', message: '' }
+    return { estudiantes: null, carreras: [], principal: '', message: '',BASE_URL:''}
   },
   mounted() {
     this.getEstudiantes();
+    //this.BASE_URL=process.env.VUE_APP_BASE_URL;
     //this.getMateriasCursadas();
     //ruta de navegacion despues de la accion eliminar
     this.principal = '/estudiantes';
@@ -155,14 +157,16 @@ export default {
     })
   },
   methods: {
-    async getEstudiantes() {
-      await axios.get('http://127.0.0.1:8000/estudiantes/estudiantes/')
+    async getEstudiantes() {            
+      //await axios.get('http://127.0.0.1:8000/estudiantes/estudiantes/')
+      await axios.get(BASE_URL+'/estudiantes/estudiantes/')
         .then(
           response => (
             this.estudiantes = response.data
           )
         );
-      console.log(this.estudiantes);
+      //console.log(this.estudiantes);
+      //console.log(BASE_URL);
     }, eliminar(id, nombre) {
       //   for (let index = 0; index < 10; index++) {
       //     sendRequest('POST',{
@@ -176,15 +180,16 @@ export default {
       //this.$router.push('/estudiantes')    
     },
     getCarrera(id) {
-      axios.get('http://127.0.0.1:8000/parametros/carreras/' + id + '/')
+      //axios.get('http://127.0.0.1:8000/parametros/carreras/' + id + '/')
+      axios.get(BASE_URL+'/parametros/carreras/' + id + '/')
         .then(
           response => (
             this.carreras[id] = response.data['nombre_carrera']
           )
         );
       return this.carreras[id]
-    }, getMateriasCursadas(id) {
-      axios.get('http://127.0.0.1:8000/estudiantes/obtenerAsignaturasCursadas/' + id)
+    }, getMateriasCursadas(id) {      
+      axios.get(BASE_URL+'/estudiantes/obtenerAsignaturasCursadas/' + id)
         .then(
           response => {
 

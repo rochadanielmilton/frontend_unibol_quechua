@@ -89,6 +89,7 @@ import {confirmar1} from '../../funciones';
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'DocenteView',
   data(){
@@ -99,7 +100,7 @@ export default {
   },
   methods:{
     getDocentes(){
-            axios.get('http://127.0.0.1:8000/docentes/docentes/')
+            axios.get(BASE_URL+'/docentes/docentes/')
             .then(            
                 response =>(
                     this.docentes = response.data                        

@@ -29,12 +29,12 @@ import { show_alerta,sendRequest } from "../funciones";
 import { useRoute } from "vue-router";
 //import {ref,computed} from 'vue';
 import axios from 'axios';
-
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'EditView',
   data(){
     return {
-      id:0,nombre:'',url:'http://127.0.0.1:8000/parametros/provincias'
+      id:0,nombre:'',url:BASE_URL+'/parametros/provincias'
     }
   },
   mounted() {
