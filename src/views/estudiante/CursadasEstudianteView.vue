@@ -402,7 +402,7 @@ export default {
                       tableLineColor:[0,0,0],tableLineWidth:0.2,
                       styles: {fontSize:6,halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
-                      
+                      //padding: 0                      
                     })
 
                       finalY = doc.lastAutoTable.finalY
