@@ -18,6 +18,7 @@
     <span v-show="showInfo">Showing Information</span>
 </template>
 <script>
+
 export default {
   data()
   {    

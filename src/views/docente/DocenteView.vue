@@ -61,10 +61,10 @@
                         <td >{{ docente.profesion  }}</td>
                         <td >{{ docente.estado  }}</td>
                         <td>
-                            <router-link :to="{path:'/docente/edit/'+docente.id}" class="btn btn-warning">
+                            <router-link :to="{path:'/docente/edit/'+docente.id}" class="btn btn-outline-warning">
                                 <i class="fa-solid fa-edit"></i>
                             </router-link> &nbsp;
-                            <button   class="btn btn-danger" v-on:click="eliminar(docente.id,docente.nombres)">
+                            <button   class="btn btn-outline-danger" v-on:click="eliminar(docente.id,docente.nombres)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
@@ -89,6 +89,7 @@ import {confirmar1} from '../../funciones';
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'DocenteView',
   data(){
@@ -99,7 +100,7 @@ export default {
   },
   methods:{
     getDocentes(){
-            axios.get('http://127.0.0.1:8000/docentes/docentes/')
+            axios.get(BASE_URL+'/docentes/docentes/')
             .then(            
                 response =>(
                     this.docentes = response.data                        

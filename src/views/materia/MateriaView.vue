@@ -72,10 +72,10 @@
                         <td >{{ materia.pre_requisito2  }}</td>
                         <td >{{ materia.anio_asignado  }}</td>
                         <td>
-                            <router-link :to="{path:'/asignatura/edit/'+materia.codigo_asignatura}" class="btn btn-warning">
+                            <router-link :to="{path:'/asignatura/edit/'+materia.codigo_asignatura}" class="btn btn-outline-warning">
                                 <i class="fa-solid fa-edit"></i>
                             </router-link> &nbsp;
-                            <button class="btn btn-danger" @:click="eliminar(materia.codigo_asignatura,materia.nombre_asignatura)">
+                            <button class="btn btn-outline-danger" @:click="eliminar(materia.codigo_asignatura,materia.nombre_asignatura)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
@@ -98,6 +98,7 @@ import {confirmar1, show_alerta} from '../../funciones';
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'MateriaView',
   data(){
@@ -109,7 +110,7 @@ export default {
   },
   methods:{
     getMaterias(){
-            axios.get('http://127.0.0.1:8000/parametros/asignaturas/')
+            axios.get(BASE_URL+'/parametros/asignaturas/')
             .then(            
                 response =>(
                     this.materias = response.data                        
@@ -126,7 +127,7 @@ export default {
       if(id_doc!==null||id_doc!=='undefined'||id_doc!=='')
       {      
         console.log(id_doc + codigo_asignatura);
-      axios.get('http://127.0.0.1:8000/docentes/docentes/'+id_doc+'/').then(
+      axios.get(BASE_URL+'/docentes/docentes/'+id_doc+'/').then(
         response =>(                 
           //revisar lo de fernando de objects
           //this.docente = `${response.data['nombres']} ${response.data['apellidop']} ${response.data['apellidom']}`

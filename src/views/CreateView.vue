@@ -25,11 +25,12 @@
 <script>
 // @ is an alias to /src
 import { show_alerta,sendRequest } from "../funciones";
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'HomeView',
   data(){
     return {
-      nombre:'',url:'http://127.0.0.1:8000/parametros/provincias/'
+      nombre:'',url:BASE_URL+'/parametros/provincias/'
     }
   },methods:{
     guardar(){

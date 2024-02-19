@@ -153,13 +153,18 @@ import autoTable from "jspdf-autotable";
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'AprobadasEstudianteView',
   data(){
     return {estudiantes:null,carreras:[],principal:'',
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',numero_registro:'',nombre_carrera:'',fecha_emision:'',grado:'',
+    cantidad_aprobadas:'',
+    cantidad_todas:'',
+    promedio_todas:'',
+    promedio_aprobadas:'',
     materias:null,message:'',
-    url:'http://127.0.0.1:8000/estudiantes/obtenerAsignaturasCursadas'
+    url:BASE_URL+'/estudiantes/obtenerAsignaturasCursadas'
   }
   },
   mounted(){
@@ -269,6 +274,15 @@ export default {
                     //RELLENADO DE DATOS DEL ESTUDIANTE:
                     //INICIO PRIMERA FORMA
 
+                    let tabla_promedios=[];        
+                  
+                    
+                      //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
+                      tabla_promedios.push(['TOTAL DE ASIGNATURAS APROBADAS',this.cantidad_aprobadas])
+                      tabla_promedios.push(['TOTAL DE ASIGNATURAS CURSADAS', this.cantidad_todas])
+                      tabla_promedios.push(['PROMEDIO DE CALIFICACIÓN GNRAL.',this.promedio_todas])
+                      tabla_promedios.push(['PREMEDIO DE CALIFICACIÓN APROBADAS',this.promedio_aprobadas])
+                     
                     doc.setTextColor(10);
                     doc.setFontSize(15);
 
@@ -393,7 +407,34 @@ export default {
 
                       finalY = doc.lastAutoTable.finalY
 
+                      let wantedTableWidth = 100;
+                      let pageWidth = doc.internal.pageSize.width;
+                      let margin = (pageWidth - wantedTableWidth) / 2;
 
+                      autoTable(doc, {       
+                      //QUITANDO ESPACIO
+                      //startY: finalY + 20,               
+                      startY: finalY + 10,               
+                      showHead: 'never',
+                      body:tabla_promedios,
+                      //theme:'grid',theme:'striped',theme:'plain'
+                      theme:'plain',
+                      tableLineColor:[0,0,0],tableLineWidth:0.2,
+                      styles: {fontSize:5,cellWidth:'wrap',halign: 'center'},
+                      bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
+                      columnStyles: {
+                        1: {columnWidth: 'auto'}
+                      },
+                      tableWidth: doc.internal.pageSize.getWidth()/3,
+                      margin: {left: margin-20, right: margin}
+                      //columnStyles:{color}
+                      
+                    });
+                    finalY = doc.lastAutoTable.finalY
+                    finalY+=30; 
+
+
+                      
                     //doc.addImage("https://picsum.photos/200", "JPEG", 15, finalY+20, 10, 10);
                   
                   //const body = this.estudiantes;
@@ -446,6 +487,12 @@ export default {
                     this.fecha_emision=response.data['fecha_emision'],
                     this.grado=response.data['grado'],
 
+                    this.cantidad_aprobadas=response.data['otros_datos']['cantidad_aprobadas'], 
+                    this.cantidad_todas= response.data['otros_datos']['cantidad_todas'], 
+                    this.promedio_todas=response.data['otros_datos']['promedio_todas'], 
+                    this.promedio_aprobadas=response.data['otros_datos']['promedio_aprobadas'],
+
+
                     this.materias = this.sortGestion(response.data['datos'])
                     
                     //this.materias = response.data['datos']
@@ -476,7 +523,7 @@ export default {
       this.$router.push('/estudiantes')    
     },
     getCarrera(id){      
-      axios.get('http://127.0.0.1:8000/parametros/carreras/'+id+'/')
+      axios.get(BASE_URL+'/parametros/carreras/'+id+'/')
             .then(            
                 response =>(
                     this.carreras[id] = response.data['nombre_carrera']

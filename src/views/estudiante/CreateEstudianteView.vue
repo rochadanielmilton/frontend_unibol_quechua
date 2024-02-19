@@ -234,6 +234,7 @@
 import { show_alerta,sendRequest } from "../../funciones";
 import axios from 'axios';
 //import {ref} from 'vue';
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'CreateEstudianteView',       
   data(){
@@ -242,7 +243,7 @@ export default {
       estado_civil:'',idioma_nativo:'',idioma_regular:'',email:'',nacionalidad:'',numero_archivo:'',numero_registro:'',obs1:'',obs2:'',obs3:'',estado:'',descripcion_estado:'',baja:'',codigo_carrera:'',
       ci_especial:'',photography:'',fileFoto:null,
       idiomas:null,carreras:null,departamentos:null,provincias:null,principal:'',mostrar_especial:false,
-      url:'http://127.0.0.1:8000/estudiantes/estudiantes/'      
+      url:BASE_URL+'/estudiantes/estudiantes/'      
     }
   }
   // ,setup(){
@@ -281,9 +282,8 @@ export default {
       this.photography=event.target.files[0].name;
       this.fileFoto=event.target.files[0];
     },
-    onChange(event) {
-            console.log('sturi'+event.target.value)
-            axios.get('http://127.0.0.1:8000/parametros/obtenerProvincias/'+event.target.value+'/')
+    onChange(event) {            
+            axios.get(BASE_URL+'/parametros/obtenerProvincias/'+event.target.value+'/')
             .then(            
                 response =>(
                     this.provincias = response.data                        
@@ -418,7 +418,7 @@ export default {
     },
     getIdiomas()
     {
-      axios.get('http://127.0.0.1:8000/parametros/idiomasOriginarios/')
+      axios.get(BASE_URL+'/parametros/idiomasOriginarios/')
             .then(            
                 response =>(
                     this.idiomas = response.data                        
@@ -427,7 +427,7 @@ export default {
     },
     getDepartamentos()
     {
-      axios.get('http://127.0.0.1:8000/parametros/departamentos/')
+      axios.get(BASE_URL+'/parametros/departamentos/')
             .then(            
                 response =>(
                     this.departamentos = response.data                        
@@ -436,7 +436,7 @@ export default {
     },
     getProvincias()
     {
-      axios.get('http://127.0.0.1:8000/parametros/provincias/')
+      axios.get(BASE_URL+'/parametros/provincias/')
             .then(            
                 response =>(
                     this.provincias = response.data                        
@@ -445,7 +445,7 @@ export default {
     },
     getCarreras()
     {
-      axios.get('http://127.0.0.1:8000/parametros/carreras/')
+      axios.get(BASE_URL+'/parametros/carreras/')
             .then(            
                 response =>(
                     this.carreras = response.data                        

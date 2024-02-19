@@ -111,13 +111,14 @@ import autoTable from "jspdf-autotable";
 // })
 //const provincias = ref([]);
  //const contador =ref(0);
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'MOstrarMallaCarreraView',
   data(){
     return {principal:'',
     id:0,codigo_carrera:'',nombre_carrera:'',codigo_asignatura:'',nombre_asignatura:'',descripcion:'',estado:'',
     message:'',asignaturas:null,
-    url:'http://127.0.0.1:8000/parametros/mallaAcademica'
+    url:BASE_URL+'/parametros/mallaAcademica'
   }
   },
   mounted(){

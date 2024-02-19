@@ -149,7 +149,7 @@ import autoTable from "jspdf-autotable";
  //const contador =ref(0);
 
 
-
+ let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   name: 'AprobadasEstudianteView',
   data(){
@@ -157,7 +157,7 @@ export default {
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',anio_ingreso:'',
     anio_actual:0,
     materias:null,keycon: 0,
-    url:'http://127.0.0.1:8000/administracion/obtenerEstudiantesInscripcion/',
+    url:BASE_URL+'/administracion/obtenerEstudiantesInscripcion/',
     //url:'http://192.168.30.9:8000/administracion/obtenerEstudiantesInscripcion/',
     ruta:'../loading.gif'
   }
@@ -183,7 +183,7 @@ export default {
     {
       event.preventDefault();      
       
-    const url = 'http://127.0.0.1:8000/administracion/inscribirEstudiantePrimerAnio/' + ci_estudiante + '/';
+    const url = BASE_URL+'/administracion/inscribirEstudiantePrimerAnio/' + ci_estudiante + '/';
     
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: { confirmButton: 'btn btn-success me-3', cancelButton: 'btn btn-danger' },

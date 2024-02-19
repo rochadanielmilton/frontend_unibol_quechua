@@ -37,6 +37,7 @@ import {confirmar} from '../funciones';
 //         return this.provincias = this.getProvincias()
 // })
 //const provincias = ref([]);
+let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
   
   name: 'HomeView',
@@ -51,7 +52,7 @@ export default {
   },
   methods:{
     async getProvincias(){
-          await  axios.get('http://127.0.0.1:8000/parametros/provincias/')
+          await  axios.get(BASE_URL+'/parametros/provincias/')
             .then(            
                 response =>(
                     this.provincias = response.data                
