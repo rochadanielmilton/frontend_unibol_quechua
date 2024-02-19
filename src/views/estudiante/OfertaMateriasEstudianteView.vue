@@ -181,16 +181,16 @@ export default {
     return {estudiantes:null,asignaturas:[],principal:'',
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',
 
-    ofertaMaterias:[],estado1:false,
+    ofertaMaterias:[],estado1:false,                   
     url:BASE_URL+'/administracion/obtenerAsignaturasNoCursadas'
   }
   },
-  mounted(){
+  async mounted(){
     const route =useRoute();    
      this.id = route.params.id;
       
      this.url = this.url + '/' +this.id+'/';
-    this.getAsignaturasNoCursadas();
+    await console.log(this.getAsignaturasNoCursadas());
     //ruta de navegacion despues de la accion eliminar
     this.principal='/estudiantes';
   },

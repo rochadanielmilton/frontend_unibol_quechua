@@ -164,7 +164,10 @@ export default {
           response => (
             this.estudiantes = response.data
           )
-        );
+        ).catch(error => {
+          console.log(error)
+          show_alerta(error, 'error')
+        });
       //console.log(this.estudiantes);
       //console.log(BASE_URL);
     }, eliminar(id, nombre) {
