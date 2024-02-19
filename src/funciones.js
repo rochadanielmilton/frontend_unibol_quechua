@@ -166,7 +166,7 @@ export async function sendRequest(metodo, parametros, url, mensaje, principal = 
             if (principal === 'estudiantes-preparatorio' || principal === 'estudiante-primer-anio') {
 
                 //setTimeout(() => window.location.href = '/estudiantes', 1000);
-                setTimeout(() => window.location.href = '/estudiante/curso-preparatorio', 1000);
+                setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);
             }
             //setTimeout(() => window.location.href=principal, 1000);
         }

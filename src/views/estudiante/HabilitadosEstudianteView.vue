@@ -3,6 +3,12 @@
   <div class="container-fluid" id="contenido-global">
   <div class="row">
     <div class="mb-3 fw-bold">       
+      <div class="mb-3 col-lg-10 offset-1">
+            <button class="btn btn-outline-success col-2">
+                <i class="fa-solid fa-table"></i> <router-link to="/estudiante/curso-preparatorio" class="nav-link active"
+                  >ESTUDIANTES-PREPARATORIO</router-link>
+            </button> &nbsp;
+      </div>
 
             <div class="mb-3 fs-4 text-center">                 
              LISTA DE ESTUDIANTES HABILITADOS PARA LA INSCRIPCION:
