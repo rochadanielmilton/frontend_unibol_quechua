@@ -1,27 +1,31 @@
 <template>
-  <div class="container-fluid text-center">
+  <div class="container-fluid ">
+  <!-- <div class="container-fluid text-center"> -->
     <div class="row">
       <div class="mb-3">
-        <!-- <div class="d-flex justify-content-around">         -->
-        <button class="btn btn-outline-success col-2">
+        <!-- <div class="d-flex justify-content-around ">         -->
+        <div class="mb-3 col-lg-10 offset-1">
+          
+        <!-- <button class="btn btn-outline-success col-2">
           <i class="fa-solid fa-table"></i> <router-link to="/estudiante/curso-preparatorio" class="nav-link active"
             >ESTUDIANTES-PREPARATORIO</router-link>
-        </button> &nbsp;
-        <button class="btn btn-outline-success col-2 ">
+        </button> &nbsp; -->
+
+        <button class="btn btn-outline-success  col-2 ">
           <i class="fa-solid fa-user-plus"></i> <router-link to="/estudiante/create" class="nav-link active"
             >NUEVO ESTUDIANTE</router-link>
         </button>
 
-        <!-- </div>     -->
+        </div>    
       </div>
     </div>
-    <div class="row">
+    <div class="row text-center">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
       <div class="col-lg-10 offset-lg-1">
         <div class="table-responsive">
           <table class="table table-bordered table-hover table-striped fixed small responsive">
-            <thead class="pb-4 table-light" v-if="estudiantes">
+            <thead class="pb-4 table-light col-auto" v-if="estudiantes">
               <tr>
                 <th class="col">
                   #
@@ -30,26 +34,35 @@
                 <th>
                   C.I.
                 </th>
-                <th class="col-1">
-                  NOMBRES
+                <th class="col-2">
+                  NOMBRE COMPLETO
                 </th>
-                <th>
+                <!-- <th>
                   APELLIDO-P.
                 </th>
                 <th class="col">
                   APELLIDO-M.
-                </th>
-                <th class="col">
-                  CELULAR
-                </th>
-                <th class="col-2">
+                </th> -->                
+                <th class="col-3">
                   CARRERA
                 </th>
                 <th class="col-1">
-                  AÑO DE INGRESO
+                  TIPO INGRESO
+                </th>
+                <th class="col-1">
+                  AÑO INGRESO
+                </th>
+                <th class="col-1">
+                  N° ARCHIVO
                 </th>
                 <th class="col-1">
                   AÑO CURSADO
+                </th>
+                <th class="col-2">
+                  OBS.1
+                </th>
+                <th class="col-2">
+                  OBS.2
                 </th>
                 <!-- <th class="col-1">
                         OBS.1
@@ -59,6 +72,9 @@
                       </th>                       -->
                 <th class="col-1">
                   ESTADO
+                </th>
+                <th class="col-1">
+                  INSCRITO
                 </th>
                 <th class="col-2">
                   ACCIONES
@@ -74,21 +90,25 @@
               <tr v-for="estudiante, i  in estudiantes" :key="estudiante.ci_estudiante">
                 <td>{{ i + 1 }}</td>
                 <!-- <td class="d-none d-sm-block pb-4">{{ estudiante.ci_estudiante }}</td> -->
-                <td>{{ estudiante.ci_estudiante }}</td>
 
-                <td>{{ estudiante.nombres }}</td>
-                <td>{{ estudiante.apellidoP }}</td>
-                <td>{{ estudiante.apellidoM }}</td>
+                <td v-if="estudiante.ci_especial">{{ `${estudiante.ci_estudiante}${estudiante.ci_especial}`}}</td>
+                <td v-else>{{ `${estudiante.ci_estudiante}`}}</td>
 
-                <td>{{ estudiante.celular }}</td>
-                <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
-                <td>{{ estudiante.nombre_carrera }}</td>
+                <td class="col-2">{{ `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}` }}</td>
+                <td class="col-3">{{ estudiante.nombre_carrera }}</td>
+                <td>{{ estudiante.tipo_ingreso }}</td>
+
                 <td>{{ estudiante.anio_ingreso }}</td>
+                <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
+                <td>{{ estudiante.numero_archivo }}</td>
                 <td>{{ estudiante.anio_cursado }}</td>
+                <td class="col-1">{{ estudiante.obs1 }}</td>
+                <td class="col-1">{{ estudiante.obs2 }}</td>
                 <!-- <td>{{ estudiante.obs1 }}</td>
                         <td>{{ estudiante.obs2 }}</td> -->
                 <!-- <td>{{ estudiante.id_carrera }}</td> -->
                 <td>{{ estudiante.estado }}</td>
+                <td>{{ estudiante.inscrito_gestion }}</td>
                 <td>
 
                   <router-link :to="{ path: '/estudiante/materias-cursadas/' + estudiante.ci_estudiante }"
@@ -168,8 +188,9 @@ export default {
           console.log(error)
           show_alerta(error, 'error')
         });
+        console.log(this.estudiantes);
       //console.log(this.estudiantes);
-      //console.log(BASE_URL);
+      //console.log('AS'+BASE_URL);
     }, eliminar(id, nombre) {
       //   for (let index = 0; index < 10; index++) {
       //     sendRequest('POST',{
