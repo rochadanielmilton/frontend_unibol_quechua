@@ -263,16 +263,23 @@ export default {
         console.log('este es el status'+status);
         
         const datos =resultado.data['asignaturas_inscritas'];
+        const asignaturas_anterior=resultado.data['asignaturas_gestion_anterior'];
         const datos_estudiante =resultado.data['estudiante'];
         const fecha_emision=resultado.data['fecha_emision'];
         const numero_boleta=resultado.data['numero_boleta'];
+        let asignaturas_gestion_anterior=[];
         let asignaturas_tabla=[];        
         for (let index = 0; index < datos.length; index++) {
           //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
-          asignaturas_tabla.push([index+1,datos[index].codigo_asignatura,datos[index].nombre_asignatura])
+          asignaturas_tabla.push([index+1,datos[index].codigo_asignatura,datos[index].nombre_asignatura,'N'])
+        }
+        for (let index = 0; index < asignaturas_anterior.length; index++) {
+          asignaturas_gestion_anterior.push([index+1,asignaturas_anterior[index].codigo_asignatura,asignaturas_anterior[index].nombre_asignatura,asignaturas_anterior[index].nota_num_final,
+                                            asignaturas_anterior[index].estado_gestion_espaniol,asignaturas_anterior[index].observacion]);      
         }        
         //console.log(asignaturas_tabla);
-        this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
+        //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
+        this.generarReporteInscripcionRegulares(asignaturas_tabla,asignaturas_gestion_anterior,datos_estudiante,fecha_emision,numero_boleta);
         //console.log(datos);          
         const mensaje = 'Estudiante inscrito Exitosamente!';
         if(status ===200)
@@ -722,6 +729,337 @@ export default {
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
                         finalY+=20;  
+
+                    //FIN DOCUMENTO DE REGISTRO DE INSCRIPCION
+
+                    //doc.table(1, 1, this.generateData(100), headers1, { autoSize: true });
+                    
+                    //await doc.save(`inscripcion_${this.apellidoP} ${this.apellidoM} ${this.nombres}.pdf`); 
+                    await window.open(doc.output('bloburl'), '_blank');                               
+                  //var doc = new jsPDF('p', 'pt', 'A4');
+                    // margins = {
+                    //     top: 80,
+                    //     bottom: 60,
+                    //     left: 40,
+                    //     width: 522
+                    // };       
+    },
+    async generarReporteInscripcionRegulares(asignaturas_tabla,asignaturas_gestion_anterior,datos_estudiante,fecha_emision,numero_boleta)
+    {
+      //first try
+                  //parameters:orientation,unit,format
+                  // const doc = new jsPDF('p', 'pt', 'A4');
+                  
+                  
+                  //   let pdfName = 'test';                     
+                  //   doc.text(`Hello Students:
+                    
+                  //     ${this.estudiantes[0].nombre_carrera}                   
+                      
+                  //     `, 10, 100);
+                  //   doc.save(pdfName + '.pdf');
+
+                  //second try
+                  //const doc = new jsPDF({unit: 'px'});
+                  const doc = new jsPDF({orientation:'p',unit:'px',format:'letter'});
+                  //const doc = new jsPDF('l','px,','letter');
+                  doc.setFontSize(12); 
+                  //let setY=15;
+
+                  // this.estudiantes.forEach(element => {
+                  //   doc.text(`
+                  //     ${element.nombres}                                         
+                  //     `, 10, setY);
+                  //     setY+=15;
+                  // });
+                  
+                  //EJEMPLO QUE ESTA AL FINAL DE COMO PASAR LOS HEADERS Y BODY
+                  //const headers = [['NRO','PERIODO','CODIGO','ASIGNATURA PROGRAMADA', 'OBSERVACION']];
+                  const headers = [['NRO','CÓDIGO','ASIGNATURA PROGRAMADA','TIPO', 'OBSERVACIÓN']];
+                  const headersGestionAnterior = [['NRO','CÓDIGO','NOMBRE ASIGNATURA', 'NOTA FINAL','RESULTADO','OBSERVACIÓN']];
+                  
+                  //const headers1 = [['Nro','nombres', 'apellidoP', 'apellidoM','celular','nombre_carrera','estado']];  // 注意有兩層[]
+                  // const body = [
+                  //     ['David', 'david@example.com', 'Sweden'],
+                  //     ['Castille', 'castille@example.com', 'Spain']
+                  // ]
+
+                  //SEGUNDA FORMA CON EL RELLENADO DE UN FORMATO SOLICITADO ATRAVES DE ESTRUCTURAS DE DATOS, LA PRIMERA A TRAVES DE UN TAG HTML
+                  // const resultado = [];
+                  // const encabezado = [];
+
+                  // for (var i = 0; i < this.estudiantes.length; i += 1) {
+                  //   console.log(this.estudiantes[i]);
+                  //   //resultado.push(this.estudiantes[i])
+                  //    if(i==0)
+                  //    {
+                  //      encabezado.push({nombres:`${this.estudiantes[i].apellidoP} ${this.estudiantes[i].apellidoM} ${this.estudiantes[i].nombres} `,ci_estudiante:this.estudiantes[i].ci_estudiante,
+                  //                      nombre_carrera:this.estudiantes[i].nombre_carrera});
+                  //       console.log(encabezado);
+                  //    }
+                  //   resultado.push([i+1,this.estudiantes[i].nombres,this.estudiantes[i].apellidoP,this.estudiantes[i].apellidoM,this.estudiantes[i].celular,
+                  //   this.estudiantes[i].nombre_carrera,this.estudiantes[i].estado])
+                    //result.push(Object.assign({}, data));
+                  // }
+
+                  //UNNECESARY PIECE OF CODE 
+                  // let otro=[];
+                  //   this.estudiantes.forEach(element => {
+                  //     let jsonsito = {
+                  //       nombre:element.nombres,
+                  //       apellidoP:element.apellidoP,
+                  //       apellidoM:element.apellidoM
+                  //     }
+                  //     otro.push(jsonsito);
+                      
+                  //   doc.text(`
+                  //     ${element.nombres}                                         
+                  //     `, 10, setY);
+                  //     setY+=15;
+                  // });
+
+
+                   //numero de pagina
+                  //  const pageNumber=3;
+                  //  for (let i = 0; i < pageNumber; i++) {
+                  //     doc.setPage(i);
+                  //     let pageCurrent = doc.internal.getCurrentPageInfo().pageNumber; //現在這頁
+                  //     doc.setFontSize(12); //設定字體大小(optional)
+                  //     doc.text(
+                  //       `${pageCurrent} / ${pageNumber}`,
+                  //       190,
+                  //       doc.internal.pageSize.height - 10,
+                  //       {align: 'left'}
+                  //     );
+                  //   } 
+
+                    //<!--  -->
+                    //RELLENADO DE FORMA INICIAL()
+                    //RELLENADO DE DATOS DEL ESTUDIANTE:
+                    //INICIO PRIMERA FORMA
+
+                    doc.setTextColor(10);
+                    doc.setFontSize(15);
+
+                    // doc.text(`
+                    //   Primer comentario                                        
+                    //    `, 10, setY);
+                       
+                    let finalY = doc.lastAutoTable.finalY || 10
+
+                    //doc.addImage("https://picsum.photos/200", "JPEG", doc.internal.pageSize.width-80, finalY+20, 50, 50);
+
+                    //await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width-80, finalY+20, 50, 50);
+                    //await doc.addImage("../../caracteristicas-bosques-tropicales.jpg", "JPG", 30, finalY+20, 50, 50);
+                    
+                    //<!-- -->
+                    //PRIMER EJEMPLO DE PRUEBA EXITOSO
+                    // doc.text(`
+                    //    HISTORIAL ACADEMICO DE AVANCE GENERAL                                                      
+                    //    `, 20, finalY);
+                    //                   //finalY+=25;    
+                    //    finalY+=20;    
+                    // //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
+                    // doc.setFontSize(10);
+                    // doc.text(`                            
+                    //    APELLIDOS Y NOMBRES: ${this.apellidoP} ${this.apellidoM} ${this.nombres}                                  
+                    //    CEDULA DE IDENTIDAD: ${this.ci_estudiante}
+                    //    NRO DE REGISTRO: ${this.numero_registro}
+                    //    CARRERA: ${this.nombre_carrera}
+                    //    FECHA DE EMISION: ${this.fecha_emision}
+                    //    NIVEL DE FORMACION: ${this.grado}
+                    //    `,80, finalY);
+                    //    finalY+=35;     
+                    
+                    //INICIANDO LOS ENCABEZADOS Y FORMATO DE PRESENTACION
+                    await doc.addImage("../../ministerio.jpg", "JPG", 15, finalY+5, 60, 60);
+                    await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width-65, finalY+5 , 50, 50);
+                    
+                    doc.setTextColor(10);
+                    doc.setFontSize(10).setFont(undefined, 'bold');
+                    doc.setTextColor(18, 73, 39);
+                    doc.text(`
+                       UNIVERSIDAD INDÍGENA BOLIVIANA COMUNITARIA INTERCULTURAL PRODUCTIVA
+                       UNIBOL QUECHUA "CASIMIRO HUANCA"
+                       `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                       //finalY+=25;    
+                       //añadimos 20+50 por el tamaño de las imagenes
+                       finalY+=20;    
+
+                    doc.setTextColor(100);
+                    doc.setFontSize(8).setFont(undefined, 'normal');
+                    doc.text(`
+                       Decreto Supremo N° 29664 de 2 de agosto de 2008 - Decreto Supremo N° 3079 del 8 de febrero 2017
+                       R.M. 505/2013 - R.M. 1300/2018"
+                       `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                       //finalY+=25;    
+                       //añadimos 20+50 por el tamaño de las imagenes
+                       finalY+=20; 
+
+                    doc.setTextColor(10);
+                    doc.setFontSize(8);
+                    doc.text(`
+                       Tukuy sunquwan yahcyaninchikta, ruwayninchikta, yuyayninchikta kallpachaspa sumaq kawsayman kutina                       
+                       `, (doc.internal.pageSize.getWidth()/2)-5, finalY,null,null,"center");
+                       //finalY+=25;    
+                       //añadimos 20+50 por el tamaño de las imagenes
+                       finalY+=15; 
+
+
+                      doc.setTextColor(10);
+                      doc.setFontSize(10).setFont(undefined, 'bold');                      
+                      doc.text(`
+                        BOLETA DE INSCRIPCIÓN 2024
+                        `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                        //finalY+=25;    
+                        //añadimos 20+50 por el tamaño de las imagenes
+                        finalY+=10;    
+
+                      doc.setTextColor(10);
+                      doc.setFontSize(10).setFont(undefined, 'bold');                      
+                      doc.text(`
+                        N° ${numero_boleta}
+                        `, (doc.internal.pageSize.getWidth()/2)+120, finalY,null,null,"center");
+                        //finalY+=25;    
+                        //añadimos 20+50 por el tamaño de las imagenes
+                        finalY+=10;  
+                    
+                    doc.setTextColor(10);
+                    doc.setFontSize(8).setFont(undefined, 'bold');
+                    doc.text(`
+                       APELLIDOS Y NOMBRES:                                  
+                       CÉDULA DE IDENTIDAD:
+                        NÚMERO DE REGISTRO: 
+                                   CARRERA:
+                          FECHA DE EMISIÓN:
+                       
+                       `, -20, finalY);
+                      //  NRO DE REGISTRO: ${this.numero_registro}
+
+                      //  FECHA DE EMISION: ${this.fecha_emision}
+                      //  NIVEL DE FORMACION: ${this.grado}
+                       //finalY+=25;    
+                       //añadimos 20+50 por el tamaño de las imagenes
+
+                       //datos_estudiante,fecha_emision,numero_boleta
+                       doc.setTextColor(100);
+                       doc.text(`
+                       ${datos_estudiante.apellidoP} ${datos_estudiante.apellidoM} ${datos_estudiante.nombres}                        
+                       ${datos_estudiante.ci_estudiante}                       
+                       ${datos_estudiante.numero_registro}                                 
+                       ${datos_estudiante.nombre_carrera}
+                       ${fecha_emision}
+                       
+                       `, (doc.internal.pageSize.getWidth()/2)-150, finalY);
+
+
+
+                       finalY+=45; 
+                    //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
+                    //doc.setFontSize(9);
+                    
+                    doc.setTextColor(10);
+                      doc.setFontSize(10).setFont(undefined, 'bold');                      
+                      doc.text(`
+                        ASIGNATURAS GESTIÓN 2023
+                        `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+
+                        autoTable(doc, {       
+                      //QUITANDO ESPACIO
+                      //startY: finalY + 20,               
+                      startY: finalY + 20,               
+                      head: headersGestionAnterior,
+                      body:asignaturas_gestion_anterior,
+                      //theme:'grid',theme:'striped',theme:'plain'
+                      theme:'plain',
+                      tableLineColor:[0,0,0],tableLineWidth:0.2,
+                      styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
+                      bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
+                      //columnStyles:{color}
+                      padding:1
+                      
+                    });
+                    finalY = doc.lastAutoTable.finalY
+                    finalY+=30; 
+
+
+                    
+                    doc.setTextColor(10);
+                      doc.setFontSize(10).setFont(undefined, 'bold');                      
+                      doc.text(`
+                        PROGRAMACIÓN DE ASIGNATURAS GESTIÓN 2024
+                        `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                        //finalY+=25;    
+                        //añadimos 20+50 por el tamaño de las imagenes
+                        //finalY+=10; 
+                        //COMENTADO POR MUCHJO ESPACIO   
+                        //finalY+=10;    
+
+                    //PRIMERA FORMA FINALIZADA 
+                    // autoTable(doc, { 
+                    //   startY: finalY + 20,
+                    //   html: '#materias_cursadas' ,
+                    //               //styles: {font: 'arial',fontSize:9}
+                    //   styles: {fontSize:9,halign: 'left'}
+                      
+                    // })
+
+                      
+                        
+
+                    //doc.addImage("https://picsum.photos/200", "JPEG", 15, finalY+20, 10, 10);
+                  
+                  //const body = this.estudiantes;
+                   //const body =otro;
+
+                    //SEGUNDA FORMA FINALIZADA
+                    autoTable(doc, {       
+                      //QUITANDO ESPACIO
+                      //startY: finalY + 20,               
+                      startY: finalY + 20,               
+                      head: headers,
+                      body:asignaturas_tabla,
+                      //theme:'grid',theme:'striped',theme:'plain'
+                      theme:'plain',
+                      tableLineColor:[0,0,0],tableLineWidth:0.2,
+                      styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
+                      bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
+                      //columnStyles:{color}
+                      padding:1
+                      
+                    });
+                    finalY = doc.lastAutoTable.finalY
+                    finalY+=60; 
+
+                    doc.setTextColor(10);
+                      doc.setFontSize(8).setFont(undefined, 'normal');                      
+                      doc.text(`
+                        FIRMA ESTUDIANTE
+                        `, -10, finalY);
+                        //finalY+=25;    
+                        //añadimos 20+50 por el tamaño de las imagenes
+                        //finalY+=10; 
+                        
+                        doc.setTextColor(10);
+                      doc.setFontSize(8).setFont(undefined, 'normal');                      
+                      doc.text(`
+                        RESP. INSCRIPCIÓN
+                        `,(doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                        //finalY+=25;    
+                        //añadimos 20+50 por el tamaño de las imagenes
+                        //finalY+=10;   
+
+                        doc.setTextColor(10);
+                      doc.setFontSize(8).setFont(undefined, 'normal');                      
+                      doc.text(`
+                      FIRMA DIRECTOR
+                        `, (doc.internal.pageSize.getWidth()/2)+120, finalY,null,null,"center");
+                        //finalY+=25;    
+                        //añadimos 20+50 por el tamaño de las imagenes
+                        finalY+=15;  
+
+                        
+
 
                     //FIN DOCUMENTO DE REGISTRO DE INSCRIPCION
 
