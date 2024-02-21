@@ -22,128 +22,68 @@
     <div class="row text-center">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-      <div class="col-lg-10 offset-lg-1">
         <div class="table-responsive">
-          <table class="table table-bordered table-hover table-striped fixed small responsive">
-            <thead class="pb-4 table-light col-auto" v-if="estudiantes">
-              <tr>
-                <th class="col">
-                  #
-                </th>
-                <!-- <th class="d-none d-sm-block pb-4 col"> -->
-                <th>
-                  C.I.
-                </th>
-                <th class="col-2">
-                  NOMBRE COMPLETO
-                </th>
-                <!-- <th>
-                  APELLIDO-P.
-                </th>
-                <th class="col">
-                  APELLIDO-M.
-                </th> -->                
-                <th class="col-3">
-                  CARRERA
-                </th>
-                <th class="col-1">
-                  TIPO INGRESO
-                </th>
-                <th class="col-1">
-                  AÑO INGRESO
-                </th>
-                <th class="col-1">
-                  N° ARCHIVO
-                </th>
-                <th class="col-1">
-                  AÑO CURSADO
-                </th>
-                <th class="col-2">
-                  OBS.1
-                </th>
-                <th class="col-2">
-                  OBS.2
-                </th>
-                <!-- <th class="col-1">
-                        OBS.1
-                      </th>
-                      <th class="col-1">
-                        OBS.2
-                      </th>                       -->
-                <th class="col-1">
-                  ESTADO
-                </th>
-                <th class="col-1">
-                  INSCRITO
-                </th>
-                <th class="col-2">
-                  ACCIONES
-                </th>
-              </tr>
-            </thead>
+  <table class="table table-bordered table-hover table-striped small">
+    <thead class="pb-4 table-light col-auto" v-if="estudiantes">
+      <tr>
+        <th class="col">N°</th>
+        <th class="col">C.I.</th>
+        <th class="col-2">NOMBRE COMPLETO</th>
+        <th class="col-3">CARRERA</th>
+        <th class="col-1">TIPO INGRESO</th>
+        <th class="col-1">AÑO INGRESO</th>
+        <th class="col-1">N° ARCHIVO</th>
+        <th class="col-1">AÑO CURSADO</th>
+        <th class="col-1">OBS.1</th>
+        <th class="col-2">OBS.2</th>
+        <th class="col-1">ESTADO</th>
+        <th class="col-1">INSCRITO</th>
+        <th class="col-2">ACCIONES</th>
+      </tr>
+    </thead>
+    <div v-else>
+      <img src="loading.gif" alt="imagen">
+    </div>
 
-            <div v-else>
-              <img src="loading.gif" alt="iamgen">
-            </div>
+    <tbody class="table-group-divider" id="contenido">
+      <tr v-for="estudiante, i  in estudiantes" :key="estudiante.ci_estudiante">
+        <td>{{ i + 1 }}</td>
+        <!-- <td class="d-none d-sm-block pb-4">{{ estudiante.ci_estudiante }}</td> -->
 
-            <tbody class="table-group-divider" id="contenido">
-              <tr v-for="estudiante, i  in estudiantes" :key="estudiante.ci_estudiante">
-                <td>{{ i + 1 }}</td>
-                <!-- <td class="d-none d-sm-block pb-4">{{ estudiante.ci_estudiante }}</td> -->
+        <td v-if="estudiante.ci_especial">{{ `${estudiante.ci_estudiante}${estudiante.ci_especial}`}}</td>
+        <td v-else>{{ `${estudiante.ci_estudiante}`}}</td>
 
-                <td v-if="estudiante.ci_especial">{{ `${estudiante.ci_estudiante}${estudiante.ci_especial}`}}</td>
-                <td v-else>{{ `${estudiante.ci_estudiante}`}}</td>
+        <td class="col-2">{{ `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}` }}</td>
+        <td class="col-3">{{ estudiante.nombre_carrera }}</td>
+        <td>{{ estudiante.tipo_ingreso }}</td>
 
-                <td class="col-2">{{ `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}` }}</td>
-                <td class="col-3">{{ estudiante.nombre_carrera }}</td>
-                <td>{{ estudiante.tipo_ingreso }}</td>
-
-                <td>{{ estudiante.anio_ingreso }}</td>
-                <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
-                <td>{{ estudiante.numero_archivo }}</td>
-                <td>{{ estudiante.anio_cursado }}</td>
-                <td class="col-1">{{ estudiante.obs1 }}</td>
-                <td class="col-1">{{ estudiante.obs2 }}</td>
-                <!-- <td>{{ estudiante.obs1 }}</td>
+        <td>{{ estudiante.anio_ingreso }}</td>
+        <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
+        <td>{{ estudiante.numero_archivo }}</td>
+        <td>{{ estudiante.anio_cursado }}</td>
+        <td class="col-1">{{ estudiante.obs1 }}</td>
+        <td class="col-1">{{ estudiante.obs2 }}</td>
+        <!-- <td>{{ estudiante.obs1 }}</td>
                         <td>{{ estudiante.obs2 }}</td> -->
-                <!-- <td>{{ estudiante.id_carrera }}</td> -->
-                <td>{{ estudiante.estado }}</td>
-                <td>{{ estudiante.inscrito_gestion }}</td>
-                <td>
+        <!-- <td>{{ estudiante.id_carrera }}</td> -->
+        <td>{{ estudiante.estado }}</td>
+        <td>{{ estudiante.inscrito_gestion }}</td>
+        <td class="d-flex justify-content-center">
+          <router-link :to="{ path: '/estudiante/materias-cursadas/' + estudiante.ci_estudiante }" class="btn btn-outline-success me-1">
+            <i class="fa-solid fa-user-graduate"></i>
+          </router-link>
+          <router-link :to="{ path: '/estudiante/edit/' + estudiante.ci_estudiante }" class="btn btn-outline-warning me-1">
+            <i class="fa-solid fa-edit"></i>
+          </router-link>
+          <!-- <button class="btn btn-outline-danger" @click="eliminar(estudiante.ci_estudiante, estudiante.nombres)">
+            <i class="fa-solid fa-trash"></i>
+          </button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-                  <router-link :to="{ path: '/estudiante/materias-cursadas/' + estudiante.ci_estudiante }"
-                    class="btn btn-outline-success" 
-                    >
-                    <!-- data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Historial Academico" -->
-                    <i class="fa-solid fa-user-graduate"></i>
-                  </router-link> &nbsp;
-                  <router-link :to="{ path: '/estudiante/edit/' + estudiante.ci_estudiante }" class="btn btn-outline-warning"  
-                    >
-                    <!-- data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Editar" -->
-                    <i class="fa-solid fa-edit"></i>
-                  </router-link> &nbsp;
-                  <button class="btn btn-outline-danger" v-on:click="eliminar(estudiante.ci_estudiante, estudiante.nombres)" >
-                    <!-- data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Eliminar" -->
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                  <!-- FUNCIONA PERO NO ESTA ESTILIZADO -->
-                  <!-- <b-button v-b-tooltip.hover title="Tooltip directive content">
-                              Hover Me
-                            </b-button> -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <!-- </div> -->
-        </div>
-      </div>
     </div>
   </div>
 </template>
