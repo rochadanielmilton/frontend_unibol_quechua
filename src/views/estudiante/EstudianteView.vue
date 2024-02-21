@@ -490,7 +490,7 @@ export default {
                       finalY+=15;  
                     
                     doc.setTextColor(10);
-                    doc.setFontSize(12);
+                    doc.setFontSize(11);
                     doc.text(`
                        Apellidos y Nombres:                                  
                        Fecha de Nacimiento: 
@@ -539,7 +539,7 @@ export default {
                        }
 
                        doc.setTextColor(100);
-                       doc.setFontSize(12);
+                       doc.setFontSize(11);
                        doc.text(`
                        ${estudiante.apellidoP} ${estudiante.apellidoM} ${estudiante.nombres}                         
                        ${this.formatDate(estudiante.fecha_nacimiento)}                       
@@ -564,7 +564,7 @@ export default {
                         finalY+=15;  
 
                       doc.setTextColor(10);
-                      doc.setFontSize(12);
+                      doc.setFontSize(11);
                       doc.text(`                                                       
                         -Matriz: 
                         -Regional: 
@@ -595,6 +595,7 @@ export default {
                       
 
                        doc.setTextColor(100);
+                       doc.setFontSize(11).setFont(undefined, 'bold');     
                        doc.text(`                                        
                        ${matriz}                                
                        ${regional}
@@ -608,7 +609,7 @@ export default {
                       doc.setTextColor(10);
                       doc.setFontSize(14).setFont(undefined, 'bold');                      
                       doc.text(`
-                        CARRERA DE INGRESO
+                      CARRERA DE INGRESO
                         `,-30, finalY,null,null,"left");                        
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes

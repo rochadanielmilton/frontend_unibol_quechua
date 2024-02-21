@@ -905,11 +905,7 @@ export default {
                     //doc.setFontSize(9);
                     
                     
-                    doc.setTextColor(10);
-                      doc.setFontSize(10).setFont(undefined, 'bold');                      
-                      doc.text(`
-                        PROGRAMACIÓN DE ASIGNATURAS GESTIÓN 2024
-                        `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                    
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
                         //finalY+=10; 
@@ -924,12 +920,7 @@ export default {
                     //   styles: {fontSize:9,halign: 'left'}
                       
                     // })
-                    finalY+=10; 
-                    doc.setTextColor(10);
-                    doc.setFontSize(10).setFont(undefined, 'bold');                      
-                    doc.text(`
-                        PERIODO: ${datos_estudiante.anio_cursado}
-                        `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                    
 
 
                     //CABECERA PARA LA MODALIDAD DE INGRESO DE NUEVOS ESTUDIANTES 2024
@@ -952,6 +943,20 @@ export default {
                     finalY = doc.lastAutoTable.finalY
                     finalY+=10; 
                     //doc.addImage("https://picsum.photos/200", "JPEG", 15, finalY+20, 10, 10);
+
+                    doc.setTextColor(10);
+                    doc.setFontSize(10).setFont(undefined, 'bold');                      
+                    doc.text(`
+                        PROGRAMACIÓN DE ASIGNATURAS GESTIÓN 2024
+                        `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                    
+                        finalY+=10; 
+                    doc.setTextColor(10);
+                    doc.setFontSize(10).setFont(undefined, 'bold');                      
+                    doc.text(`
+                        PERIODO: ${datos_estudiante.anio_cursado}
+                        `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
+                    
                   
                   //const body = this.estudiantes;
                    //const body =otro;
