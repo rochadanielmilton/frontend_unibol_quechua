@@ -1008,16 +1008,16 @@ export default {
                       doc.setFontSize(6).setFont(undefined, 'bold');
                       doc.text(`
                       Documento solo válido para tramite interno                                  
-                      *Ajuste: ASignaturas validadas con la Resolución Ministerial N°0155/2023
+                      *Ajuste: Asignaturas validadas con la Resolución Ministerial N°0155/2023
                       *N: Gestión Asignatura Normal                        
                         `, -10, finalY);
 
                         
 
                       doc.setTextColor(10);
-                      doc.setFontSize(10).setFont(undefined, 'bold');                      
+                      doc.setFontSize(8).setFont(undefined, 'bold');                      
                       doc.text(`
-                        N°: ${numero_archivo}
+                        Arch: ${numero_archivo}
                         `, (doc.internal.pageSize.getWidth()/2)+120, finalY+50,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes

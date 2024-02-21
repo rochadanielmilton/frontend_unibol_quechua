@@ -453,6 +453,14 @@ export default {
                        //añadimos 20+50 por el tamaño de las imagenes
                        finalY+=15; 
 
+                    doc.setTextColor(10);
+                    doc.setFontSize(12).setFont(undefined, 'bold');                      
+                    doc.text(`
+                      FORMULARIO DE ADMISIÓN UNIBOL-QUECHUA
+                      `, (doc.internal.pageSize.getWidth()/2)-40, finalY,null,null,"center");
+                      //finalY+=25;    
+                      //añadimos 20+50 por el tamaño de las imagenes
+                      finalY+=10; 
 
                     doc.setTextColor(10);
                     doc.setFontSize(18).setFont(undefined, 'bold');                      
