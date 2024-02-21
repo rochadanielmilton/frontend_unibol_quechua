@@ -328,7 +328,7 @@ export default {
 
           this.genero=response.data['genero'],
           this.fecha_nacimiento=response.data['fecha_nacimiento'],
-          this.depa_nacimiento= response.data['depa_nacimiento'].toUpperCase(),
+          this.depa_nacimiento= response.data['depa_nacimiento'],
           this.prov_nacimiento=response.data['prov_nacimiento'],
 
           //this.munic_nacimiento=response.data['munic_nacimiento'],

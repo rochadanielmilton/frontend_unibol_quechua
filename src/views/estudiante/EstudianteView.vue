@@ -180,7 +180,7 @@ export default {
   name: 'EstudianteView',
   data() {
     return { estudiantes: null, carreras: [], principal: '', message: '',BASE_URL:'',
-    datos_estudiante:{
+    datos_estudiantes:{
       gestion:'',
       datos_estudiante:{},
       requisitos:{},
@@ -205,10 +205,10 @@ export default {
         .then(
           response => {
               //const datos_estudiante=response.data['datos_estudiante'];
-             this.datos_estudiante = response.data;
+             this.datos_estudiantes = response.data;
              //console.log(this.datos_estudiante.requisitos[0].requisito);
              //console.log(this.datos_estudiante);
-             this.exportPDF(this.datos_estudiante);
+             this.exportPDF(this.datos_estudiantes);
           }
         ).catch(error => {
           console.log(error)
@@ -505,49 +505,49 @@ export default {
                        //finalY+=35; 
                     //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
                     //doc.setFontSize(9);                       
-                       const estudiante = datos_estudiante.datos_estudiante;
+                       const estudiante1 = datos_estudiante.datos_estudiante;
                        let estado = '';
                        let genero = '';
                        let email ='';
                        let celular ='';
                        let nacimiento = '';
-                       if(estudiante.estado_civil)
+                       if(estudiante1.estado_civil)
                        {
-                        estado = estudiante.estado_civil.toUpperCase();
+                        estado = estudiante1.estado_civil.toUpperCase();
                        }else{
                         estado = '';
                        }
 
-                       if(estudiante.genero==='M')
+                       if(estudiante1.genero==='M')
                        {
                         genero='MASCULINO';
                        }else{
                         genero='FEMENINO';
                        }
 
-                       if(estudiante.email)
+                       if(estudiante1.email)
                        {
-                        email=estudiante.email.toUpperCase();
+                        email=estudiante1.email.toUpperCase();
                        }else{
                         email='';
                        }
 
-                       if(estudiante.celular>0)
+                       if(estudiante1.celular>0)
                        {
-                        celular=estudiante.celular;
+                        celular=estudiante1.celular;
                        }else{
                         celular = '';
                        }
-                       if(estudiante.prov_nacimiento)
+                       if(estudiante1.prov_nacimiento)
                        {
-                        nacimiento=estudiante.prov_nacimiento.toUpperCase();
+                        nacimiento=estudiante1.prov_nacimiento.toUpperCase();
                        }
 
                        doc.setTextColor(100);
                        doc.setFontSize(11);
                        doc.text(`
-                       ${estudiante.apellidoP} ${estudiante.apellidoM} ${estudiante.nombres}                         
-                       ${this.formatDate(estudiante.fecha_nacimiento)}                       
+                       ${estudiante1.apellidoP} ${estudiante1.apellidoM} ${estudiante1.nombres}                         
+                       ${this.formatDate(estudiante1.fecha_nacimiento)}                       
                        ${estado}                                
                        ${genero}
                        ${nacimiento}
@@ -581,21 +581,21 @@ export default {
                       let regional='';
                       let comunidad='';
                       let idioma ='';
-                      if(estudiante.organizacion_matriz)
+                      if(estudiante1.organizacion_matriz)
                       {
-                        matriz=estudiante.organizacion_matriz.toUpperCase();
+                        matriz=estudiante1.organizacion_matriz.toUpperCase();
                       }
-                      if(estudiante.organizacion_regional)
+                      if(estudiante1.organizacion_regional)
                       {
-                        regional=estudiante.organizacion_regional.toUpperCase();
+                        regional=estudiante1.organizacion_regional.toUpperCase();
                       }
-                      if(estudiante.comunidad_sindicato)
+                      if(estudiante1.comunidad_sindicato)
                       {
-                        comunidad=estudiante.comunidad_sindicato.toUpperCase();
+                        comunidad=estudiante1.comunidad_sindicato.toUpperCase();
                       }
-                      if(estudiante.idioma_nativo)
+                      if(estudiante1.idioma_nativo)
                       {
-                        idioma=estudiante.idioma_nativo;
+                        idioma=estudiante1.idioma_nativo;
                       }
                       
 
@@ -623,7 +623,7 @@ export default {
                       doc.setTextColor(10);
                       doc.setFontSize(11).setFont(undefined, 'bold');                      
                       doc.text(`
-                         ${estudiante.nombre_carrera}
+                         ${estudiante1.nombre_carrera}
                         `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
