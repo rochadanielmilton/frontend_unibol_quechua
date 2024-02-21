@@ -1,6 +1,6 @@
 <template>
     <div>                
-      <button class="btn btn-warning"  @click="Editar">
+      <button class="btn btn-warning"  :estudiantes="estudiantes">
         Editar
       </button><i class="fa-solid fa-user"></i>        
     </div>
@@ -10,11 +10,15 @@
   //import UploadService from "../services/UploadFilesService";
   
   export default {
-    props: ['estudiantes'],
+    props: {
+      estudiantes:{
+        type:Array
+      }
+    },
     name: "BtnEditar",
     data() {
       return {
-        
+
       };
     },
     setup(props) {
@@ -25,7 +29,7 @@
       Editar()
       {
         console.log('hsata aki todo positivo');
-        console.log(props.estudiantes);
+        //console.log(props.estudiantes);
       }   
     },
     mounted() {

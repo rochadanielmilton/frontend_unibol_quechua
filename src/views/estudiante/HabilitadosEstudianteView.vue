@@ -221,6 +221,7 @@ export default {
               const datos_estudiante =resultado.data['estudiante'];
               const fecha_emision=resultado.data['fecha_emision'];
               const numero_boleta=resultado.data['numero_boleta'];
+              const numero_archivo=resultado.data['numero_archivo'];
               let asignaturas_tabla=[];  
               let modalidad_de_ingreso=[];      
               for (let index = 0; index < datos.length; index++) {
@@ -248,7 +249,7 @@ export default {
                     //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
                   setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);           
                   //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
-                  this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta);
+                  this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
                   //optimizar este codigo que redirija a la la misma lista de habilitados
                   //this.$router.push('/estudiantes');
                   //this.methodThatForcesUpdate();
@@ -723,7 +724,7 @@ export default {
                     //     width: 522
                     // };       
     },
-    async generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta)
+    async generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo)
     {
       //first try
                   //parameters:orientation,unit,format
@@ -1037,8 +1038,27 @@ export default {
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
                         //finalY+=15;  
-                        finalY+=25;  
+                        finalY+=85;  
                         console.log('este es el alto'+ doc.internal.pageSize.height);
+
+                      doc.setTextColor(10);
+                      doc.setFontSize(6).setFont(undefined, 'bold');
+                      doc.text(`
+                      Documento solo válido para tramite interno                                  
+                      *Ajuste: ASignaturas validadas con la Resolución Ministerial N°0155/2023
+                      *N: Gestión Asignatura Normal                        
+                        `, -10, finalY);
+
+                        
+
+                      doc.setTextColor(10);
+                      doc.setFontSize(10).setFont(undefined, 'bold');                      
+                      doc.text(`
+                        N°: ${numero_archivo}
+                        `, (doc.internal.pageSize.getWidth()/2)+120, finalY+50,null,null,"center");
+                        //finalY+=25;    
+                        //añadimos 20+50 por el tamaño de las imagenes
+                        finalY+=10;  
 
                         
 

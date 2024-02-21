@@ -267,6 +267,7 @@ export default {
         const datos_estudiante =resultado.data['estudiante'];
         const fecha_emision=resultado.data['fecha_emision'];
         const numero_boleta=resultado.data['numero_boleta'];
+        const numero_archivo=resultado.data['numero_archivo'];
         let asignaturas_gestion_anterior=[];
         let asignaturas_tabla=[];        
         for (let index = 0; index < datos.length; index++) {
@@ -279,7 +280,7 @@ export default {
         }        
         //console.log(asignaturas_tabla);
         //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
-        this.generarReporteInscripcionRegulares(asignaturas_tabla,asignaturas_gestion_anterior,datos_estudiante,fecha_emision,numero_boleta);
+        this.generarReporteInscripcionRegulares(asignaturas_tabla,asignaturas_gestion_anterior,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
         //console.log(datos);          
         const mensaje = 'Estudiante inscrito Exitosamente!';
         if(status ===200)
@@ -744,7 +745,7 @@ export default {
                     //     width: 522
                     // };       
     },
-    async generarReporteInscripcionRegulares(asignaturas_tabla,asignaturas_gestion_anterior,datos_estudiante,fecha_emision,numero_boleta)
+    async generarReporteInscripcionRegulares(asignaturas_tabla,asignaturas_gestion_anterior,datos_estudiante,fecha_emision,numero_boleta,numero_archivo)
     {
       //first try
                   //parameters:orientation,unit,format
@@ -927,11 +928,11 @@ export default {
                     doc.setTextColor(10);
                     doc.setFontSize(8).setFont(undefined, 'bold');
                     doc.text(`
-                       APELLIDOS Y NOMBRES:                                  
-                       CÉDULA DE IDENTIDAD:
-                        NÚMERO DE REGISTRO: 
-                                   CARRERA:
-                          FECHA DE EMISIÓN:
+                    APELLIDOS Y NOMBRES:                                  
+                    CÉDULA DE IDENTIDAD:
+                    NÚMERO DE REGISTRO: 
+                    CARRERA:
+                    FECHA DE EMISIÓN:
                        
                        `, -20, finalY);
                       //  NRO DE REGISTRO: ${this.numero_registro}
@@ -1056,10 +1057,27 @@ export default {
                         `, (doc.internal.pageSize.getWidth()/2)+120, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
-                        finalY+=15;  
+                        finalY+=85;  
+
+
+                      doc.setTextColor(10);
+                      doc.setFontSize(6).setFont(undefined, 'bold');
+                      doc.text(`
+                      Documento solo válido para tramite interno                                  
+                      *Ajuste: ASignaturas validadas con la Resolución Ministerial N°0155/2023
+                      *N: Gestión Asignatura Normal                        
+                        `, -10, finalY);
 
                         
 
+                      doc.setTextColor(10);
+                      doc.setFontSize(10).setFont(undefined, 'bold');                      
+                      doc.text(`
+                        N°: ${numero_archivo}
+                        `, (doc.internal.pageSize.getWidth()/2)+120, finalY+50,null,null,"center");
+                        //finalY+=25;    
+                        //añadimos 20+50 por el tamaño de las imagenes
+                        finalY+=10;  
 
                     //FIN DOCUMENTO DE REGISTRO DE INSCRIPCION
 

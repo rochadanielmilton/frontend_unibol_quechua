@@ -11,6 +11,8 @@ import CursadasEstudianteView from "../views/estudiante/CursadasEstudianteView.v
 import HabilitadosEstudianteView from "../views/estudiante/HabilitadosEstudianteView.vue";
 import OfertaMateriasEstudianteView from "../views/estudiante/OfertaMateriasEstudianteView.vue";
 import EstudianteCursoPreparatorioView from "../views/estudiante/EstudianteCursoPreparatorioView.vue";
+import EstudianteFormularioAdmisionView from "../views/estudiante/EstudianteFormularioAdmisionView.vue";
+
 
 
 //import DocenteView from "../views/docente/DocenteView.vue";
@@ -95,6 +97,12 @@ const routes = [
     name: 'estudiantespreparatorio',
     //component: EstudianteView
     component: EstudianteCursoPreparatorioView
+  },
+  {
+    path: '/estudiante/formulario-admision/',
+    name: 'estudiantesadmision',
+    //component: EstudianteView
+    component: EstudianteFormularioAdmisionView
   },
   {
     path: '/estudiante/datatable',
