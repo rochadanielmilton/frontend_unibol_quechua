@@ -43,81 +43,65 @@
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
       <div class="col-lg-10 offset-lg-1">
-        <div class="table-responsive text-center">
-          <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12 small">
-            <thead v-if="estudiantesP" class="pb-4 table-light">
-              <tr>
-                <th>
-                  #
-                </th>
-                <th>
-                  CEDULA DE IDENTIDAD
-                </th>
-                <th>
-                  NOMBRES
-                </th>
+        <div class="table-responsive">
+  <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12 small">
+    <thead v-if="estudiantesP" class="pb-4 table-light">
+      <tr>
+        <th>
+          #
+        </th>
+        <th>
+          CEDULA DE IDENTIDAD
+        </th>
+        <th>
+          NOMBRES
+        </th>
+        <th>
+          APELLIDO PATERNO
+        </th>
+        <th>
+          APELLIDO MATERNO
+        </th>
+        <th>
+          ESTADO
+        </th>
+        <th>
+          CARRERA
+        </th>
+        <th>
+          ACCIONES
+        </th>
+      </tr>
+    </thead>
+    <div v-else>
+      <img :src="ruta" alt="imagen">
+    </div>
+    <tbody class="table-group-divider" id="contenido">
+      <tr v-for="estudiante, i  in estudiantesP" :key="estudiante">
+        <td>{{ i + 1 }}</td>
+        <td>{{ estudiante.ci_postulante }}</td>
+        <td>{{ estudiante.nombres_p }}</td>
+        <td>{{ estudiante.apellido_paterno_p }}</td>
+        <td>{{ estudiante.apellido_materno_p }}</td>
+        <td :class="estudiante.estado_inscrito === 'APROBADO' ? 'aprobado' : 'reprobado'">
+          {{ estudiante.estado_ingreso }}
+        </td>
+        <td>{{estudiante.carrera}}</td>
+        <td>
+          <button class="btn btn-success btn-sm"
+            @click="confirmarRegistro(estudiante.ci_postulante, `${estudiante.nombres_p} ${estudiante.apellido_paterno_p} ${estudiante.apellido_materno_p}`)"
+            v-if="estudiante.registrado == 'no'">
+            REGISTRAR 
+          </button>
+          <button class="btn btn-warning btn-sm disabled" v-else>
+            INSCRITO
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-                <th>
-                  APELLIDO PATERNO
-                </th>
-                <th>
-                  APELLIDO MATERNO
-                </th>
-
-                <th>
-                  NOTA FINAL
-                </th>
-
-                <!-- <th>
-                        INS. DE APR.
-                      </th>         
-                      <th>
-                        OBSERVACION
-                      </th>                                             -->
-                <th>
-                  ACCIONES
-                </th>
-              </tr>
-            </thead>
-            <div v-else>
-                      <img :src="ruta" alt="iamgen">
-            </div>
-            <tbody class="table-group-divider" id="contenido">
-              <tr v-for="estudiante, i  in estudiantesP" :key="estudiante">
-                <td>{{ i + 1 }}</td>
-                <td>{{ estudiante.ci_postulante }}</td>
-                <td>{{ estudiante.nombres_p }}</td>
-                <td>{{ estudiante.apellido_paterno_p }}</td>
-                <td>{{ estudiante.apellido_materno_p }}</td>
-                <td>{{ estudiante.nota_final }}</td>
-
-                <!-- <td></td>
-                        <td></td> -->
-                <!-- <td>{{ estudiante.nombre_asignatura }}</td> -->
-                <!-- <td >{{ estudiante.id_docente }}</td> -->
-
-                <!-- <td >{{ estudiante.estado_gestion_espaniol }}</td> -->
-                <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
-                <!-- <td>{{ estudiante.nota_num_final }}</td> -->
-
-
-                <td>
-                  <button class="btn btn-warning"
-                    @click="confirmarRegistro(estudiante.ci_postulante, `${estudiante.nombres_p} ${estudiante.apellido_paterno_p} ${estudiante.apellido_materno_p}`)"
-                    v-if="estudiante.registrado == 'no'">
-                    REGISTRAR 
-                    <!-- <i class="fa-solid fa-school"></i> -->
-                  </button>
-                  <button class="btn btn-success disabled" v-else>
-                    INSCRITO
-                    <!-- <i class="fa-solid fa-school"></i> -->
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- </div> -->
-        </div>
       </div>
     </div>
   </div>
@@ -464,5 +448,12 @@ export default {
 body {
     font-size: .875rem;
     line-height: 1.25rem;
+}
+.aprobado {
+  color: green;
+}
+
+.reprobado {
+  color: red;
 }
 </style>

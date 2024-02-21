@@ -61,8 +61,13 @@
                       </th>
                       <th>
                         SIGLA CODIGO
+                      </th>
+                      <th>
+                        SIGLA CONV.
                       </th> 
-                   
+                      <th>
+                        HOMOL.
+                      </th>
                       <th>
                         ASIGNATURA
                       </th>
@@ -94,6 +99,8 @@
                         <td>{{ i+1 }}</td>
                         <td>{{ materia.anio_cursado }}</td>
                         <td>{{ materia.codigo_asignatura }}</td>
+                        <td>{{ materia.convalidacion}}</td>
+                        <td>{{ materia.homologacion}}</td>
                         <td>{{ materia.nombre_asignatura }}</td>
                         <td>{{ materia.total_horas }}</td>
                         <td>{{ materia.pre_requisitos }}</td>

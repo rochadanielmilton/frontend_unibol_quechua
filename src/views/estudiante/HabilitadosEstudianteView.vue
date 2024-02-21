@@ -11,7 +11,7 @@
       </div>
 
             <div class="mb-3 fs-4 text-center">                 
-             LISTA DE ESTUDIANTES HABILITADOS PARA LA INSCRIPCION:
+             PLANILLA DE ESTUDIANTES HABILITADOS PARA LA INSCRIPCION:
             </div>
 
             <!-- <div class=" mb-3">                 
@@ -47,85 +47,48 @@
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
         <div class="col-lg-10 offset-lg-1">
           <div class="table-responsive text-center">
-              <table class="table table-bordered table-hover table-striped col-12 small" :key="keycon" v-if="keycon>=0">
-                  <thead class="pb-4 table-light" v-if="estudiantes">
-                    <tr>
-                      <th>
-                        #
-                      </th>
-                      <th>
-                        C.I. 
-                      </th>
-                      <th>
-                        NOMBRES
-                      </th> 
-                   
-                      <th>
-                        APELLIDO P.
-                      </th>
-                      <th >
-                        APELLIDO M.
-                      </th>
-                      
-                      <th>
-                        CODIGO CARRERA
-                      </th> 
-                      <th>
-                        NOMBRE CARRERA
-                      </th>                 
-                      <th>
-                        AÑO CURSADO
-                      </th>                                                                   
-                      <th>
-                        ACCIONES
-                      </th>
-                    </tr></thead>
-                    <div v-else>
-                      <img :src="ruta" alt="iamgen">
-                    </div>
-                  <tbody class="table-group-divider" id="contenido" :key="keycon">
-                    <tr v-for="estudiante,i  in estudiantes" :key="i" :id="estudiante.ci_estudiante">
-                        <td>{{ i+1 }}</td>
-                        <td>{{ estudiante.ci_estudiante }}</td>
-                        <td>{{ estudiante.nombres }}</td>
-                        <td>{{ estudiante.apellidoP }}</td>
-                        <td>{{ estudiante.apellidoM }}</td>
-                        <td>{{ estudiante.codigo_carrera }}</td>
-                        <td>{{ estudiante.nombre_carrera }}</td>
-                        <td>{{ estudiante.anio_cursado }}</td>                        
-                        <!-- <td>{{ estudiante.nombre_asignatura }}</td> -->
-                        <!-- <td >{{ estudiante.id_docente }}</td> -->
+            <div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped col-12 small" :key="keycon" v-if="keycon>=0">
+    <thead class="pb-4 table-light" v-if="estudiantes">
+      <tr>
+        <th>N°</th>
+        <th>C.I.</th>
+        <th>NOMBRES</th>
+        <th>APELLIDO P.</th>
+        <th>APELLIDO M.</th>
+        <th>CODIGO CARRERA</th>
+        <th>NOMBRE CARRERA</th>
+        <th>AÑO CURSADO</th>
+        <th>ACCIONES</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider" id="contenido" :key="keycon">
+      <tr v-for="(estudiante, i) in estudiantes" :key="i" :id="estudiante.ci_estudiante">
+        <td>{{ i+1 }}</td>
+        <td>{{ estudiante.ci_estudiante }}</td>
+        <td>{{ estudiante.nombres }}</td>
+        <td>{{ estudiante.apellidoP }}</td>
+        <td>{{ estudiante.apellidoM }}</td>
+        <td>{{ estudiante.codigo_carrera }}</td>
+        <td>{{ estudiante.nombre_carrera }}</td>
+        <td>{{ estudiante.anio_cursado }}</td>
+        <td>
+  <router-link :to="{path:'/estudiante/ofertas/'+estudiante.ci_estudiante}" class="btn btn-success btn-sm d-inline" v-if="estudiante.inscrito_gestion=='no'" :key="keycon">
+    INSCRIBIR
+  </router-link>
+  <button class="btn btn-success btn-sm disabled d-inline" v-else>
+    INSCRITO
+  </button>
+  <button class="btn btn-info btn-sm d-inline" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='no'" @click="inscribirPrimerAnio(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+    INS-DIRECTA
+  </button>
+</td>
 
-                        <!-- <td >{{ estudiante.estado_gestion_espaniol }}</td> -->
-                          <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
-                        <!-- <td>{{ estudiante.nota_num_final }}</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-                        
-                        <td>                                                                                 
-                            <!-- <button   class="btn btn-warning" >
-                              INCRIBIR
-                              <i class="fa-solid fa-school"></i>
-                            </button>     -->
-                            <router-link :to="{path:'/estudiante/ofertas/'+estudiante.ci_estudiante}" class="btn btn-warning" v-if="estudiante.inscrito_gestion=='no'" :key="keycon">
-                                INSCRIBIR
-                                <!-- <i class="fa-solid fa-school"></i> -->
-                            </router-link>&nbsp;
-                            <button   class="btn btn-success disabled" v-else >
-                              INSCRITO
-                              <!-- <i class="fa-solid fa-school"></i> -->
-                            </button>&nbsp;
-                            
-                            <button   class="btn btn-success" v-if="estudiante.anio_ingreso===this.anio_actual&&estudiante.inscrito_gestion=='no'" @click="inscribirPrimerAnio(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
-                              INS-DIRECTA
-                              <!-- <i class="fa-solid fa-school"></i> -->
-                            </button>
-                             <!-- <router-link :to="{path:'/estudiante/ofertas/'+estudiante.ci_estudiante}" class="btn btn-success disabled" v-else>
-                                INSCRITO <i class="fa-solid fa-school"></i>
-                            </router-link>                        -->
-                        </td>
-                    </tr>                    
-                  </tbody>
-              </table>
           <!-- </div> -->
          </div>
       </div>
