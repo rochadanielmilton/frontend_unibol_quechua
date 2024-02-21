@@ -510,6 +510,7 @@ export default {
                        let genero = '';
                        let email ='';
                        let celular ='';
+                       let nacimiento = '';
                        if(estudiante.estado_civil)
                        {
                         estado = estudiante.estado_civil.toUpperCase();
@@ -537,6 +538,10 @@ export default {
                        }else{
                         celular = '';
                        }
+                       if(estudiante.prov_nacimiento)
+                       {
+                        nacimiento=estudiante.prov_nacimiento.toUpperCase();
+                       }
 
                        doc.setTextColor(100);
                        doc.setFontSize(11);
@@ -545,7 +550,7 @@ export default {
                        ${this.formatDate(estudiante.fecha_nacimiento)}                       
                        ${estado}                                
                        ${genero}
-                       ${estudiante.prov_nacimiento.toUpperCase()}
+                       ${nacimiento}
                        ${email}
                        ${celular}
                        `, (doc.internal.pageSize.getWidth()/2)-130, finalY);
@@ -642,9 +647,14 @@ export default {
                       textColor: [0, 0, 0],
                       halign: 'center'
                       },
-                      padding:8
-                      //columnStyles:{color}
-                      
+                      padding:2,
+                      columnStyles: {
+                        0: {cellWidth: 50,halign: 'center'},
+                        1: {cellWidth: 299,halign: 'center'},
+                        2: {cellWidth: 50,halign: 'center'},
+                        // etc
+                      }
+                      //columnStyles:{color}                                          
                     });                        
 
                       
