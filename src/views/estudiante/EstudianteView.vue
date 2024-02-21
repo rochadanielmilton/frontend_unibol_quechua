@@ -495,7 +495,7 @@ export default {
                     //doc.setFontSize(9);                       
                        const estudiante = datos_estudiante.datos_estudiante;
                        let estado = '';
-                       if(estudiante.estado_civil!=='null')
+                       if(estudiante.estado_civil)
                        {
                         estado = estudiante.estado_civil;
                        }else{
