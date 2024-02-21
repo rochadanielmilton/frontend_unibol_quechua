@@ -284,8 +284,12 @@ export default {
         });
     },
     formatDate(cadena){
-      const date = new Date(cadena);  
-      return new Intl.DateTimeFormat('es-BO').format(date).toString();
+      // const date = new Date(cadena);  
+      // return new Intl.DateTimeFormat('es-BO').format(date).toString();
+      let fecha='';
+      const datos=cadena.split('-');
+      fecha = datos[2]+'/'+datos[1]+'/'+datos[0];
+      return fecha;
     },
     async exportPDF(datos_estudiante) {
                   //first try
@@ -495,23 +499,47 @@ export default {
                     //doc.setFontSize(9);                       
                        const estudiante = datos_estudiante.datos_estudiante;
                        let estado = '';
+                       let genero = '';
+                       let email ='';
+                       let celular ='';
                        if(estudiante.estado_civil)
                        {
-                        estado = estudiante.estado_civil;
+                        estado = estudiante.estado_civil.toUpperCase();
                        }else{
                         estado = '';
                        }
-                      
+
+                       if(estudiante.genero==='M')
+                       {
+                        genero='MASCULINO';
+                       }else{
+                        genero='FEMENINO';
+                       }
+
+                       if(estudiante.email)
+                       {
+                        email=estudiante.email.toUpperCase();
+                       }else{
+                        email='';
+                       }
+
+                       if(estudiante.celular>0)
+                       {
+                        celular=estudiante.celular;
+                       }else{
+                        celular = '';
+                       }
+
                        doc.setTextColor(100);
                        doc.setFontSize(12);
                        doc.text(`
                        ${estudiante.apellidoP} ${estudiante.apellidoM} ${estudiante.nombres}                         
                        ${this.formatDate(estudiante.fecha_nacimiento)}                       
                        ${estado}                                
-                       ${estudiante.genero}
-                       ${estudiante.prov_nacimiento}
-                       ${estudiante.email}
-                       ${estudiante.celular}
+                       ${genero}
+                       ${estudiante.prov_nacimiento.toUpperCase()}
+                       ${email}
+                       ${celular}
                        `, (doc.internal.pageSize.getWidth()/2)-130, finalY);
 
 
@@ -536,12 +564,34 @@ export default {
                         Lengua que habla:                        
                         `, -20, finalY);
 
+                      let matriz='';
+                      let regional='';
+                      let comunidad='';
+                      let idioma ='';
+                      if(estudiante.organizacion_matriz)
+                      {
+                        matriz=estudiante.organizacion_matriz.toUpperCase();
+                      }
+                      if(estudiante.organizacion_regional)
+                      {
+                        regional=estudiante.organizacion_regional.toUpperCase();
+                      }
+                      if(estudiante.comunidad_sindicato)
+                      {
+                        comunidad=estudiante.comunidad_sindicato.toUpperCase();
+                      }
+                      if(estudiante.idioma_nativo)
+                      {
+                        idioma=estudiante.idioma_nativo;
+                      }
+                      
+
                        doc.setTextColor(100);
                        doc.text(`                                        
-                       ${estudiante.organizacion_matriz}                                
-                       ${estudiante.orgranizacion_regional}
-                       ${estudiante.comunidad_sindicato}
-                       ${estudiante.idioma_nativo}                       
+                       ${matriz}                                
+                       ${regional}
+                       ${comunidad}
+                       ${idioma}                       
                        `, (doc.internal.pageSize.getWidth()/2)-130, finalY);
 
                        finalY+=55; 
