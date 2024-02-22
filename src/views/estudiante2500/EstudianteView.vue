@@ -12,9 +12,9 @@
    <div  class="row" >
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-          <BtnEditar @click="actualizar">
+          <!-- <BtnEditar :estudiantes="estudiantes" @click="actualizar">
 
-          </BtnEditar>
+          </BtnEditar> -->
         <div class="col-lg-12 offset-lg-0">          
           <div class="table-responsive">
             <DataTable  ref="table" id="datatable"  :data="estudiantes" :columns="columns" class="table table-bordered table-striped display fixed small" :options="{ select: true ,responsive: true,autoWidth:false,dom:'Bfrtip',
@@ -98,15 +98,26 @@
 
 <script>
 // @ is an alias to /src
+//import BtnEditar from '../../components/BtnEditar';
+import {confirmar1, show_alerta} from '../../funciones';
 import {ref} from 'vue';
 import axios from "axios";
-import {confirmar1, show_alerta} from '../../funciones';
+
 
 import DataTable from 'datatables.net-vue3';
 import DataTableLib from 'datatables.net-bs5';
+
 import 'datatables.net-responsive-bs5';
+import 'datatables.net-select';
+
+
+
+
+
+
 DataTable.use(DataTableLib);
-import BtnEditar from '../../components/BtnEditar';
+//DataTable.use(Select);
+
 
 //import {ref} from 'vue';
 // const provincias = computed(()=>{
@@ -116,7 +127,7 @@ import BtnEditar from '../../components/BtnEditar';
  //const contador =ref(0);
  let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
-  components: {DataTable,BtnEditar},
+  components: {DataTable},
   name: 'EstudianteView',
   data(){
     return {
@@ -164,10 +175,14 @@ export default {
     this.principal='/estudiantes';
   },
   methods:{
-    actualizar(){
+    async actualizar(){
       //console.log(props.estudiantes[1].nombres+'ahorari');
-      this.table.dt.rows({selected:true}).every(function (){
-        console.log(this.data());
+      await this.table.dt.rows({selected:true}).every(function (){
+        //console.log(this.data());
+        console.log(this.estudiantes+'ssd');
+        //this.estudiantes.indexOf(this.data());
+        //console.log(this.estudiantes[0].nombres);
+        console.log('kicoz');
            //let indice = props.estudiantes.indexOf(this.data());
            //let clave = props.estudiantes[indice].ci_estudiante;   
            //console.log(clave);                 

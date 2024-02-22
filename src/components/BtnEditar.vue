@@ -1,6 +1,6 @@
 <template>
     <div>                
-      <button class="btn btn-warning"  :estudiantes="estudiantes">
+      <button class="btn btn-warning"  :estudiantes="estudiantes" @click="Editar">
         Editar
       </button><i class="fa-solid fa-user"></i>        
     </div>
@@ -29,7 +29,7 @@
       Editar()
       {
         console.log('hsata aki todo positivo');
-        //console.log(props.estudiantes);
+        console.log(this.estudiantes);
       }   
     },
     mounted() {

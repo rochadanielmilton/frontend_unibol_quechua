@@ -255,6 +255,10 @@ export async function generarReporteInscripcionNuevos(asignaturas_tabla,modalida
                     
 
 
+                    let wantedTableWidth = 279;
+                    let pageWidth = doc.internal.pageSize.width;
+                    let margin = (pageWidth - wantedTableWidth) / 2;
+
                     //CABECERA PARA LA MODALIDAD DE INGRESO DE NUEVOS ESTUDIANTES 2024
                     autoTable(doc, {       
                       //QUITANDO ESPACIO
@@ -267,6 +271,7 @@ export async function generarReporteInscripcionNuevos(asignaturas_tabla,modalida
                       tableLineColor:[0,0,0],tableLineWidth:0.2,
                       styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
+                      margin: {left: margin-30},
                       //columnStyles:{color}
                       //padding:1
                       
@@ -305,6 +310,7 @@ export async function generarReporteInscripcionNuevos(asignaturas_tabla,modalida
                       tableLineColor:[0,0,0],tableLineWidth:0.2,
                       styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
+                      margin: {left: margin-30},
                       //columnStyles:{color}
                       //padding:1
                       
@@ -316,7 +322,7 @@ export async function generarReporteInscripcionNuevos(asignaturas_tabla,modalida
                       doc.setFontSize(8).setFont(undefined, 'normal');                      
                       doc.text(`
                         FIRMA ESTUDIANTE
-                        `, -10, finalY);
+                        `, 20, finalY);
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
                         //finalY+=10; 
@@ -338,7 +344,7 @@ export async function generarReporteInscripcionNuevos(asignaturas_tabla,modalida
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
                         //finalY+=15;  
-                        finalY+=85;  
+                        finalY+=55;  
                         console.log('este es el alto'+ doc.internal.pageSize.height);
 
                       doc.setTextColor(10);
@@ -347,7 +353,7 @@ export async function generarReporteInscripcionNuevos(asignaturas_tabla,modalida
                       Documento solo válido para tramite interno                                  
                       *Ajuste: Asignaturas validadas con la Resolución Ministerial N°0155/2023
                       *N: Gestión Asignatura Normal                        
-                        `, -10, finalY);
+                        `, 30, finalY);
 
                         
 
@@ -606,6 +612,10 @@ export async function generarReporteInscripcionRegulares(asignaturas_tabla,asign
                     //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
                     //doc.setFontSize(9);
                     
+                    let wantedTableWidth = 279;
+                    let pageWidth = doc.internal.pageSize.width;
+                    let margin = (pageWidth - wantedTableWidth) / 2;
+
                     doc.setTextColor(10);
                       doc.setFontSize(10).setFont(undefined, 'bold');                      
                       doc.text(`
@@ -623,6 +633,7 @@ export async function generarReporteInscripcionRegulares(asignaturas_tabla,asign
                       tableLineColor:[0,0,0],tableLineWidth:0.2,
                       styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
+                      margin: {left: margin-30},
                       //columnStyles:{color}
                       padding:1
                       
@@ -672,6 +683,7 @@ export async function generarReporteInscripcionRegulares(asignaturas_tabla,asign
                       tableLineColor:[0,0,0],tableLineWidth:0.2,
                       styles: {fontSize:6,cellWidth:'wrap',halign: 'center'},
                       bodyStyles:{lineWidth:0.2,lineColor:[0,0,0]},
+                      margin: {left: margin-30},
                       //columnStyles:{color}
                       padding:1
                       
@@ -683,7 +695,7 @@ export async function generarReporteInscripcionRegulares(asignaturas_tabla,asign
                       doc.setFontSize(8).setFont(undefined, 'normal');                      
                       doc.text(`
                         FIRMA ESTUDIANTE
-                        `, -10, finalY);
+                        `, 20, finalY);
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
                         //finalY+=10; 
@@ -704,7 +716,7 @@ export async function generarReporteInscripcionRegulares(asignaturas_tabla,asign
                         `, (doc.internal.pageSize.getWidth()/2)+120, finalY,null,null,"center");
                         //finalY+=25;    
                         //añadimos 20+50 por el tamaño de las imagenes
-                        finalY+=85;  
+                        finalY+=65;  
 
 
                       doc.setTextColor(10);
@@ -713,7 +725,7 @@ export async function generarReporteInscripcionRegulares(asignaturas_tabla,asign
                       Documento solo válido para tramite interno                                  
                       *Ajuste: Asignaturas validadas con la Resolución Ministerial N°0155/2023
                       *N: Gestión Asignatura Normal                        
-                        `, -10, finalY);
+                        `, 30, finalY);
 
                         
 

@@ -92,7 +92,7 @@
         <td v-if="estudiante.ci_especial">{{ `${estudiante.ci_estudiante}${estudiante.ci_especial}`}}</td>
         <td v-else>{{ `${estudiante.ci_estudiante}`}}</td>
 
-        <td class="col-2">{{ `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}` }}</td>
+        <td class="col-2">{{ `${estudiante.apellidoP} ${estudiante.apellidoM} ${estudiante.nombres} ` }}</td>
         <td class="col-3">{{ estudiante.nombre_carrera }}</td>
         <td>{{ estudiante.tipo_ingreso }}</td>
 
