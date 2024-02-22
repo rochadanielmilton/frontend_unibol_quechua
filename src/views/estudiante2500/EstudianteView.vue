@@ -108,7 +108,7 @@ import DataTable from 'datatables.net-vue3';
 import DataTableLib from 'datatables.net-bs5';
 
 import 'datatables.net-responsive-bs5';
-import 'datatables.net-select';
+//import 'datatables.net-select';
 
 
 
