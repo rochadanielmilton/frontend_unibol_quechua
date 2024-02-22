@@ -73,28 +73,28 @@
         <td>{{ estudiante.nombre_carrera }}</td>
         <td>{{ estudiante.anio_cursado }}</td>
         <td>
-  
-  <router-link :to="{path:'/estudiante/ofertas/'+estudiante.ci_estudiante}" class="btn btn-success btn-sm d-inline" v-if="estudiante.inscrito_gestion=='no'" :key="keycon">
-    INSCRIBIR
-  </router-link>&nbsp;
-  <button class="btn btn-success btn-sm disabled d-inline smallone mr-1" v-else>
-    INSCRITO
-  </button>  
-  <button class="btn btn-success btn-sm d-inline smallone" v-if="estudiante.inscrito_gestion=='si'" @click="consultaAnularInscripcion(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
-    ANULAR-INS.
-  </button>
-  <button class="btn btn-danger btn-sm d-inline smallone" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionNuevos(estudiante.ci_estudiante)">
-    REIMPRESIÓN-N
-  </button>
-  <button class="btn btn-danger btn-sm d-inline smallone" v-if="estudiante.anio_ingreso!==this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionRegulares(estudiante.ci_estudiante)">
-    REIMPRESIÓN-R
-  </button>
-  
-  <button class="btn btn-info btn-sm d-inline" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='no'" @click="inscripcionDirecta(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
-    INS-DIRECTA
-  </button>
-  
+  <div class="btn-group" role="group">
+    <router-link :to="{path:'/estudiante/ofertas/'+estudiante.ci_estudiante}" class="btn btn-success btn-sm" v-if="estudiante.inscrito_gestion=='no'" :key="keycon">
+      INSCRIBIR
+    </router-link>
+    <button class="btn btn-success btn-sm disabled" v-else>
+      INSCRITO
+    </button>    
+    <button class="btn btn-info btn-sm" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionNuevos(estudiante.ci_estudiante)">
+      REIMP.-N
+    </button>
+    <button class="btn btn-info btn-sm" v-if="estudiante.anio_ingreso!==this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionRegulares(estudiante.ci_estudiante)">
+      REIMP.-R
+    </button>
+    <button class="btn btn-danger btn-sm" v-if="estudiante.inscrito_gestion=='si'" @click="consultaAnularInscripcion(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+      ANULAR-INS.
+    </button>
+    <button class="btn btn-info btn-sm" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='no'" @click="inscripcionDirecta(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+      INS-DIRECTA
+    </button>
+  </div>
 </td>
+
 
       </tr>
     </tbody>
@@ -1243,5 +1243,14 @@ export default {
 {
   font-size: .875rem;
   line-height: 1.25rem;
+}
+
+.btn-custom {
+  background-color: #ff5733; /* Cambia el color de fondo */
+  color: white; /* Cambia el color del texto */
+}
+
+.btn-custom:hover {
+  background-color: #e53935; /* Cambia el color de fondo al pasar el ratón sobre el botón */
 }
 </style>
