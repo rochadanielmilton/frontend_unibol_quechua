@@ -73,15 +73,27 @@
         <td>{{ estudiante.nombre_carrera }}</td>
         <td>{{ estudiante.anio_cursado }}</td>
         <td>
+  
   <router-link :to="{path:'/estudiante/ofertas/'+estudiante.ci_estudiante}" class="btn btn-success btn-sm d-inline" v-if="estudiante.inscrito_gestion=='no'" :key="keycon">
     INSCRIBIR
-  </router-link>
-  <button class="btn btn-success btn-sm disabled d-inline" v-else>
+  </router-link>&nbsp;
+  <button class="btn btn-success btn-sm disabled d-inline smallone mr-1" v-else>
     INSCRITO
+  </button>  
+  <button class="btn btn-success btn-sm d-inline smallone" v-if="estudiante.inscrito_gestion=='si'" @click="consultaAnularInscripcion(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+    ANULAR-INS.
   </button>
-  <button class="btn btn-info btn-sm d-inline" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='no'" @click="inscribirPrimerAnio(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+  <button class="btn btn-danger btn-sm d-inline smallone" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionNuevos(estudiante.ci_estudiante)">
+    REIMPRESIÓN-N
+  </button>
+  <button class="btn btn-danger btn-sm d-inline smallone" v-if="estudiante.anio_ingreso!==this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionRegulares(estudiante.ci_estudiante)">
+    REIMPRESIÓN-R
+  </button>
+  
+  <button class="btn btn-info btn-sm d-inline" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='no'" @click="inscripcionDirecta(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
     INS-DIRECTA
   </button>
+  
 </td>
 
       </tr>
@@ -103,6 +115,7 @@
 //import { getCurrentInstance } from 'vue';
 import axios from "axios";
 import {show_alerta} from '../../funciones';
+import {generarReporteInscripcionNuevos,generarReporteInscripcionRegulares} from '../../reportes';
 import Swal from "sweetalert2";
 //librerias para la exportacion en pdf
 import jsPDF from "jspdf";
@@ -175,6 +188,55 @@ export default {
         }
     })
     },
+    async consultaAnularInscripcion(id,nombres){
+      event.preventDefault();      
+      //const url =BASE_URL+'/administracion/eliminarDatosInscripcion/'+id+'/';
+      const url =BASE_URL+'/administracion/cancelarInscripcion/'+id+'/';       
+
+      const swalWithBootstrapButtons = Swal.mixin({
+          customClass: { confirmButton: 'btn btn-success me-3', cancelButton: 'btn btn-danger' },
+          buttonsStyling: false
+      });
+
+      swalWithBootstrapButtons.fire({
+          title: 'Esta seguro que desea Anular la Inscripción para el Estudiante: ' + nombres,
+          text: 'Se Anulará la Inscripción ',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: '<i class="fa-solid fa-check"></i> Si, Anular',
+          cancelButtonText: '<i class="fa-solid fa-ban"></i>Cancelar'
+      }).then(result => {
+          if (result.isConfirmed) {
+            // sendRequest('GET', { id: ci_estudiante }, url, 'Estudiante inscrito Satisfactoriamente!', 'estudiante-primer-anio');
+            this.anularInscripcion(url);
+          } else {
+              show_alerta('Operacion cancelada', 'info');
+          }
+      })
+
+    },
+    async anularInscripcion(url){
+      console.log('Anulando inscripcion');
+     console.log(url);
+      await axios.get(url)
+        .then(
+          response => {
+            const status = response.status;
+            console.log(response.data);
+            const mensaje = 'Inscripción Anulada Satisfactoriamente!';
+            if(status ===200)
+              {      
+                //console.log('se isncribio al estudiantes');      
+                  show_alerta(mensaje,'success'); 
+                    //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
+                  setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);   
+              }             
+          }
+        ).catch(error => {
+          console.log(error)
+          show_alerta(error, 'error')
+        });
+    },
     async registrarEstudianteNuevo(url){
       await axios.get(url).then(resultado=>{        
               const status = resultado.status;
@@ -212,13 +274,106 @@ export default {
                     //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
                   setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);           
                   //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
-                  this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+
+                  //this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+                  generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
                   //optimizar este codigo que redirija a la la misma lista de habilitados
                   //this.$router.push('/estudiantes');
                   //this.methodThatForcesUpdate();
                   //console.log('oir aki'+datos);                      
               }        
             });
+    },
+    async reimpresionNuevos(id){
+      const url =BASE_URL+'/administracion/reimprimirInscripcion/'+id+'/';
+      await axios.get(url).then(resultado=>{        
+              const status = resultado.status;
+              console.log('este es el status'+status);
+              
+              const datos =resultado.data['asignaturas_tomadas'];
+              const datos_estudiante =resultado.data['estudiantes'];
+              const fecha_emision=resultado.data['fecha_emision'];
+              const numero_boleta=resultado.data['numero_boleta'];
+              const numero_archivo=resultado.data['numero_archivo'];
+              let asignaturas_tabla=[];  
+              let modalidad_de_ingreso=[];      
+              for (let index = 0; index < datos.length; index++) {
+                //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
+                asignaturas_tabla.push([index+1,datos[index].codigo_asignatura,datos[index].nombre_asignatura,'N'])
+              }
+              
+                //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
+                modalidad_de_ingreso.push([`${datos_estudiante['tipo_ingreso']} GESTION ${datos_estudiante['anio_ingreso']}`,'APROBADO'])
+              
+
+               this.methodThatForcesUpdate();    
+              //console.log(asignaturas_tabla);
+              //aqui estaba ggenerar reporte oficial
+              //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
+              //this.$router.push('/estudiantes');
+              //this.$router.push('/estudiante/habilitados');
+              
+              //console.log(datos);          
+              const mensaje = 'Reporte Generado!';
+              if(status ===200)
+              {      
+                //console.log('se isncribio al estudiantes');      
+                  show_alerta(mensaje,'success'); 
+                    //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
+                  setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);           
+                  //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
+
+                  //this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+                  generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+                  //optimizar este codigo que redirija a la la misma lista de habilitados
+                  //this.$router.push('/estudiantes');
+                  //this.methodThatForcesUpdate();
+                  //console.log('oir aki'+datos);                      
+              }        
+            });
+      //this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+    },
+    async reimpresionRegulares(id){
+      const ruta = BASE_URL+'/administracion/reimprimirInscripcion/'+id+'/';
+
+      await axios({method:'GET',url:ruta}).then(resultado=>{        
+        const status = resultado.status;
+        console.log('este es el status'+status);
+        
+        const datos =resultado.data['asignaturas_tomadas'];
+        const asignaturas_anterior=resultado.data['asignaturas_anio_anterior'];
+        const datos_estudiante =resultado.data['estudiantes'];
+        const fecha_emision=resultado.data['fecha_emision'];
+        const numero_boleta=resultado.data['numero_boleta'];
+        const numero_archivo=resultado.data['numero_archivo'];
+        let asignaturas_gestion_anterior=[];
+        let asignaturas_tabla=[];        
+        for (let index = 0; index < datos.length; index++) {
+          //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
+          asignaturas_tabla.push([index+1,datos[index].codigo_asignatura,datos[index].nombre_asignatura,'N',datos[index].observacion])
+        }
+        for (let index = 0; index < asignaturas_anterior.length; index++) {
+          asignaturas_gestion_anterior.push([index+1,asignaturas_anterior[index].codigo_asignatura,asignaturas_anterior[index].nombre_asignatura,asignaturas_anterior[index].nota_num_final,
+                                            asignaturas_anterior[index].estado_gestion_espaniol,asignaturas_anterior[index].observacion]);      
+        }        
+        //console.log(asignaturas_tabla);
+        //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
+
+        //this.generarReporteInscripcionRegulares(asignaturas_tabla,asignaturas_gestion_anterior,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+        generarReporteInscripcionRegulares(asignaturas_tabla,asignaturas_gestion_anterior,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+
+
+        //console.log(datos);          
+        const mensaje = 'Estudiante inscrito Exitosamente!';
+        if(status ===200)
+        {      
+          //console.log('se isncribio al estudiantes');      
+            show_alerta(mensaje,'success');            
+            //console.log('oir aki'+datos);                      
+        }        
+      });
+      setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);  
+      //this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
     },
     async generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta)
     {
@@ -1084,4 +1239,9 @@ export default {
     font-size: .875rem;
     line-height: 1.25rem;
 } */
+ .smallone
+{
+  font-size: .875rem;
+  line-height: 1.25rem;
+}
 </style>

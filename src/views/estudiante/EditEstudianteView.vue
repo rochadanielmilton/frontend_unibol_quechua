@@ -49,11 +49,11 @@
             </div>
           
             <div class="input-group mb-3">                            
-              <select class="form-select text-center" id="codigo_carrera" required v-model="codigo_carrera">              
+              <select class="form-select text-center" id="nombre_carrera" required v-model="nombre_carrera">              
                 <option value="" selected disabled>
                 ---Carrera---
                 </option>
-                <option  v-for="carrera in carreras" v-bind:value="carrera.codigo_carrera" :key="carrera.codigo_carrera">
+                <option  v-for="carrera in carreras" v-bind:value="carrera.nombre_carrera" :key="carrera.nombre_carrera">
                     {{`${carrera.nombre_carrera}`}}
                 </option>
               </select>                             
@@ -276,7 +276,7 @@ export default {
       ci_estudiante:0,extencion:'',nombres:'',apellidoP:'',apellidoM:'',direccion:'',celular:0,anio_ingreso:'',anio_cursado:'',genero:'',fecha_nacimiento:'',depa_nacimiento:'',prov_nacimiento:'',munic_nacimiento:'',tipo_ingreso:'',
       fotografia:'',estado_civil:'',idioma_nativo:'',idioma_regular:'',email:'',nacionalidad:'',numero_archivo:'',
       homologacion:'',estado_homologacion:'',convalidacion:'',estado_convalidacion:'',egresado:'',estado_egresado:'',titulado:'',descripcion_titulado:'',
-      numero_registro:0,obs1:'',obs2:'',obs3:'',estado:'',descripcion_estado:'',baja:'',codigo_carrera:0,
+      numero_registro:0,obs1:'',obs2:'',obs3:'',estado:'',descripcion_estado:'',baja:'',codigo_carrera:0,nombre_carrera:'',
       ci_especial:'',photography:'',fileFoto:null,
       idiomas:null,carreras:null,principal:'',provincias:null,departamentos:null,noencontrado:true,
       url:BASE_URL+'/estudiantes/estudiantes'
@@ -326,7 +326,7 @@ export default {
           this.anio_ingreso=response.data['anio_ingreso'],
           this.anio_cursado=response.data['anio_cursado'],
 
-          this.genero=response.data['genero'],
+          this.genero=response.data['genero']?response.data['genero']:'',
           this.fecha_nacimiento=response.data['fecha_nacimiento'],
           this.depa_nacimiento= response.data['depa_nacimiento'],
           this.prov_nacimiento=response.data['prov_nacimiento'],
@@ -363,7 +363,8 @@ export default {
           this.estado=response.data['estado'],
           this.descripcion_estado=response.data['descripcion_estado'],
           this.baja=response.data['baja'],
-          this.codigo_carrera=response.data['codigo_carrera'],
+          //this.codigo_carrera=response.data['codigo_carrera'],
+          this.nombre_carrera=response.data['nombre_carrera'],
           this.ci_especial=response.data['ci_especial']
            
         )
