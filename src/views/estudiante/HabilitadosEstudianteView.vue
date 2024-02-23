@@ -52,10 +52,10 @@
     <thead class="pb-4 table-light" v-if="estudiantes">
       <tr>
         <th>N°</th>
-        <th>C.I.</th>
-        <th>NOMBRES</th>
+        <th>C.I.</th>        
         <th>APELLIDO P.</th>
         <th>APELLIDO M.</th>
+        <th>NOMBRES</th>
         <th>CODIGO CARRERA</th>
         <th>NOMBRE CARRERA</th>
         <th>AÑO CURSADO</th>
@@ -65,10 +65,10 @@
     <tbody class="table-group-divider" id="contenido" :key="keycon">
       <tr v-for="(estudiante, i) in estudiantes" :key="i" :id="estudiante.ci_estudiante">
         <td>{{ i+1 }}</td>
-        <td>{{ estudiante.ci_estudiante }}</td>
-        <td>{{ estudiante.nombres }}</td>
+        <td>{{ estudiante.ci_estudiante }}</td>        
         <td>{{ estudiante.apellidoP }}</td>
         <td>{{ estudiante.apellidoM }}</td>
+        <td>{{ estudiante.nombres }}</td>
         <td>{{ estudiante.codigo_carrera }}</td>
         <td>{{ estudiante.nombre_carrera }}</td>
         <td>{{ estudiante.anio_cursado }}</td>
@@ -150,6 +150,7 @@ export default {
     //ruta de navegacion despues de la accion eliminar
     this.principal='/estudiantes';
   },
+  
   methods:{       
     methodThatForcesUpdate() {
       // const instance = getCurrentInstance();
@@ -272,7 +273,9 @@ export default {
                 //console.log('se isncribio al estudiantes');      
                   show_alerta(mensaje,'success'); 
                     //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
-                  setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);           
+
+                  setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);                                      
+                  
                   //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
 
                   //this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
@@ -320,7 +323,10 @@ export default {
                 //console.log('se isncribio al estudiantes');      
                   show_alerta(mensaje,'success'); 
                     //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
+                  //CODIGO FUNCIONANDO
                   setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);           
+                  
+
                   //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
 
                   //this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);

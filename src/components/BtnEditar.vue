@@ -1,5 +1,6 @@
 <template>
     <div>                
+      <!-- <button class="btn btn-warning"  :estudiantes="estudiantes" @click="Editar"> -->
       <button class="btn btn-warning"  :estudiantes="estudiantes" @click="Editar">
         Editar
       </button><i class="fa-solid fa-user"></i>        

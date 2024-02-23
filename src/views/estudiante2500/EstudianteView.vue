@@ -9,6 +9,8 @@
       <!-- </div>     -->
      </div>
   </div>
+  <BtnEditar :estudiantes="estudiantes"  @click="update">
+      </BtnEditar>
    <div  class="row" >
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
@@ -98,7 +100,7 @@
 
 <script>
 // @ is an alias to /src
-//import BtnEditar from '../../components/BtnEditar';
+import BtnEditar from '../../components/BtnEditar';
 import {confirmar1, show_alerta} from '../../funciones';
 import {ref} from 'vue';
 import axios from "axios";
@@ -106,17 +108,12 @@ import axios from "axios";
 
 import DataTable from 'datatables.net-vue3';
 import DataTableLib from 'datatables.net-bs5';
-
-import 'datatables.net-responsive-bs5';
+import Select from "datatables.net-select";
+//import 'datatables.net-responsive-bs5';
 //import 'datatables.net-select';
 
-
-
-
-
-
 DataTable.use(DataTableLib);
-//DataTable.use(Select);
+DataTable.use(Select);
 
 
 //import {ref} from 'vue';
@@ -127,7 +124,7 @@ DataTable.use(DataTableLib);
  //const contador =ref(0);
  let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
-  components: {DataTable},
+  components: {DataTable,BtnEditar},
   name: 'EstudianteView',
   data(){
     return {
@@ -175,6 +172,39 @@ export default {
     this.principal='/estudiantes';
   },
   methods:{
+    async update(){
+        console.log('actualizando');
+        let datos= this.estudiantes;
+        let identificador='';
+        //console.log(this.table.dt.rows({select:true})); 
+         this.table.dt.rows({selected:true}).every( function(){
+          //let idx = this.data().estudiantes.indexOf(this.data());
+          
+          //console.log(this.estudiantes.indexOf(this.data()));
+          //TODO ESTO FUNCIONA MUY BIEN, EXCELENTE
+          const row = this.data();
+          console.log(row);
+          // console.log(datos.indexOf(this.data()));
+          let idx = datos.indexOf(this.data());
+          let clave = datos[idx].ci_estudiante;
+          //console.log(clave);
+          identificador=clave;
+          //this.$router.go('/about');
+          //console.log(idx);
+          //console.log(this.data().ci_estudiante);
+          // let indice = this.estudiantes.map(e => e.ci_estudiante).indexOf('9675154')
+          // console.log(indice);
+          //  let indice = props.estudiantes.indexOf(this.data());
+          //  let clave = props.estudiantes[indice].ci_estudiante;   
+          //  console.log(clave);                 
+         });
+         this.$router.push('/estudiante/edit/'+identificador+'/');
+        // console.log(this.table.dt.rows);
+         
+        // const tables = this.$refs.table;
+        // console.log(tables.dt.rows({select:true}).every(()=>{
+        // }));
+    },
     async actualizar(){
       //console.log(props.estudiantes[1].nombres+'ahorari');
       await this.table.dt.rows({selected:true}).every(function (){
@@ -258,7 +288,7 @@ export default {
 @import 'datatables.net-bs5';
 
 /*@import 'datatables.net-dt';*/
-@import 'datatables.net-responsive-dt'; 
+@import 'datatables.net-responsive-dt';
 
 table.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
     position: relative;
