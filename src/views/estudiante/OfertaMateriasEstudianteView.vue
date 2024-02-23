@@ -181,7 +181,7 @@ export default {
   data(){
     return {estudiantes:null,asignaturas:[],principal:'',
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',
-
+    message:'',anio_actual:'',
     ofertaMaterias:[],estado1:false,                   
     url:BASE_URL+'/administracion/obtenerAsignaturasNoCursadas'
   }
@@ -212,7 +212,7 @@ export default {
                     this.codigo_carrera=response.data['estudiante']['codigo_carrera'],
                     this.nombre_carrera=response.data['estudiante']['nombre_carrera'],
                     this.anio_cursado=response.data['estudiante']['anio_cursado'],                   
-
+                    
                      //this.carreras=response.data['estudiante']
                      this.ofertaMaterias = response.data['oferta_materias']
 
@@ -220,6 +220,14 @@ export default {
                     }else{
                       show_alerta('El estudiante ya se encuentra inscrito','info');                      
                       this.$router.push('/estudiante/habilitados');
+                    }
+                    if(response.data['oferta_materias'].length===0)
+                    {
+                      this.message=response.data['message'],
+                      this.anio_actual=response.data['anio_actual'];
+                      //show_alerta('No Hay Materias Asignadas para el Estudiante','info'); 
+                      //this.$router.push('/estudiantes');
+                      this.inscribirEstudianteSextoAnio();
                     }
                     
                 }
@@ -239,8 +247,12 @@ export default {
       // console.log(parametros);
       //sendRequest('PUT',parametros,this.url,'Estudiante Actualizado Exitosamente!',this.principal);                          
 
-    //soporta asunc and await
-    },async guardarInscripcion()
+    //soporta asunc and await    
+    },
+    inscribirEstudianteSextoAnio(){
+      
+    }
+    ,async guardarInscripcion()
     {
       
       const parametros = {ci_estudiante:this.ci_estudiante,

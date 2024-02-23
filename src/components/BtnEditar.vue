@@ -1,9 +1,9 @@
 <template>
-    <div>                
+    <div class="d-flex justify-content-around">                
       <!-- <button class="btn btn-warning"  :estudiantes="estudiantes" @click="Editar"> -->
-      <button class="btn btn-warning"  :estudiantes="estudiantes" @click="Editar">
+      <button class="btn btn-warning editar"  :estudiantes="estudiantes" @click="Editar">
         Editar
-      </button><i class="fa-solid fa-user"></i>        
+      </button>        
     </div>
   </template>
   
@@ -40,3 +40,8 @@
     }
   };
   </script>
+<style scoped>
+.editar{
+  display: inline;
+}
+</style>

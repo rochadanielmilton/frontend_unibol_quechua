@@ -92,6 +92,10 @@
     <button class="btn btn-info btn-sm" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='no'" @click="inscripcionDirecta(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
       INS-DIRECTA
     </button>
+    <button class="btn btn-info btn-sm" v-if="sexto_anio" @click="inscripcionSextoAnio(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+      INSCRIBIR-6TO
+    </button>
+    
   </div>
 </td>
 
@@ -137,7 +141,7 @@ export default {
   data(){
     return {estudiantes:null,carreras:[],principal:'',
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',anio_ingreso:'',
-    anio_actual:0,
+    anio_actual:0,sexto_anio:false,
     materias:null,keycon: 0,
     url:BASE_URL+'/administracion/obtenerEstudiantesInscripcion/',
     //url:'http://192.168.30.9:8000/administracion/obtenerEstudiantesInscripcion/',
@@ -161,6 +165,33 @@ export default {
     inscribirPrimerAnio(ci_estudiante,nombres)
     {
      this.inscripcionDirecta(ci_estudiante,nombres)
+    },
+    inscripcionSextoAnio(ci_estudiante,nombres)
+    {
+      event.preventDefault();      
+      
+    const url = BASE_URL+'/administracion/inscribirEstudianteSextoAnio/' + ci_estudiante + '/';
+    
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: { confirmButton: 'btn btn-success me-3', cancelButton: 'btn btn-danger' },
+        buttonsStyling: false
+    });
+
+     swalWithBootstrapButtons.fire({
+        title: 'Esta seguro que desea inscribir al Estudiante: ' + nombres,
+        text: 'Se inscribira al estudiante ',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fa-solid fa-check"></i> Si, Inscribir',
+        cancelButtonText: '<i class="fa-solid fa-ban"></i>Cancelar'
+    }).then(result => {
+        if (result.isConfirmed) {
+           // sendRequest('GET', { id: ci_estudiante }, url, 'Estudiante inscrito Satisfactoriamente!', 'estudiante-primer-anio');
+          this.registrarEstudianteSextoAnio(url);
+        } else {
+            show_alerta('Operacion cancelada', 'info');
+        }
+    })
     },
     async inscripcionDirecta(ci_estudiante,nombres)
     {
@@ -239,6 +270,55 @@ export default {
         });
     },
     async registrarEstudianteNuevo(url){
+      await axios.get(url).then(resultado=>{        
+              const status = resultado.status;
+              console.log('este es el status'+status);
+              
+              const datos =resultado.data['asignaturas_inscritas'];
+              const datos_estudiante =resultado.data['estudiante'];
+              const fecha_emision=resultado.data['fecha_emision'];
+              const numero_boleta=resultado.data['numero_boleta'];
+              const numero_archivo=resultado.data['numero_archivo'];
+              let asignaturas_tabla=[];  
+              let modalidad_de_ingreso=[];      
+              for (let index = 0; index < datos.length; index++) {
+                //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
+                asignaturas_tabla.push([index+1,datos[index].codigo_asignatura,datos[index].nombre_asignatura,'N'])
+              }
+              
+                //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
+                modalidad_de_ingreso.push([`${datos_estudiante['tipo_ingreso']} GESTION ${datos_estudiante['anio_ingreso']}`,'APROBADO'])
+              
+
+               this.methodThatForcesUpdate();    
+              //console.log(asignaturas_tabla);
+              //aqui estaba ggenerar reporte oficial
+              //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
+              //this.$router.push('/estudiantes');
+              //this.$router.push('/estudiante/habilitados');
+              
+              //console.log(datos);          
+              const mensaje = 'Estudiante inscrito Exitosamente!';
+              if(status ===200)
+              {      
+                //console.log('se isncribio al estudiantes');      
+                  show_alerta(mensaje,'success'); 
+                    //setTimeout(() => window.location.href = '/estudiante/habilitados#'+datos_estudiante['ci_estudiante'], 1000);           
+
+                  setTimeout(() => window.location.href = '/estudiante/habilitados', 1000);                                      
+                  
+                  //this.generarReporteInscripcion(asignaturas_tabla,datos_estudiante,fecha_emision,numero_boleta);
+
+                  //this.generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+                  generarReporteInscripcionNuevos(asignaturas_tabla,modalidad_de_ingreso,datos_estudiante,fecha_emision,numero_boleta,numero_archivo);
+                  //optimizar este codigo que redirija a la la misma lista de habilitados
+                  //this.$router.push('/estudiantes');
+                  //this.methodThatForcesUpdate();
+                  //console.log('oir aki'+datos);                      
+              }        
+            });
+    },
+    async registrarEstudianteSextoAnio(url){
       await axios.get(url).then(resultado=>{        
               const status = resultado.status;
               console.log('este es el status'+status);

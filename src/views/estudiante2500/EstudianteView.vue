@@ -1,16 +1,44 @@
 <template>
 <div class="container-fluid my-5" >
   <div class="row">
-    <div class="mb-3">
+    <div class="mb-3 ">
       <!-- <div class="offset-7">         -->
-              <button class="btn btn-success col-4 offset-8 ">                 
+              <!-- <button class="btn btn-success col-4 offset-8 ">                 
                 <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
-               </button>
+               </button> -->
       <!-- </div>     -->
+
+      <div class="mb-3 d-grid gap-2 d-md-block">
+      
+      <button class="btn btn-success col-lg-4 ">                 
+        <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
+       </button>
+
+      </div>
+
      </div>
   </div>
-  <BtnEditar :estudiantes="estudiantes"  @click="update">
-      </BtnEditar>
+  <div class="row">
+    <div class="mb-3 d-grid gap-2 d-md-block " id="proyeccion">
+      <!-- <div class="offset-7">         -->
+                <!-- <button class="btn btn-success  ">                 
+                <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
+               </button> -->
+
+                <button class="btn btn-warning  col-md-2 col-lg-2  ma-3" @click="update()" >                 
+                Editar
+                <i class="fa-solid fa-user-plus"></i> 
+               </button>
+               <button class="btn btn-danger   col-md-2  col-lg-2  ma-3" @click="eliminarSeleccionado()" >
+                Eliminar
+                <i class="fa-solid fa-trash"></i> 
+               </button>
+      <!-- </div>     -->
+     </div>     
+     
+  </div>
+  <!-- <BtnEditar :estudiantes="estudiantes"  @click="update">
+      </BtnEditar> -->
    <div  class="row" >
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
@@ -19,7 +47,7 @@
           </BtnEditar> -->
         <div class="col-lg-12 offset-lg-0">          
           <div class="table-responsive">
-            <DataTable  ref="table" id="datatable"  :data="estudiantes" :columns="columns" class="table table-bordered table-striped display fixed small" :options="{ select: true ,responsive: true,autoWidth:false,dom:'Bfrtip',
+            <DataTable  ref="table" id="datatable"  :data="estudiantes" :columns="columns" class="table table-bordered table-striped display fixed small" :options="{ select: true ,responsive: true,autoWidth:true,dom:'Bfrtip',
                             buttons : [{
                               extend : 'selected',
                               text : 'Edit',
@@ -55,9 +83,9 @@
                       <th class="col">
                         APELLIDO-M.
                       </th> 
-                      <th class="col">
+                      <!-- <th class="col">
                         CELULAR
-                      </th> 
+                      </th>  -->
                       <th class="col">
                         CARRERA
                       </th>
@@ -100,7 +128,7 @@
 
 <script>
 // @ is an alias to /src
-import BtnEditar from '../../components/BtnEditar';
+//import BtnEditar from '../../components/BtnEditar';
 import {confirmar1, show_alerta} from '../../funciones';
 import {ref} from 'vue';
 import axios from "axios";
@@ -109,7 +137,7 @@ import axios from "axios";
 import DataTable from 'datatables.net-vue3';
 import DataTableLib from 'datatables.net-bs5';
 import Select from "datatables.net-select";
-//import 'datatables.net-responsive-bs5';
+import 'datatables.net-responsive-bs5';
 //import 'datatables.net-select';
 
 DataTable.use(DataTableLib);
@@ -124,11 +152,11 @@ DataTable.use(Select);
  //const contador =ref(0);
  let BASE_URL=process.env.VUE_APP_BASE_URL;
 export default {
-  components: {DataTable,BtnEditar},
+  components: {DataTable},
   name: 'EstudianteView',
   data(){
     return {
-      estudiantes:null,carreras:[],principal:'',message:'',dt: null, 
+      estudiantes:null,carreras:[],principal:'',message:'',dt: null, seleccionado:false,
       columns:[
        {data:null,render:function(data,type,row,meta)
        {return `${meta.row+1}`}},
@@ -172,7 +200,21 @@ export default {
     this.principal='/estudiantes';
   },
   methods:{
+    changeSelected(){
+      let seleccion =this.seleccionado;
+      this.table.dt.rows({selected:true}).every( function(){
+        const row = this.data();
+        console.log(row);
+        if(row)
+        {
+          seleccion=!seleccion;
+        }        
+    });  
+    this.seleccionado=seleccion;       
+
+    },
     async update(){
+      event.preventDefault();
         console.log('actualizando');
         let datos= this.estudiantes;
         let identificador='';
@@ -198,7 +240,12 @@ export default {
           //  let clave = props.estudiantes[indice].ci_estudiante;   
           //  console.log(clave);                 
          });
+         if(identificador){
          this.$router.push('/estudiante/edit/'+identificador+'/');
+         }else{
+          const error='Debes Seleccionar Un Estudiante!';
+          show_alerta(error,'info')
+         }
         // console.log(this.table.dt.rows);
          
         // const tables = this.$refs.table;
@@ -237,6 +284,43 @@ export default {
       const ruta = 'estudiantes/estudiantes/'+id+'/';
       confirmar1(id,nombre,ruta,this.principal);  
       //this.$router.push('/estudiantes')    
+    },eliminarSeleccionado(){
+      console.log('eliminando');
+        let datos= this.estudiantes;
+        let identificador='';
+        let nombres='';
+        //console.log(this.table.dt.rows({select:true})); 
+         this.table.dt.rows({selected:true}).every( function(){
+          //let idx = this.data().estudiantes.indexOf(this.data());
+          
+          //console.log(this.estudiantes.indexOf(this.data()));
+          //TODO ESTO FUNCIONA MUY BIEN, EXCELENTE
+          const row = this.data();
+          console.log(row);
+          // console.log(datos.indexOf(this.data()));
+          let idx = datos.indexOf(this.data());
+          let clave = datos[idx].ci_estudiante;
+          
+          //console.log(clave);
+          identificador=clave;
+          nombres =`${datos[idx].nombres} ${datos[idx].apellidoP} ${datos[idx].apellidoM}`;
+          //this.$router.go('/about');
+          //console.log(idx);
+          //console.log(this.data().ci_estudiante);
+          // let indice = this.estudiantes.map(e => e.ci_estudiante).indexOf('9675154')
+          // console.log(indice);
+          //  let indice = props.estudiantes.indexOf(this.data());
+          //  let clave = props.estudiantes[indice].ci_estudiante;   
+          //  console.log(clave);                 
+         });
+         if(identificador){
+          const ruta = 'estudiantes/estudiantes/'+identificador+'/';
+          confirmar1(identificador,nombres,ruta,this.principal);  
+         //this.$router.push('/estudiante/edit/'+identificador+'/');
+         }else{
+          const error='Debes Seleccionar Un Estudiante!';
+          show_alerta(error,'info')
+         }
     },
     getCarrera(id){      
       axios.get(BASE_URL+'/parametros/carreras/'+id+'/')
@@ -320,6 +404,10 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
     background-color: #31b131;
     background-color: #74a2ff;
     
+}
+.box-buttons{
+  display: flex;
+  justify-content:space-around;
 }
 
 </style>
