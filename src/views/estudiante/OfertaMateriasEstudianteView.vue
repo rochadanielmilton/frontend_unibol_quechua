@@ -137,14 +137,16 @@
     </div>
 
   </div>
-  <div v-else>
-    <button @click="this.$router.back()" class="btn btn-warning col auto"><i class="fa-solid fa-arrow-left"></i>
+  <div v-else>    
+    <img src="loading.gif" alt="imagen">            
+    <!-- <button @click="this.$router.back()" class="btn btn-warning col auto"><i class="fa-solid fa-arrow-left"></i>
       ATRAS
     </button>
     &nbsp; 
     <button  class="btn btn-warning col-6 text-center">
                     NO HAY OFERTA DE MATERIAS PARA EL ESTUDIANTE: {{`${apellidoP} ${apellidoM} ${nombres}`}}
-    </button> 
+    </button>  -->
+
   </div>
   
 
@@ -155,7 +157,7 @@
 //import {ref} from 'vue';
 import axios from "axios";
 import {show_alerta} from '../../funciones';
-import {generarReporteInscripcionRegulares} from '../../reportes';
+import {generarReporteInscripcionRegulares,generarReporteInscripcionEgresados} from '../../reportes';
 //para usar navegacion en la vista
 import {  useRoute } from "vue-router";
 
@@ -182,7 +184,8 @@ export default {
     return {estudiantes:null,asignaturas:[],principal:'',
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',
     message:'',anio_actual:'',
-    ofertaMaterias:[],estado1:false,                   
+    ofertaMaterias:[],estado1:false,    
+    datos_estudiante_sexto_anio: {},               
     url:BASE_URL+'/administracion/obtenerAsignaturasNoCursadas'
   }
   },
@@ -204,7 +207,7 @@ export default {
                     //this.inscrito_gestion=response.data['estudiante']['inscrito_gestion']
                     if(response.data['estudiante']['inscrito_gestion']==='no')
                     {
-                    
+                    this.datos_estudiante_sexto_anio = response.data;
                     this.ci_estudiante=response.data['estudiante']['ci_estudiante'],
                     this.nombres=response.data['estudiante']['nombres'],
                     this.apellidoP=response.data['estudiante']['apellidoP'],
@@ -250,7 +253,19 @@ export default {
     //soporta asunc and await    
     },
     inscribirEstudianteSextoAnio(){
+      //const datos_estudiante = this.datos_estudiante_sexto_anio['estudiante'];
+      //console.log(this.datos_estudiante_sexto_anio+'as');
+      const datos_estudiante = this.datos_estudiante_sexto_anio.estudiante;
+      //console.log(this.datos_estudiante_sexto_anio);
+      const modalidad_egreso=[];
+       //const bodyE = `${modalidad_egreso} ${anio_actual}`;      
       
+      const anio_actual = this.datos_estudiante_sexto_anio['anio_actual'];
+      //console.log(anio_actual);
+      modalidad_egreso.push([`${this.datos_estudiante_sexto_anio['message']} GESTION ${anio_actual}`]);
+      generarReporteInscripcionEgresados(modalidad_egreso, datos_estudiante, '', '', '', anio_actual);
+      this.$router.push('/estudiante/habilitados');
+
     }
     ,async guardarInscripcion()
     {
