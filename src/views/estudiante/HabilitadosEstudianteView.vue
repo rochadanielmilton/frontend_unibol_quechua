@@ -1,6 +1,6 @@
-<template :key="keycon">
+<template :key="keycon" >
   <!-- <div class="container-fluid text-center"> -->
-  <div class="container-fluid" id="contenido-global">
+  <div class="container-fluid" id="contenido-global" v-if="estudiantes">
   <div class="row">
     <div class="mb-3 fw-bold">       
       <div class="mb-3 col-lg-10 offset-1">
@@ -53,9 +53,9 @@
       <tr>
         <th>N°</th>
         <th>C.I.</th>        
-        <th>APELLIDO P.</th>
-        <th>APELLIDO M.</th>
-        <th>NOMBRES</th>
+        <!-- <th>APELLIDO P.</th>
+        <th>APELLIDO M.</th> -->
+        <th>NOMBRE COMPLETO</th>
         <th>CODIGO CARRERA</th>
         <th>NOMBRE CARRERA</th>
         <th>AÑO CURSADO</th>
@@ -66,9 +66,9 @@
       <tr v-for="(estudiante, i) in estudiantes" :key="i" :id="estudiante.ci_estudiante">
         <td>{{ i+1 }}</td>
         <td>{{ estudiante.ci_estudiante }}</td>        
-        <td>{{ estudiante.apellidoP }}</td>
-        <td>{{ estudiante.apellidoM }}</td>
-        <td>{{ estudiante.nombres }}</td>
+        <!-- <td>{{ estudiante.apellidoP }}</td>
+        <td>{{ estudiante.apellidoM }}</td> -->
+        <td>{{ `${estudiante.apellidoP} ${estudiante.apellidoM} ${estudiante.nombres} `}}</td>
         <td>{{ estudiante.codigo_carrera }}</td>
         <td>{{ estudiante.nombre_carrera }}</td>
         <td>{{ estudiante.anio_cursado }}</td>
@@ -110,6 +110,11 @@
       </div>
     </div>
   </div>
+
+  <div v-else class="text-center">
+      <img :src="ruta" alt="imagen">
+    </div>   
+  
 
 </template>
 

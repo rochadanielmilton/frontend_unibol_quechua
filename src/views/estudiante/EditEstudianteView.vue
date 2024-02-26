@@ -18,7 +18,7 @@
               
             
               <div v-if="ci_especial" :value="ci_especial" id="ci_especial" class="input-group mb-3 d-inline p-2 bg-primary text-white rounded">                                 
-                  {{ ci_especial }}                               
+                  {{ `${ci_estudiante} ${ci_especial}` }}                               
               </div>
               <div v-else id="ci_estudiante" :value="ci_estudiante" class="input-group mb-3 d-inline p-2 bg-primary text-white rounded">                 
                 {{ ci_estudiante }}
@@ -49,11 +49,11 @@
             </div>
           
             <div class="input-group mb-3">                            
-              <select class="form-select text-center" id="nombre_carrera" required v-model="nombre_carrera">              
+              <select class="form-select text-center" id="nombre_carrera" required v-model="codigo_carrera">              
                 <option value="" selected disabled>
                 ---Carrera---
                 </option>
-                <option  v-for="carrera in carreras" v-bind:value="carrera.nombre_carrera" :key="carrera.nombre_carrera">
+                <option  v-for="carrera in carreras" :value="carrera.codigo_carrera" :key="carrera.codigo_carrera">
                     {{`${carrera.nombre_carrera}`}}
                 </option>
               </select>                             
@@ -106,9 +106,9 @@
               <!-- <input type="text" v-model="prov_nacimiento" id="prov_nacimiento" class="form-control" maxlength="55" placeholder="Provincia Nacimiento" required> -->
             </div>
 
-            <!-- <div class="input-group mb-3"> 
-              <input type="text" v-model="munic_nacimiento" id="munic_nacimiento" class="form-control" maxlength="55" placeholder="Municipio Nacimiento" required>
-            </div> -->
+            <div class="input-group mb-3"> 
+              <input type="text" v-model="munic_nacimiento" id="munic_nacimiento" class="form-control" maxlength="100" placeholder="Municipio Nacimiento">
+            </div>
 
             <div class="input-group mb-3"> 
               <!-- <input type="text" v-model="tipo_ingreso" id="tipo_ingreso" class="form-control" maxlength="55" placeholder="Tipo Ingreso" required> -->
@@ -309,6 +309,14 @@ export default {
       this.photography=event.target.files[0].name;
       this.fileFoto=event.target.files[0];
     },
+    onChange(event) {            
+            axios.get(BASE_URL+'/parametros/obtenerProvincias/'+event.target.value+'/')
+            .then(            
+                response =>(
+                    this.provincias = response.data                        
+                )
+            );  
+    },
     getEstudiante(){
       axios.get(this.url).then(
         response =>(
@@ -331,18 +339,18 @@ export default {
           this.depa_nacimiento= response.data['depa_nacimiento'],
           this.prov_nacimiento=response.data['prov_nacimiento'],
 
-          //this.munic_nacimiento=response.data['munic_nacimiento'],
+          this.munic_nacimiento=response.data['munic_nacimiento'],
 
           this.tipo_ingreso=response.data['tipo_ingreso'],
 
           this.fotografia=response.data['fotografia'],
           
-          this.estado_civil=response.data['estado_civil'],
-          this.idioma_nativo=response.data['idioma_nativo'],
+          this.estado_civil=response.data['estado_civil']?response.data['estado_civil']:'',
+          this.idioma_nativo=response.data['idioma_nativo']?response.data['idioma_nativo']:'',
           this.idioma_regular=response.data['idioma_regular'],
           this.email=response.data['email'],
 
-          this.nacionalidad=response.data['nacionalidad'],
+          this.nacionalidad=response.data['nacionalidad']?response.data['nacionalidad']:'',
           this.numero_archivo=response.data['numero_archivo'],
           
           this.homologacion=response.data['homologacion'],
@@ -363,7 +371,7 @@ export default {
           this.estado=response.data['estado'],
           this.descripcion_estado=response.data['descripcion_estado'],
           this.baja=response.data['baja'],
-          //this.codigo_carrera=response.data['codigo_carrera'],
+          this.codigo_carrera=response.data['codigo_carrera'],
           this.nombre_carrera=response.data['nombre_carrera'],
           this.ci_especial=response.data['ci_especial']
            
@@ -448,7 +456,7 @@ export default {
                           depa_nacimiento:this.depa_nacimiento,
                           prov_nacimiento:this.prov_nacimiento,
 
-                          //munic_nacimiento:this.munic_nacimiento,
+                          munic_nacimiento:this.munic_nacimiento,
 
                           tipo_ingreso:this.tipo_ingreso,
                           fotografia:this.photography,
@@ -464,7 +472,7 @@ export default {
                           homologacion:this.homologacion,
                           estado_homologacion:this.estado_homologacion,
                           convalidacion:this.convalidacion,
-                          estado_convalidacion:this.convalidacion,
+                          estado_convalidacion:this.estado_convalidacion,
                           egresado:this.egresado,
                           estado_egresado:this.estado_egresado,
                           titulado:this.titulado,
@@ -494,7 +502,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 body {
     font-size: .875rem;
     line-height: 1.25rem;
