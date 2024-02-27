@@ -218,10 +218,12 @@ export async function generarReporteInscripcionEgresados(modalidad_egreso, datos
   //añadimos 20+50 por el tamaño de las imagenes
 
   //datos_estudiante,fecha_emision,numero_boleta
+  let cedula_identidad = datos_estudiante.ci_especial?`${datos_estudiante.ci_estudiante} ${datos_estudiante.ci_especial}`:datos_estudiante.ci_estudiante; 
+
   doc.setTextColor(100);
   doc.text(`
                        ${datos_estudiante.apellidoP} ${datos_estudiante.apellidoM} ${datos_estudiante.nombres}                        
-                       ${datos_estudiante.ci_estudiante}                       
+                       ${cedula_identidad}                       
                        ${datos_estudiante.numero_registro}                                 
                        ${datos_estudiante.nombre_carrera}
                        ${fecha_emision}
@@ -600,10 +602,13 @@ export async function generarReporteInscripcionNuevos(asignaturas_tabla,modalida
                        //añadimos 20+50 por el tamaño de las imagenes
 
                        //datos_estudiante,fecha_emision,numero_boleta
+                      
+                       let cedula_identidad = datos_estudiante.ci_especial?`${datos_estudiante.ci_estudiante} ${datos_estudiante.ci_especial}`:datos_estudiante.ci_estudiante; 
+
                        doc.setTextColor(100);
                        doc.text(`
                        ${datos_estudiante.apellidoP} ${datos_estudiante.apellidoM} ${datos_estudiante.nombres}                        
-                       ${datos_estudiante.ci_estudiante}                       
+                       ${cedula_identidad}                       
                        ${datos_estudiante.numero_registro}                                 
                        ${datos_estudiante.nombre_carrera}
                        ${fecha_emision}
@@ -976,10 +981,13 @@ export async function generarReporteInscripcionRegulares(asignaturas_tabla,asign
                        //añadimos 20+50 por el tamaño de las imagenes
 
                        //datos_estudiante,fecha_emision,numero_boleta
+
+                       let cedula_identidad = datos_estudiante.ci_especial?`${datos_estudiante.ci_estudiante} ${datos_estudiante.ci_especial}`:datos_estudiante.ci_estudiante; 
+
                        doc.setTextColor(100);
                        doc.text(`
                        ${datos_estudiante.apellidoP} ${datos_estudiante.apellidoM} ${datos_estudiante.nombres}                        
-                       ${datos_estudiante.ci_estudiante}                       
+                       ${cedula_identidad}                       
                        ${datos_estudiante.numero_registro}                                 
                        ${datos_estudiante.nombre_carrera}
                        ${fecha_emision}

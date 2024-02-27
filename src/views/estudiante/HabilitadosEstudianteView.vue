@@ -65,7 +65,8 @@
     <tbody class="table-group-divider" id="contenido" :key="keycon">
       <tr v-for="(estudiante, i) in estudiantes" :key="i" :id="estudiante.ci_estudiante">
         <td>{{ i+1 }}</td>
-        <td>{{ estudiante.ci_estudiante }}</td>        
+        <td v-if="estudiante.ci_especial">{{ `${estudiante.ci_estudiante} ${estudiante.ci_especial} `}}</td>        
+        <td v-else>{{ estudiante.ci_estudiante }}</td> 
         <!-- <td>{{ estudiante.apellidoP }}</td>
         <td>{{ estudiante.apellidoM }}</td> -->
         <td>{{ `${estudiante.apellidoP} ${estudiante.apellidoM} ${estudiante.nombres} `}}</td>
@@ -145,7 +146,7 @@ export default {
   name: 'AprobadasEstudianteView',
   data(){
     return {estudiantes:null,carreras:[],principal:'',
-    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',anio_ingreso:'',
+    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',anio_ingreso:'',ci_especial:'',
     anio_actual:0,sexto_anio:false,
     materias:null,keycon: 0,
     url:BASE_URL+'/administracion/obtenerEstudiantesInscripcion/',
