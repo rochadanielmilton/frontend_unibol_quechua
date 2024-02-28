@@ -1307,7 +1307,7 @@ export async function historialAcademico(datos_estudiante,grado,fecha_emision,ot
     //    `, (doc.internal.pageSize.getWidth()/2)-5, finalY,null,null,"center");
        //finalY+=25;    
        //añadimos 20+50 por el tamaño de las imagenes
-       finalY+=65; 
+       finalY+=75; 
 
 
     doc.setTextColor(10);
