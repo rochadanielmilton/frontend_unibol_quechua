@@ -137,8 +137,8 @@
     </div>
 
   </div>
-  <div v-else>    
-    <img src="loading.gif" alt="imagen">            
+  <div v-else class="text-center">
+      <img :src="ruta" alt="imagen">       
     <!-- <button @click="this.$router.back()" class="btn btn-warning col auto"><i class="fa-solid fa-arrow-left"></i>
       ATRAS
     </button>
@@ -185,7 +185,8 @@ export default {
     ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',
     message:'',anio_actual:'',
     ofertaMaterias:[],estado1:false,    
-    datos_estudiante_sexto_anio: {},               
+    datos_estudiante_sexto_anio: {},    
+    ruta:'../loading.gif',           
     url:BASE_URL+'/administracion/obtenerAsignaturasNoCursadas'
   }
   },

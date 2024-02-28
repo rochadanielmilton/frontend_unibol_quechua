@@ -25,7 +25,7 @@
                 <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
                </button> -->
 
-                <button class="btn btn-warning  col-md-2 col-lg-2  ma-3" @click="update()" >                 
+                <button class="btn btn-warning  col-md-2 col-lg-2  ma-3" @click="editarSeleccionado()" >                 
                 Editar
                 <i class="fa-solid fa-user-plus"></i> 
                </button>
@@ -172,16 +172,16 @@ export default {
        {data:'estado'},
        {
         data:'ci_estudiante',
-        render:function(data){
-          return `<button   data-id=${data} class="btn btn-danger" id="edit" @click="eliminar(${data.ci_estudiante},${data.nombres})">
-                                <i class="fa-solid fa-trash"></i>
-                  </button> &nbsp;
-                  <router-link data-id=${data} :to="{path:'/estudiante/edit/'+ci_estudiante}" class="btn btn-warning">
-                                <i class="fa-solid fa-edit"></i>
-                            </router-link>
+        // render:function(data){
+        //   return `<button   data-id=${data} class="btn btn-danger" id="edit" @click="eliminar(${data.ci_estudiante},${data.nombres})">
+        //                         <i class="fa-solid fa-trash"></i>
+        //           </button> &nbsp;
+        //           <router-link data-id=${data} :to="{path:'/estudiante/edit/'+ci_estudiante}" class="btn btn-warning">
+        //                         <i class="fa-solid fa-edit"></i>
+        //                     </router-link>
                   
-                  `
-        }
+        //           `
+        // }
        },       
      ]     
     }
@@ -213,7 +213,7 @@ export default {
     this.seleccionado=seleccion;       
 
     },
-    async update(){
+    async editarSeleccionado(){
       event.preventDefault();
         console.log('actualizando');
         let datos= this.estudiantes;

@@ -1,6 +1,6 @@
-<template :key="keycon">
+<template :key="keycon" >
   <!-- <div class="container-fluid text-center"> -->
-  <div class="container-fluid" id="contenido-global">
+  <div class="container-fluid" id="contenido-global" v-if="estudiantes">
   <div class="row">
     <div class="mb-3 fw-bold">       
       <div class="mb-3 col-lg-10 offset-1">
@@ -53,9 +53,9 @@
       <tr>
         <th>N°</th>
         <th>C.I.</th>        
-        <th>APELLIDO P.</th>
-        <th>APELLIDO M.</th>
-        <th>NOMBRES</th>
+        <!-- <th>APELLIDO P.</th>
+        <th>APELLIDO M.</th> -->
+        <th>NOMBRE COMPLETO</th>
         <th>CODIGO CARRERA</th>
         <th>NOMBRE CARRERA</th>
         <th>N° INSCRIPCIÓN</th>
@@ -67,10 +67,11 @@
     <tbody class="table-group-divider" id="contenido" :key="keycon">
       <tr v-for="(estudiante, i) in estudiantes" :key="i" :id="estudiante.ci_estudiante">
         <td>{{ i+1 }}</td>
-        <td>{{ estudiante.ci_estudiante }}</td>        
-        <td>{{ estudiante.apellidoP }}</td>
-        <td>{{ estudiante.apellidoM }}</td>
-        <td>{{ estudiante.nombres }}</td>
+        <td v-if="estudiante.ci_especial">{{ `${estudiante.ci_estudiante} ${estudiante.ci_especial} `}}</td>        
+        <td v-else>{{ estudiante.ci_estudiante }}</td> 
+        <!-- <td>{{ estudiante.apellidoP }}</td>
+        <td>{{ estudiante.apellidoM }}</td> -->
+        <td>{{ `${estudiante.apellidoP} ${estudiante.apellidoM} ${estudiante.nombres} `}}</td>
         <td>{{ estudiante.codigo_carrera }}</td>
         <td>{{ estudiante.nombre_carrera }}</td>
         <td>{{ estudiante.numero_registro }}</td>
@@ -115,6 +116,11 @@
     </div>
   </div>
 
+  <div v-else class="text-center">
+      <img :src="ruta" alt="imagen">
+    </div>   
+  
+
 </template>
 
 <script>
@@ -144,7 +150,7 @@ export default {
   name: 'AprobadasEstudianteView',
   data(){
     return {estudiantes:null,carreras:[],principal:'',
-    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',anio_ingreso:'',
+    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',anio_ingreso:'',ci_especial:'',
     anio_actual:0,sexto_anio:false,
     materias:null,keycon: 0,
     url:BASE_URL+'/administracion/obtenerEstudiantesInscripcion/',
