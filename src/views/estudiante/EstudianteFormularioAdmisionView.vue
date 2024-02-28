@@ -19,7 +19,7 @@
 
             <div class="  fs-6">                 
               NRO DE REGISTRO:       {{`${numero_registro}`}}
-            </div>
+            </div>  
 
             <div class="  fs-6">                 
               CARRERA:         {{`${nombre_carrera}`}}

@@ -120,6 +120,9 @@
           <router-link :to="{ path: '/estudiante/edit/' + estudiante.ci_estudiante }" class="btn btn-outline-warning me-1">
             <i class="fa-solid fa-edit"></i>
           </router-link>
+          <button class="btn btn-outline-success" @click="certificadoCalificaciones(estudiante.ci_estudiante)" >                   
+                    <i class="fa-solid fa-sheet-plastic"></i>
+          </button> 
           <!-- <button class="btn btn-outline-danger" @click="eliminar(estudiante.ci_estudiante, estudiante.nombres)">
             <i class="fa-solid fa-trash"></i>
           </button> -->
@@ -165,6 +168,7 @@
 //import {ref} from 'vue';
 import axios from "axios";
 import { confirmar1, show_alerta } from '../../funciones';
+import {historialAcademico} from '../../reportes'
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -184,7 +188,8 @@ export default {
       gestion:'',
       datos_estudiante:{},
       requisitos:{},
-      numero_archivo:''
+      numero_archivo:'',
+      materias_cursadas:{}
     }
   }
   },
@@ -209,6 +214,35 @@ export default {
              //console.log(this.datos_estudiante.requisitos[0].requisito);
              //console.log(this.datos_estudiante);
              this.exportPDF(this.datos_estudiantes);
+          }
+        ).catch(error => {
+          console.log(error)
+          show_alerta(error, 'error')
+        });
+    },
+    async certificadoCalificaciones(id){
+
+      const url =BASE_URL+'/estudiantes/obtenerCertificacionGestionAnterior/'+id+'/';
+      await axios.get(url)
+        .then(
+          response => {
+              //const datos_estudiante=response.data['datos_estudiante'];
+             this.materias_cursadas = response.data;
+             //console.log(this.datos_estudiante.requisitos[0].requisito);
+             //console.log(this.datos_estudiante);
+             console.log(this.materias_cursadas.estudiante);
+             const datos = this.materias_cursadas;
+             const datos_estudiante = datos.estudiante;
+             const grado = datos.grado;
+             const fecha_emision = datos.fecha_emision;
+             const otros_datos= datos.datos;
+             if(!response.data.message)
+             {
+              historialAcademico(datos_estudiante,grado,fecha_emision,otros_datos);
+             }else{
+              show_alerta('El estudiante no curso la gestión anterior(2023)','error')
+             }
+             
           }
         ).catch(error => {
           console.log(error)
@@ -251,23 +285,29 @@ export default {
         );
       return this.carreras[id]
     }, getMateriasCursadas(id) {      
-      axios.get(BASE_URL+'/estudiantes/obtenerAsignaturasCursadas/' + id)
+      axios.get(BASE_URL+'/estudiantes/obtenerAsignaturasCursadas/' + id +'/')
         .then(
           response => {
 
             if (!response.data.message) {
-              console.log('psando normal');
+              //console.log('psando normal');
               //this.message = response.data.message,
-              this.ci_estudiante = response.data['estudiante']['ci_estudiante'],
-                this.nombres = response.data['estudiante']['nombres'],
-                this.apellidoP = response.data['estudiante']['apellidoP'],
-                this.apellidoM = response.data['estudiante']['apellidoM'],
-                this.numero_registro = response.data['estudiante']['numero_registro'],
-                this.nombre_carrera = response.data['estudiante']['nombre_carrera'],
+                this.materias_cursadas=response.data
 
-                this.fecha_emision = response.data['fecha_emision'],
+                // this.ci_estudiante = response.data['estudiante']['ci_estudiante'],
+                // this.nombres = response.data['estudiante']['nombres'],
+                // this.apellidoP = response.data['estudiante']['apellidoP'],
+                // this.apellidoM = response.data['estudiante']['apellidoM'],
+                // this.numero_registro = response.data['estudiante']['numero_registro'],
+                // this.nombre_carrera = response.data['estudiante']['nombre_carrera'],
 
-                this.materias = this.sortGestion(response.data['datos'])
+                // this.fecha_emision = response.data['fecha_emision'],
+                
+                // this.materias = this.sortGestion(response.data['datos'])
+
+                
+
+
 
               //this.materias = response.data['datos']
             } else {
@@ -276,7 +316,7 @@ export default {
             }
 
 
-
+            console.log(response.data);
           }
         ).catch(error => {
           console.log(error)
@@ -290,6 +330,22 @@ export default {
       const datos=cadena.split('-');
       fecha = datos[2]+'/'+datos[1]+'/'+datos[0];
       return fecha;
+    },
+    sortGestion(data){
+        data = data.sort((a, b) => {
+        if (a.anio_cursado < b.anio_cursado) {
+          return -1;
+        }
+      });
+      console.log(data);
+      return data;
+    },
+    certificadoCalificacioness(ci_estudiante){
+      //console.log(this.getMateriasCursadas(ci_estudiante));
+      this.getMateriasCursadas(ci_estudiante);
+      const datos_estudiante=this.materias_cursadas;
+      //console.log(this.materias_cursadas);
+      historialAcademico(datos_estudiante);
     },
     async exportPDF(datos_estudiante) {
                   //first try

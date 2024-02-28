@@ -13,7 +13,11 @@
               APELLIDOS Y NOMBRES:    {{`${apellidoP} ${apellidoM} ${nombres}`}}
             </div>
             
-            <div class="fs-6">                 
+            <div class="fs-6" v-if="ci_especial">                 
+              CEDULA DE IDENTIDAD:     {{`${ci_estudiante} ${ci_especial}`}}
+            </div>
+
+            <div class="fs-6" v-else>                 
               CEDULA DE IDENTIDAD:     {{`${ci_estudiante}`}}
             </div>
 
@@ -182,7 +186,7 @@ export default {
   },
   data(){
     return {estudiantes:null,asignaturas:[],principal:'',
-    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',
+    ci_estudiante:'',nombres:'',apellidoP:'',apellidoM:'',codigo_carrera:'',nombre_carrera:'',anio_cursado:'',inscrito_gestion:'',ci_especial:'',
     message:'',anio_actual:'',
     ofertaMaterias:[],estado1:false,    
     datos_estudiante_sexto_anio: {},    
@@ -210,6 +214,7 @@ export default {
                     {
                     this.datos_estudiante_sexto_anio = response.data;
                     this.ci_estudiante=response.data['estudiante']['ci_estudiante'],
+                    this.ci_especial=response.data['estudiante']['ci_especial']?response.data['estudiante']['ci_especial']:'',
                     this.nombres=response.data['estudiante']['nombres'],
                     this.apellidoP=response.data['estudiante']['apellidoP'],
                     this.apellidoM=response.data['estudiante']['apellidoM'],
