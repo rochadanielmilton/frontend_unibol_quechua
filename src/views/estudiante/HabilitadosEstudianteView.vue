@@ -58,6 +58,8 @@
         <th>NOMBRE COMPLETO</th>
         <th>CODIGO CARRERA</th>
         <th>NOMBRE CARRERA</th>
+        <th>N° INSCRIPCIÓN</th>
+        <th>N° BOLETA</th>
         <th>AÑO CURSADO</th>
         <th>ACCIONES</th>
       </tr>
@@ -72,6 +74,8 @@
         <td>{{ `${estudiante.apellidoP} ${estudiante.apellidoM} ${estudiante.nombres} `}}</td>
         <td>{{ estudiante.codigo_carrera }}</td>
         <td>{{ estudiante.nombre_carrera }}</td>
+        <td>{{ estudiante.numero_registro }}</td>
+        <td>{{ estudiante.numero_boleta }}</td>
         <td>{{ estudiante.anio_cursado }}</td>
         <td>
   <div class="btn-group" role="group">
