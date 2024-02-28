@@ -1418,7 +1418,7 @@ export async function historialAcademico(datos_estudiante,grado,fecha_emision,ot
     doc.setTextColor(10);
       doc.setFontSize(8).setFont(undefined, 'normal');                      
       doc.text(`
-        WIllay Japni
+        Willay Japi'q
         `, 45, finalY);
         //finalY+=25;    
         //añadimos 20+50 por el tamaño de las imagenes

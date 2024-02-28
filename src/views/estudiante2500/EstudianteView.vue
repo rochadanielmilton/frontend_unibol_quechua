@@ -3,18 +3,18 @@
   <div class="row">
     <div class="mb-3 ">
       <!-- <div class="offset-7">         -->
-              <!-- <button class="btn btn-success col-4 offset-8 ">                 
+              <button class="btn btn-success col-4 offset-8 ">                 
                 <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
-               </button> -->
+               </button>
       <!-- </div>     -->
 
-      <div class="mb-3 d-grid gap-2 d-md-block">
+      <!-- <div class="mb-3 d-grid gap-2 d-md-block">
       
       <button class="btn btn-success col-lg-4 ">                 
         <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
        </button>
 
-      </div>
+      </div> -->
 
      </div>
   </div>
