@@ -269,7 +269,7 @@ export default {
       //console.log(this.datos_estudiante_sexto_anio+'as');
       const datos = resultado.data;
       //const datos_estudiante = datos['estudiante'];
-      const {estudiantes,fecha_emision,numero_archivo}= datos;
+      const {estudiantes,fecha_emision,numero_archivo,numero_boleta}= datos;
       
       //console.log(this.datos_estudiante_sexto_anio);
       const modalidad_egreso=[];
@@ -279,7 +279,7 @@ export default {
       //console.log(anio_actual);
       modalidad_egreso.push([`DEFENSA DE GRADO GESTION ${anio_actual}`,'PENDIENTE']);
       console.log(estudiantes);
-      generarReporteInscripcionEgresados(modalidad_egreso, estudiantes, fecha_emision, '', numero_archivo, anio_actual);
+      generarReporteInscripcionEgresados(modalidad_egreso, estudiantes, fecha_emision, numero_boleta, numero_archivo, anio_actual);
       this.$router.push('/estudiante/habilitados');
       });
 
