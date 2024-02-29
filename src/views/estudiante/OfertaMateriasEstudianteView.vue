@@ -191,7 +191,8 @@ export default {
     ofertaMaterias:[],estado1:false,    
     datos_estudiante_sexto_anio: {},    
     ruta:'../loading.gif',           
-    url:BASE_URL+'/administracion/obtenerAsignaturasNoCursadas'
+    url:BASE_URL+'/administracion/obtenerAsignaturasNoCursadas',
+    sexto_anio:BASE_URL+'/administracion/inscripcionParaDefensa'
   }
   },
   async mounted(){
@@ -236,7 +237,10 @@ export default {
                       this.anio_actual=response.data['anio_actual'];
                       //show_alerta('No Hay Materias Asignadas para el Estudiante','info'); 
                       //this.$router.push('/estudiantes');
-                      this.inscribirEstudianteSextoAnio();
+                      //console.log(this.sexto_anio);
+                      const url = this.sexto_anio +'/'+response.data['estudiante']['ci_estudiante']+'/';
+                      console.log(url);
+                      this.inscribirEstudianteSextoAnio(url);
                     }
                     
                 }
@@ -258,21 +262,45 @@ export default {
 
     //soporta asunc and await    
     },
-    inscribirEstudianteSextoAnio(){
+    async inscribirEstudianteSextoAnio(url){
+
+      await axios.get(url).then(resultado=>{
       //const datos_estudiante = this.datos_estudiante_sexto_anio['estudiante'];
       //console.log(this.datos_estudiante_sexto_anio+'as');
-      const datos_estudiante = this.datos_estudiante_sexto_anio.estudiante;
+      const datos = resultado.data;
+      //const datos_estudiante = datos['estudiante'];
+      const {estudiante,fecha_emision,numero_boleta,numero_archivo}= datos;
+      
       //console.log(this.datos_estudiante_sexto_anio);
       const modalidad_egreso=[];
        //const bodyE = `${modalidad_egreso} ${anio_actual}`;      
       
-      const anio_actual = this.datos_estudiante_sexto_anio['anio_actual'];
+      const anio_actual = datos['anio_actual'];
       //console.log(anio_actual);
-      modalidad_egreso.push([`${this.datos_estudiante_sexto_anio['message']} GESTION ${anio_actual}`]);
-      generarReporteInscripcionEgresados(modalidad_egreso, datos_estudiante, '', '', '', anio_actual);
+      modalidad_egreso.push([`${datos['message']} GESTION ${anio_actual}`]);
+      generarReporteInscripcionEgresados(modalidad_egreso, estudiante, fecha_emision, numero_boleta, numero_archivo, anio_actual);
       this.$router.push('/estudiante/habilitados');
+      });
 
     }
+    // async inscribirEstudianteSextoAnio(url){
+
+    
+    //   //const datos_estudiante = this.datos_estudiante_sexto_anio['estudiante'];
+    //   //console.log(this.datos_estudiante_sexto_anio+'as');
+    //   const datos = resultado.data;
+    //   const datos_estudiante = this.datos_estudiante_sexto_anio.estudiante;
+    //   //console.log(this.datos_estudiante_sexto_anio);
+    //   const modalidad_egreso=[];
+    //   //const bodyE = `${modalidad_egreso} ${anio_actual}`;      
+
+    //   const anio_actual = this.datos_estudiante_sexto_anio['anio_actual'];
+    //   //console.log(anio_actual);
+    //   modalidad_egreso.push([`${this.datos_estudiante_sexto_anio['message']} GESTION ${anio_actual}`]);
+    //   generarReporteInscripcionEgresados(modalidad_egreso, datos_estudiante, '', '', '', anio_actual);
+    //   this.$router.push('/estudiante/habilitados');    
+
+    //   }
     ,async guardarInscripcion()
     {
       

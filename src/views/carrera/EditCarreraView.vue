@@ -107,7 +107,7 @@ export default {
         //const parametros={nombre_provincia:this.nombre.trim()};
         //const principal = '/carreras';
         await sendRequest('PUT',parametros,this.url,'Carrera Actualizada Exitosamente!',this.principal);
-        this.$router.push('/materias')
+        this.$router.push('/carreras')
       }
     }
   }

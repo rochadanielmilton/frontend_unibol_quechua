@@ -29,7 +29,7 @@
               <input type="text" v-model="descripcion" id="descripcion" class="form-control" maxlength="100" placeholder="Descripcion" required>              
             </div>
 
-            <!-- <div class="input-group mb-3"> 
+            <div class="input-group mb-3"> 
               <select class="form-select text-center" id="estado" required v-model="id_docente">              
                 <option value="" selected disabled>
                 ----------------Docente----------------
@@ -38,7 +38,7 @@
                     {{`${docente.nombres} ${docente.apellidop} ${docente.apellidom}`}}
                 </option>
               </select>                 
-            </div> -->
+            </div>
 
           
 
@@ -130,7 +130,7 @@ export default {
           this.total_horas=response.data['total_horas'],          
           this.pre_requisito1=response.data['pre_requisito1'],
           this.pre_requisito2=response.data['pre_requisito2'],                              
-          this.anio_asignado=response.data['anio_asignado']
+          this.anio_asignado=response.data['anio_asignado'] +' AÑO'
         )
       ).catch(error => { 
           console.log(error)
