@@ -49,7 +49,7 @@ export async function generarReporteInscripcionEgresados(modalidad_egreso, datos
   //EJEMPLO QUE ESTA AL FINAL DE COMO PASAR LOS HEADERS Y BODY
   //const headers = [['NRO','PERIODO','CODIGO','ASIGNATURA PROGRAMADA', 'OBSERVACION']];
   //const headers = [['NRO', 'CODIGO', 'ASIGNATURA PROGRAMADA', 'TIPO', 'OBSERVACION']];
-  const headersModalidadEgreso = [['MODALIDAD DE EGRESO']];
+  const headersModalidadEgreso = [['MODALIDAD DE EGRESO','RESULTADO']];
   //const headers1 = [['Nro','nombres', 'apellidoP', 'apellidoM','celular','nombre_carrera','estado']];  // 注意有兩層[]
   // const body = [
   //     ['David', 'david@example.com', 'Sweden'],
