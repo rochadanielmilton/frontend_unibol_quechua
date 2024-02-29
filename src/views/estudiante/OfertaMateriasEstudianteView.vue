@@ -277,7 +277,7 @@ export default {
       
       const anio_actual = datos['anio_actual'];
       //console.log(anio_actual);
-      modalidad_egreso.push([`DEFENSA DE GRADO GESTION ${anio_actual}`,'PENDIENTE']);
+      modalidad_egreso.push([`DEFENSA DE GRADO GESTIÓN ${anio_actual}`,'PENDIENTE']);
       console.log(estudiantes);
       generarReporteInscripcionEgresados(modalidad_egreso, estudiantes, fecha_emision, numero_boleta, numero_archivo, anio_actual);
       this.$router.push('/estudiante/habilitados');
