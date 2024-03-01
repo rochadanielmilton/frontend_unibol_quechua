@@ -326,10 +326,12 @@ export default {
     formatDate(cadena){
       // const date = new Date(cadena);  
       // return new Intl.DateTimeFormat('es-BO').format(date).toString();
-      let fecha='';
-      const datos=cadena.split('-');
-      fecha = datos[2]+'/'+datos[1]+'/'+datos[0];
-      return fecha;
+      if(cadena!==''&&cadena!==null&&cadena!=='undefined'){
+        let fecha='';
+        const datos=cadena.split('-');
+        fecha = datos[2]+'/'+datos[1]+'/'+datos[0];
+        return fecha;
+      }
     },
     sortGestion(data){
         data = data.sort((a, b) => {
@@ -567,6 +569,7 @@ export default {
                        let email ='';
                        let celular ='';
                        let nacimiento = '';
+                       let fecha_nac='';
                        if(estudiante1.estado_civil)
                        {
                         estado = estudiante1.estado_civil.toUpperCase();
@@ -598,12 +601,13 @@ export default {
                        {
                         nacimiento=estudiante1.prov_nacimiento.toUpperCase();
                        }
+                       fecha_nac =estudiante1.fecha_nacimiento?estudiante1.fecha_nacimiento:'';                       
 
                        doc.setTextColor(100);
                        doc.setFontSize(11);
                        doc.text(`
                        ${estudiante1.apellidoP} ${estudiante1.apellidoM} ${estudiante1.nombres}                         
-                       ${this.formatDate(estudiante1.fecha_nacimiento)}                       
+                       ${this.formatDate(fecha_nac)}                       
                        ${estado}                                
                        ${genero}
                        ${nacimiento}
