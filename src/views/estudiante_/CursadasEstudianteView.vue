@@ -3,7 +3,7 @@
   <div v-if="materias" class="container-fluid" id="contenido-global">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <div class="mb-3 fw-bold normal-letter ">
+        <div class="mb-3 fw-bold  normal-letter">
 
           <div class="mb-3 fs-5 text-center">
             HISTORIAL ACADEMICO DE AVANCE GENERAL
@@ -29,12 +29,13 @@
               APELLIDOS Y NOMBRES:      {{`${apellidoP} ${apellidoM} ${nombres}`}}
             </div> -->
 
+          <div class=" mb-3 fs-6">
+            FECHA DE EMISION : {{ `${fecha_emision}` }}
+          </div>
           <div class="d-flex justify-content-between ">
-            <div class=" mb-3 fs-6">
-              FECHA DE EMISION : {{ `${fecha_emision}` }}
-            </div>
+
             <div>
-              <button class="btn btn-warning " @click="exportPDF">
+              <button class="btn btn-warning ma-3" @click="exportPDF">
                 <strong> GENERAR PDF :</strong> <i class="fa-solid fa-file-pdf"></i>
               </button>
             </div>
@@ -50,7 +51,32 @@
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
       <div class="col-lg-10 offset-lg-1">
         <div class="table-responsive text-center">
-          <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12 small">
+          <DataTable ref="table" id="materias_cursadas" :data="materias" :columns="columns"
+            class="table table-bordered table-striped display fixed small" :options="{
+              select: true, responsive: true, autoWidth: true, dom: 'Bfrti',
+              buttons: [{
+                extend: 'selected',
+                text: 'Edit',
+                name: 'edit'
+              }],
+              pageLength: 100,
+              //responsivePriority: 1,                                                   
+              columnDefs: [{
+                width: '40%', target: [6],
+                width: '10%', target: [7],
+              },
+              { responsivePriority: 1, targets: 1 },
+              { responsivePriority: 2, targets: 2 },
+              { responsivePriority: 3, targets: 3 },
+              { responsivePriority: 4, targets: 4 },
+              ],
+              language: {
+                search: 'Buscar', zeroRecord: 'No hay registros que mostrar',
+                info: 'Mostrando desde _START_ a _END_ de _TOTAL_ registros',
+                infoFiltered: '(Filtrados de _MAX_ registros)',
+                paginate: { first: 'Primero', previous: 'Anterior', next: 'Siguiente', last: 'Ultimo' }
+              },
+            }" :key="columns.length">
             <thead v-if="materias" class="pb-4 table-light">
               <tr>
                 <th>
@@ -62,9 +88,9 @@
                 <th>
                   SIGLA CODIGO
                 </th>
-                <th>
+                <!-- <th>
                   SIGLA CONV.
-                </th>
+                </th> -->
                 <th>
                   HOMOL.
                 </th>
@@ -96,7 +122,7 @@
               </tr>
             </thead>
             <tbody class="table-group-divider" id="contenido">
-              <tr v-for="materia, i  in materias" :key="materia">
+              <!-- <tr v-for="materia, i  in materias" :key="materia">
                 <td>{{ i + 1 }}</td>
                 <td>{{ materia.anio_cursado }}</td>
                 <td>{{ materia.codigo_asignatura }}</td>
@@ -106,25 +132,25 @@
                 <td>{{ materia.total_horas }}</td>
                 <td>{{ materia.pre_requisitos }}</td>
                 <td>{{ materia.nota_num_final }}</td>
-                <td>{{ materia.estado_gestion_espaniol }}</td>
-                <!-- <td></td>
+                <td>{{ materia.estado_gestion_espaniol }}</td> -->
+              <!-- <td></td>
                         <td></td> -->
-                <!-- <td>{{ estudiante.nombre_asignatura }}</td> -->
-                <!-- <td >{{ estudiante.id_docente }}</td> -->
+              <!-- <td>{{ estudiante.nombre_asignatura }}</td> -->
+              <!-- <td >{{ estudiante.id_docente }}</td> -->
 
-                <!-- <td >{{ estudiante.estado_gestion_espaniol }}</td> -->
-                <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
-                <!-- <td>{{ estudiante.nota_num_final }}</td> -->
+              <!-- <td >{{ estudiante.estado_gestion_espaniol }}</td> -->
+              <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
+              <!-- <td>{{ estudiante.nota_num_final }}</td> -->
 
 
-                <!-- <td>                                                                                 
+              <!-- <td>                                                                                 
                             <button   class="btn btn-warning" @click="clickMe"> -->
-                <!-- <i class="fa-solid fa-file-pdf"></i> -->
-                <!-- </button>                         
+              <!-- <i class="fa-solid fa-file-pdf"></i> -->
+              <!-- </button>                         
                         </td> -->
-              </tr>
+              <!-- </tr> -->
             </tbody>
-          </table>
+          </DataTable>
           <!-- </div> -->
         </div>
       </div>
@@ -147,7 +173,17 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 
-//import {ref} from 'vue';
+import DataTable from 'datatables.net-vue3';
+import DataTableLib from 'datatables.net-bs5';
+import Select from "datatables.net-select";
+import 'datatables.net-responsive-bs5';
+//import 'datatables.net-select';
+
+DataTable.use(DataTableLib);
+DataTable.use(Select);
+
+
+import { ref } from 'vue';
 // const provincias = computed(()=>{
 //         return this.provincias = this.getProvincias()
 // })
@@ -155,6 +191,7 @@ import autoTable from "jspdf-autotable";
 //const contador =ref(0);
 let BASE_URL = process.env.VUE_APP_BASE_URL;
 export default {
+  components: { DataTable },
   name: 'AprobadasEstudianteView',
   data() {
     return {
@@ -165,7 +202,29 @@ export default {
       promedio_todas: '',
       promedio_aprobadas: '',
       materias: null, message: '',
-      url: BASE_URL + '/estudiantes/obtenerAsignaturasCursadas'
+      url: BASE_URL + '/estudiantes/obtenerAsignaturasCursadas',
+      columns: [
+        {
+          data: null, render: function (data, type, row, meta) { return `${meta.row + 1}` }
+        },
+        { data: 'anio_cursado' },
+        //{ data: null, render: function (data) { return `${data.apellidoP} ${data.apellidoM} ${data.nombres}` } },
+        //{ data: `${data.nombres} ${data.apellidoP} ${data.apellidoM}` },
+        { data: 'codigo_asignatura' },
+        { data: 'homologacion' },
+        { data: 'nombre_asignatura' },
+        { data: 'total_horas' },
+        { data: 'pre_requisitos' },
+        { data: 'nota_num_final' },
+        { data: 'estado_gestion_espaniol' },
+      ]
+    }
+  },
+  setup() {
+    const table = ref(null)
+    // ...
+    return {
+      table
     }
   },
   mounted() {
@@ -536,7 +595,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 body {
   font-size: .675rem;
   line-height: 1.25rem;

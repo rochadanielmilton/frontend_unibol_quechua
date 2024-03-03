@@ -1,152 +1,193 @@
 <template>
-  <div class="container-fluid my-5">
+  <div class="container-fluid ">
+    <!-- <div class="container-fluid text-center"> -->
     <div class="row">
-      <div class="mb-3 ">
-        <!-- <div class="offset-7">         -->
-        <!-- <button class="btn btn-success col-4 offset-8 ">
-          <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link> <i
-            class="fa-solid fa-user-plus"></i>
-        </button> -->
-        <!-- </div>     -->
+      <div class="mb-3">
+        <!-- <div class="d-flex justify-content-around ">         -->
+        <div class="mb-3 d-grid gap-2 d-md-block">
 
-        <!-- <div class="mb-3 d-grid gap-2 d-md-block">
-      
-      <button class="btn btn-success col-lg-4 ">                 
-        <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link>  <i class="fa-solid fa-user-plus"></i> 
-       </button>
+          <!-- <button class="btn btn-outline-success col-2">
+          <i class="fa-solid fa-table"></i> <router-link to="/estudiante/curso-preparatorio" class="nav-link active"
+            >ESTUDIANTES-PREPARATORIO</router-link>
+        </button> &nbsp; -->
 
-      </div> -->
-
-      </div>
-    </div>
-    <div class="row btn-group-justified">
-      <div class=" mb-3 d-grid gap-2 d-md-block btn-group" id="proyeccion">
-        <!-- <div class="offset-7">         -->
-        <button class="btn btn-success float-end me-1 rounded ">
-          <router-link to="/estudiante/create" class="nav-link active" href="#">Nuevo Estudiante</router-link> <i
-            class="fa-solid fa-user-plus"></i>
-        </button>
-
-        <button class="btn btn-outline-warning rounded col-md-2 col-lg-2  me-1" @click="editarSeleccionado()">
-          Editar
-          <i class="fa-solid fa-user-plus"></i>
-        </button>
-        <button class="btn btn-danger  rounded col-md-2  col-lg-2  me-1" @click="eliminarSeleccionado()">
-          Eliminar
-          <i class="fa-solid fa-trash"></i>
-        </button>
-        <button class="btn btn-outline-secondary" @click="materiasCursadas">
-          <i class="fa-solid fa-user-graduate"></i>MateriasC
-        </button>
-        <button class="btn btn-outline-success" @click="formularioA()">
-          <i class="fa-regular fa-clipboard"></i>FormularioA
-        </button>
-        <!-- <button class="btn btn-outline-success" @click="certificadoCalificaciones()">
+          <button class="btn btn-outline-success  float-end ">
+            <i class="fa-solid fa-user-plus"></i> <router-link to="/estudiante/create" class="nav-link active">NUEVO
+              ESTUDIANTE</router-link>
+          </button>
+          <button class="btn btn-outline-warning rounded col-md-2 col-lg-2  me-1" @click="editarSeleccionado()">
+            Editar
+            <i class="fa-solid fa-user-plus"></i>
+          </button>
+          <button class="btn btn-danger  rounded col-md-2  col-lg-2  me-1" @click="eliminarSeleccionado()">
+            Eliminar
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <button class="btn btn-outline-secondary me-1" @click="materiasCursadas">
+            <i class="fa-solid fa-user-graduate"></i>HistorialAcad.
+          </button>
+          <button class="btn btn-outline-success" @click="formularioA()">
+            <i class="fa-regular fa-clipboard"></i>Form.Admisión
+          </button>
+          <!-- <button class="btn btn-outline-success" @click="certificadoCalificaciones()">
           <i class="fa-solid fa-sheet-plastic"></i>
         </button> -->
-        <!-- </div>     -->
+
+        </div>
       </div>
-
     </div>
-    <!-- <BtnEditar :estudiantes="estudiantes"  @click="update">
-      </BtnEditar> -->
     <div class="row">
-      <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
+      <!-- <div class=" col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-      <!-- <BtnEditar :estudiantes="estudiantes" @click="actualizar">
-
-          </BtnEditar> -->
-      <div class="col-lg-12 offset-lg-0">
-        <div class="table-responsive">
-          <DataTable ref="table" id="datatable" :data="estudiantes" :columns="columns"
-            class="table table-bordered table-striped display fixed small" :options="{
-              select: true, responsive: true, autoWidth: true, dom: 'Bfrtip',
-              buttons: [{
-                extend: 'selected',
-                text: 'Edit',
-                name: 'edit'
-              }], pageLength: 5,
-              //responsivePriority: 1,                                                   
-              columnDefs: [{
-                width: '40%', target: [6],
-                width: '10%', target: [7],
-              },
-              { responsivePriority: 1, targets: 1 },
-              { responsivePriority: 2, targets: 2 },
-              ],
-              language: {
-                search: 'Buscar', zeroRecord: 'No hay registros que mostrar',
-                info: 'Mostrando desde _START_ a _END_ de _TOTAL_ registros',
-                infoFiltered: '(Filtrados de _MAX_ registros)',
-                paginate: { first: 'Primero', previous: 'Anterior', next: 'Siguiente', last: 'Ultimo' }
-              },
-            }" :key="columns.length">
-            <thead class="pb-4 table-light">
-              <!-- v-if="estudiantes" -->
-              <tr>
-                <th class="col">
-                  #
-                </th>
-                <!-- <th class="d-none d-sm-block pb-4 col"> -->
-                <th>
-                  C.I.
-                </th>
-                <th class="col-">
-                  NOMBRES
-                </th>
-                <th>
+      <div class="table-responsive">
+        <DataTable ref="table" id="datatable" :data="materias" :columns="columns"
+          class="table table-bordered table-striped display fixed small" :options="{
+            select: true, responsive: true, autoWidth: true, dom: 'Bfrtip',
+            buttons: [{
+              extend: 'selected',
+              text: 'Edit',
+              name: 'edit'
+            }], pageLength: 5,
+            //responsivePriority: 1,                                                   
+            columnDefs: [{
+              width: '40%', target: [6],
+              width: '10%', target: [7],
+            },
+            { responsivePriority: 1, targets: 1 },
+            { responsivePriority: 2, targets: 2 },
+            { responsivePriority: 3, targets: 11 },
+            { responsivePriority: 4, targets: 3 },
+            ],
+            language: {
+              search: 'Buscar', zeroRecord: 'No hay registros que mostrar',
+              info: 'Mostrando desde _START_ a _END_ de _TOTAL_ registros',
+              infoFiltered: '(Filtrados de _MAX_ registros)',
+              paginate: { first: 'Primero', previous: 'Anterior', next: 'Siguiente', last: 'Ultimo' }
+            },
+          }" :key="columns.length">
+          <thead class="pb-4 table-light">
+            <tr>
+              <th class="col">
+                #
+              </th>
+              <!-- <th class="d-none d-sm-block pb-4 col"> -->
+              <th>
+                C.I.
+              </th>
+              <th class="col-2">
+                NOMBRE COMPLETO
+              </th>
+              <!-- <th>
                   APELLIDO-P.
                 </th>
                 <th class="col">
                   APELLIDO-M.
-                </th>
-                <!-- <th class="col">
-                        CELULAR
-                      </th>  -->
-                <th class="col">
-                  CARRERA
-                </th>
-                <th class="col">
-                  AÑO DE INGRESO
-                </th>
-                <th class="col">
-                  AÑO CURSADO
-                </th>
-                <!-- <th class="col-1">
+                </th> -->
+              <th class="col-3">
+                CARRERA
+              </th>
+              <th class="col-1">
+                TIPO INGRESO
+              </th>
+              <th class="col-1">
+                AÑO INGRESO
+              </th>
+              <th class="col-1">
+                N° ARCHIVO
+              </th>
+              <th class="col-1">
+                AÑO CURSADO
+              </th>
+              <th class="col-2">
+                OBS.1
+              </th>
+              <th class="col-2">
+                OBS.2
+              </th>
+              <!-- <th class="col-1">
                         OBS.1
                       </th>
                       <th class="col-1">
                         OBS.2
                       </th>                       -->
-                <th class="col">
-                  ESTADO
-                </th>
-                <th class="col">
-                  ACCIONES
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
+              <th class="col-1">
+                ESTADO
+              </th>
+              <th class="col-1">
+                INSCRITO
+              </th>
+            </tr>
+          </thead>
+          <!-- <div v-else>
+            <img src="loading.gif" alt="iamgen">
+          </div> -->
 
-            <!-- <div v-else>
-                      <img src="loading.gif" alt="iamgen">
-                    </div>                                 -->
-          </DataTable>
-          <!-- </div> -->
-        </div>
+          <tbody class="table-group-divider" id="contenido">
+
+            <!-- <td class="d-flex justify-content-center">
+                <div class="d-flex mb-1 ">
+                  <router-link :to="{ path: '/estudiante/materias-cursadas/' + estudiante.ci_estudiante }"
+                    class="btn btn-outline-secondary me-1">
+                    <i class="fa-solid fa-user-graduate"></i>
+                  </router-link>
+                  <button class="btn btn-outline-success" @click="formularioA(estudiante.ci_estudiante)">
+                    <i class="fa-regular fa-clipboard"></i>
+                  </button>
+                </div>
+                <div class="d-flex">
+                  <router-link :to="{ path: '/estudiante/edit/' + estudiante.ci_estudiante }"
+                    class="btn btn-outline-warning me-1">
+                    <i class="fa-solid fa-edit"></i>
+                  </router-link>
+                  <button class="btn btn-outline-success" @click="certificadoCalificaciones(estudiante.ci_estudiante)">
+                    <i class="fa-solid fa-sheet-plastic"></i>
+                  </button> -->
+            <!-- <button class="btn btn-outline-danger" @click="eliminar(estudiante.ci_estudiante, estudiante.nombres)">
+            <i class="fa-solid fa-trash"></i>
+          </button> -->
+            <!--           
+                </div>
+              </td> -->
+
+
+          </tbody>
+        </DataTable>
       </div>
+      <!-- <div class="d-flex mb-1 ">
+                  <router-link :to="{ path: '/estudiante/materias-cursadas/' + estudiante.ci_estudiante }"
+                    class="btn btn-outline-success" 
+                    >                    
+                    <i class="fa-solid fa-user-graduate"></i>
+                  </router-link> &nbsp;
+
+                  <button class="btn btn-outline-success" @click="formularioA(estudiante.ci_estudiante)" >                   
+                    <i class="fa-regular fa-clipboard"></i>
+                  </button>                                                      
+                </div>
+                <div class="d-flex">
+                  <router-link :to="{ path: '/estudiante/edit/' + estudiante.ci_estudiante }" class="btn btn-outline-warning"  
+                    >                    
+                    <i class="fa-solid fa-edit"></i>
+                  </router-link> &nbsp;
+                  <button class="btn btn-outline-danger" @click="eliminar(estudiante.ci_estudiante, estudiante.nombres)" >
+                    
+                    
+                    <i class="fa-solid fa-trash"></i>
+                  </button>                  
+                </div>                -->
+
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-//import BtnEditar from '../../components/BtnEditar';
-import { confirmar1, show_alerta } from '../../funciones';
 import { ref } from 'vue';
 import axios from "axios";
-
+import { confirmar1, show_alerta } from '../../funciones';
+import { historialAcademico } from '../../reportes'
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 import DataTable from 'datatables.net-vue3';
 import DataTableLib from 'datatables.net-bs5';
@@ -157,49 +198,64 @@ import 'datatables.net-responsive-bs5';
 DataTable.use(DataTableLib);
 DataTable.use(Select);
 
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
 
-//import {ref} from 'vue';
+
+//import { ref } from 'vue';
 // const provincias = computed(()=>{
 //         return this.provincias = this.getProvincias()
 // })
 //const provincias = ref([]);
 //const contador =ref(0);
+import { Tooltip } from 'bootstrap'
 let BASE_URL = process.env.VUE_APP_BASE_URL;
 export default {
   components: { DataTable },
+
   name: 'EstudianteView',
   data() {
     return {
-      estudiantes: null, carreras: [], principal: '', message: '', dt: null, seleccionado: false,
+      estudiantes: null, carreras: [], principal: '', message: '', BASE_URL: '',
+      datos_estudiantes: {
+        gestion: '',
+        datos_estudiante: {},
+        requisitos: {},
+        numero_archivo: '',
+        materias_cursadas: {}
+      },
       columns: [
         {
           data: null, render: function (data, type, row, meta) { return `${meta.row + 1}` }
         },
         { data: 'ci_estudiante' },
-        { data: 'nombres' },
+        { data: null, render: function (data) { return `${data.apellidoP} ${data.apellidoM} ${data.nombres}` } },
+        //{ data: `${data.nombres} ${data.apellidoP} ${data.apellidoM}` },
 
-        { data: 'apellidoP' },
-        { data: 'apellidoM' },
+        //{ data: 'apellidoP' },
+        //{ data: 'apellidoM' },
         //{data:'celular'},
         { data: 'nombre_carrera' },
+        { data: 'tipo_ingreso' },
         { data: 'anio_ingreso' },
+        { data: 'numero_archivo' },
         { data: 'anio_cursado' },
-        { data: 'estado' },
-        {
-          data: 'ci_estudiante',
-          // render:function(data){
-          //   return `<button   data-id=${data} class="btn btn-danger" id="edit" @click="eliminar(${data.ci_estudiante},${data.nombres})">
-          //                         <i class="fa-solid fa-trash"></i>
-          //           </button> &nbsp;
-          //           <router-link data-id=${data} :to="{path:'/estudiante/edit/'+ci_estudiante}" class="btn btn-warning">
-          //                         <i class="fa-solid fa-edit"></i>
-          //                     </router-link>
+        { data: 'obs1' },
+        { data: 'obs2' },
 
-          //           `
-          // }
-        },
+        { data: 'estado' },
+        { data: 'inscrito_gestion' },
+        //{
+        //data: 'ci_estudiante',
+        // render:function(data){
+        //   return `<button   data-id=${data} class="btn btn-danger" id="edit" @click="eliminar(${data.ci_estudiante},${data.nombres})">
+        //                         <i class="fa-solid fa-trash"></i>
+        //           </button> &nbsp;
+        //           <router-link data-id=${data} :to="{path:'/estudiante/edit/'+ci_estudiante}" class="btn btn-warning">
+        //                         <i class="fa-solid fa-edit"></i>
+        //                     </router-link>
+
+        //           `
+        // }
+        //},
       ]
     }
   },
@@ -212,192 +268,44 @@ export default {
   },
   mounted() {
     this.getEstudiantes();
+    //this.BASE_URL=process.env.VUE_APP_BASE_URL;
     //this.getMateriasCursadas();
     //ruta de navegacion despues de la accion eliminar
     this.principal = '/estudiantes';
+    new Tooltip(document.body, {
+      selector: "[data-bs-toggle='tooltip']",
+    })
   },
   methods: {
-    changeSelected() {
-      let seleccion = this.seleccionado;
-      this.table.dt.rows({ selected: true }).every(function () {
-        const row = this.data();
-        console.log(row);
-        if (row) {
-          seleccion = !seleccion;
-        }
-      });
-      this.seleccionado = seleccion;
-
-    },
     verificarSeleccion() {
       let datos = this.estudiantes;
       let identificador = '';
-      //let nombres = '';
-      //console.log(this.table.dt.rows({select:true})); 
-      this.table.dt.rows({ selected: true }).every(function () {
-        //let idx = this.data().estudiantes.indexOf(this.data());
+      let nombres = '';
 
-        //console.log(this.estudiantes.indexOf(this.data()));
+      this.table.dt.rows({ selected: true }).every(function () {
         //TODO ESTO FUNCIONA MUY BIEN, EXCELENTE
         const row = this.data();
         console.log(row);
         // console.log(datos.indexOf(this.data()));
         let idx = datos.indexOf(this.data());
+        nombres = `${datos[idx].nombres} ${datos[idx].apellidoP} ${datos[idx].apellidoM}`;
         let clave = datos[idx].ci_estudiante;
 
-        //console.log(clave);
         identificador = clave;
-        //nombres = `${datos[idx].nombres} ${datos[idx].apellidoP} ${datos[idx].apellidoM}`;
-        //this.$router.go('/about');
-        //console.log(idx);
-        //console.log(this.data().ci_estudiante);
-        // let indice = this.estudiantes.map(e => e.ci_estudiante).indexOf('9675154')
-        // console.log(indice);
-        //  let indice = props.estudiantes.indexOf(this.data());
-        //  let clave = props.estudiantes[indice].ci_estudiante;   
-        //  console.log(clave);                 
       });
-      return identificador;
-    },
-    formatDate(cadena) {
-      console.log('ss' + cadena + 'esto');
-      // const date = new Date(cadena);  
-      // return new Intl.DateTimeFormat('es-BO').format(date).toString();
-      if (cadena !== '' && cadena !== null && cadena !== 'undefined' && cadena !== ' ') {
-        console.log('entro?');
-        let fecha = '';
-        const datos = cadena.split('-');
-        fecha = datos[2] + '/' + datos[1] + '/' + datos[0];
-        return fecha;
-      }
+      return { identificador, nombres };
     },
     async editarSeleccionado() {
-      event.preventDefault();
-      console.log('actualizando');
-      let datos = this.estudiantes;
-      let identificador = '';
-      //console.log(this.table.dt.rows({select:true})); 
-      this.table.dt.rows({ selected: true }).every(function () {
-        //let idx = this.data().estudiantes.indexOf(this.data());
-
-        //console.log(this.estudiantes.indexOf(this.data()));
-        //TODO ESTO FUNCIONA MUY BIEN, EXCELENTE
-        const row = this.data();
-        console.log(row);
-        // console.log(datos.indexOf(this.data()));
-        let idx = datos.indexOf(this.data());
-        let clave = datos[idx].ci_estudiante;
-        //console.log(clave);
-        identificador = clave;
-        //this.$router.go('/about');
-        //console.log(idx);
-        //console.log(this.data().ci_estudiante);
-        // let indice = this.estudiantes.map(e => e.ci_estudiante).indexOf('9675154')
-        // console.log(indice);
-        //  let indice = props.estudiantes.indexOf(this.data());
-        //  let clave = props.estudiantes[indice].ci_estudiante;   
-        //  console.log(clave);                 
-      });
+      const { identificador } = this.verificarSeleccion();
       if (identificador) {
         this.$router.push('/estudiante/edit/' + identificador + '/');
       } else {
         const error = 'Debes Seleccionar Un Estudiante!';
         show_alerta(error, 'info')
       }
-      // console.log(this.table.dt.rows);
-
-      // const tables = this.$refs.table;
-      // console.log(tables.dt.rows({select:true}).every(()=>{
-      // }));
     },
-    materiasCursadas() {
-      event.preventDefault();
-      console.log('materias cursadas');
-      let datos = this.estudiantes;
-      let identificador = '';
-      //console.log(this.table.dt.rows({select:true})); 
-      this.table.dt.rows({ selected: true }).every(function () {
-        //let idx = this.data().estudiantes.indexOf(this.data());
-
-        //console.log(this.estudiantes.indexOf(this.data()));
-        //TODO ESTO FUNCIONA MUY BIEN, EXCELENTE
-        const row = this.data();
-        console.log(row);
-        // console.log(datos.indexOf(this.data()));
-        let idx = datos.indexOf(this.data());
-        let clave = datos[idx].ci_estudiante;
-        //console.log(clave);
-        identificador = clave;
-
-      });
-      if (identificador) {
-        this.$router.push('/estudiante/materias-cursadas/' + identificador + '/');
-      } else {
-        const error = 'Debes Seleccionar Un Estudiante!';
-        show_alerta(error, 'info')
-      }
-    },
-    async actualizar() {
-      //console.log(props.estudiantes[1].nombres+'ahorari');
-      await this.table.dt.rows({ selected: true }).every(function () {
-        //console.log(this.data());
-        console.log(this.estudiantes + 'ssd');
-        //this.estudiantes.indexOf(this.data());
-        //console.log(this.estudiantes[0].nombres);
-        console.log('kicoz');
-        //let indice = props.estudiantes.indexOf(this.data());
-        //let clave = props.estudiantes[indice].ci_estudiante;   
-        //console.log(clave);                 
-      });
-    },
-    async getEstudiantes() {
-      await axios.get(BASE_URL + '/estudiantes/estudiantes/')
-        .then(
-          response => (
-            this.estudiantes = response.data
-          )
-        );
-      console.log(this.estudiantes);
-    }, eliminar(id, nombre = '') {
-      //   for (let index = 0; index < 10; index++) {
-      //     sendRequest('POST',{
-      //     "id":999,
-      //     "nombre_provincia": "TEST-PROVINCIAS",
-      //     "id_departamento": null
-      // },'http://127.0.0.1:8000/parametros/provincias/','ProvinciaS Eliminada');              
-      //   }
-      const ruta = 'estudiantes/estudiantes/' + id + '/';
-      confirmar1(id, nombre, ruta, this.principal);
-      //this.$router.push('/estudiantes')    
-    }, eliminarSeleccionado() {
-      console.log('eliminando');
-      let datos = this.estudiantes;
-      let identificador = '';
-      let nombres = '';
-      //console.log(this.table.dt.rows({select:true})); 
-      this.table.dt.rows({ selected: true }).every(function () {
-        //let idx = this.data().estudiantes.indexOf(this.data());
-
-        //console.log(this.estudiantes.indexOf(this.data()));
-        //TODO ESTO FUNCIONA MUY BIEN, EXCELENTE
-        const row = this.data();
-        console.log(row);
-        // console.log(datos.indexOf(this.data()));
-        let idx = datos.indexOf(this.data());
-        let clave = datos[idx].ci_estudiante;
-
-        //console.log(clave);
-        identificador = clave;
-        nombres = `${datos[idx].nombres} ${datos[idx].apellidoP} ${datos[idx].apellidoM}`;
-        //this.$router.go('/about');
-        //console.log(idx);
-        //console.log(this.data().ci_estudiante);
-        // let indice = this.estudiantes.map(e => e.ci_estudiante).indexOf('9675154')
-        // console.log(indice);
-        //  let indice = props.estudiantes.indexOf(this.data());
-        //  let clave = props.estudiantes[indice].ci_estudiante;   
-        //  console.log(clave);                 
-      });
+    eliminarSeleccionado() {
+      const { identificador, nombres } = this.verificarSeleccion();
       if (identificador) {
         const ruta = 'estudiantes/estudiantes/' + identificador + '/';
         confirmar1(identificador, nombres, ruta, this.principal);
@@ -407,51 +315,19 @@ export default {
         show_alerta(error, 'info')
       }
     },
-    getCarrera(id) {
-      axios.get(BASE_URL + '/parametros/carreras/' + id + '/')
-        .then(
-          response => (
-            this.carreras[id] = response.data['nombre_carrera']
-          )
-        );
-      return this.carreras[id]
-    }, getMateriasCursadas(id) {
-      axios.get(BASE_URL + '/estudiantes/obtenerAsignaturasCursadas/' + id)
-        .then(
-          response => {
-
-            if (!response.data.message) {
-              console.log('psando normal');
-              //this.message = response.data.message,
-              this.ci_estudiante = response.data['estudiante']['ci_estudiante'],
-                this.nombres = response.data['estudiante']['nombres'],
-                this.apellidoP = response.data['estudiante']['apellidoP'],
-                this.apellidoM = response.data['estudiante']['apellidoM'],
-                this.numero_registro = response.data['estudiante']['numero_registro'],
-                this.nombre_carrera = response.data['estudiante']['nombre_carrera'],
-
-                this.fecha_emision = response.data['fecha_emision'],
-
-                this.materias = this.sortGestion(response.data['datos'])
-
-              //this.materias = response.data['datos']
-            } else {
-              this.message = response.data.message
-              console.log('aki esta el error' + response.data.message);
-            }
-
-
-
-          }
-        ).catch(error => {
-          console.log(error)
-          show_alerta(error, 'error')
-        });
+    materiasCursadas() {
+      const { identificador } = this.verificarSeleccion();
+      if (identificador) {
+        this.$router.push('/estudiante/materias-cursadas/' + identificador + '/');
+      } else {
+        const error = 'Debes Seleccionar Un Estudiante!';
+        show_alerta(error, 'info')
+      }
     },
     async formularioA() {
-      const verificarSeleccionado = this.verificarSeleccion();
-      if (verificarSeleccionado) {
-        const url = BASE_URL + '/estudiantes/formularioAdmision/' + verificarSeleccionado + '/';
+      const { identificador } = this.verificarSeleccion();
+      if (identificador) {
+        const url = BASE_URL + '/estudiantes/formularioAdmision/' + identificador + '/';
         await axios.get(url)
           .then(
             response => {
@@ -467,6 +343,153 @@ export default {
           });
 
       }
+    },
+    //version anterior
+    // async formularioA(id) {
+    //   const url = BASE_URL + '/estudiantes/formularioAdmision/' + id + '/';
+    //   await axios.get(url)
+    //     .then(
+    //       response => {
+    //         //const datos_estudiante=response.data['datos_estudiante'];
+    //         this.datos_estudiantes = response.data;
+    //         //console.log(this.datos_estudiante.requisitos[0].requisito);
+    //         //console.log(this.datos_estudiante);
+    //         this.exportPDF(this.datos_estudiantes);
+    //       }
+    //     ).catch(error => {
+    //       console.log(error)
+    //       show_alerta(error, 'error')
+    //     });
+    // },
+    async certificadoCalificaciones(id) {
+
+      const url = BASE_URL + '/estudiantes/obtenerCertificacionGestionAnterior/' + id + '/';
+      await axios.get(url)
+        .then(
+          response => {
+            //const datos_estudiante=response.data['datos_estudiante'];
+            this.materias_cursadas = response.data;
+            //console.log(this.datos_estudiante.requisitos[0].requisito);
+            //console.log(this.datos_estudiante);
+            console.log(this.materias_cursadas.estudiante);
+            const datos = this.materias_cursadas;
+            const datos_estudiante = datos.estudiante;
+            const grado = datos.grado;
+            const fecha_emision = datos.fecha_emision;
+            const otros_datos = datos.datos;
+            if (!response.data.message) {
+              historialAcademico(datos_estudiante, grado, fecha_emision, otros_datos);
+            } else {
+              show_alerta('El estudiante no curso la gestión anterior(2023)', 'error')
+            }
+
+          }
+        ).catch(error => {
+          console.log(error)
+          show_alerta(error, 'error')
+        });
+    },
+    async getEstudiantes() {
+      //await axios.get('http://127.0.0.1:8000/estudiantes/estudiantes/')
+      await axios.get(BASE_URL + '/estudiantes/estudiantes/')
+        .then(
+          response => (
+            this.estudiantes = response.data
+          )
+        ).catch(error => {
+          console.log(error)
+          show_alerta(error, 'error')
+        });
+      console.log(this.estudiantes);
+      //console.log(this.estudiantes);
+      //console.log('AS'+BASE_URL);
+    }, eliminar(id, nombre) {
+      //   for (let index = 0; index < 10; index++) {
+      //     sendRequest('POST',{
+      //     "id":999,
+      //     "nombre_provincia": "TEST-PROVINCIAS",
+      //     "id_departamento": null
+      // },'http://127.0.0.1:8000/parametros/provincias/','ProvinciaS Eliminada');              
+      //   }
+      const ruta = 'estudiantes/estudiantes/' + id + '/';
+      confirmar1(id, nombre, ruta, this.principal);
+      //this.$router.push('/estudiantes')    
+    },
+    getCarrera(id) {
+      //axios.get('http://127.0.0.1:8000/parametros/carreras/' + id + '/')
+      axios.get(BASE_URL + '/parametros/carreras/' + id + '/')
+        .then(
+          response => (
+            this.carreras[id] = response.data['nombre_carrera']
+          )
+        );
+      return this.carreras[id]
+    }, getMateriasCursadas(id) {
+      axios.get(BASE_URL + '/estudiantes/obtenerAsignaturasCursadas/' + id + '/')
+        .then(
+          response => {
+
+            if (!response.data.message) {
+              //console.log('psando normal');
+              //this.message = response.data.message,
+              this.materias_cursadas = response.data
+
+              // this.ci_estudiante = response.data['estudiante']['ci_estudiante'],
+              // this.nombres = response.data['estudiante']['nombres'],
+              // this.apellidoP = response.data['estudiante']['apellidoP'],
+              // this.apellidoM = response.data['estudiante']['apellidoM'],
+              // this.numero_registro = response.data['estudiante']['numero_registro'],
+              // this.nombre_carrera = response.data['estudiante']['nombre_carrera'],
+
+              // this.fecha_emision = response.data['fecha_emision'],
+
+              // this.materias = this.sortGestion(response.data['datos'])
+
+
+
+
+
+              //this.materias = response.data['datos']
+            } else {
+              this.message = response.data.message
+              console.log('aki esta el error' + response.data.message);
+            }
+
+
+            console.log(response.data);
+          }
+        ).catch(error => {
+          console.log(error)
+          show_alerta(error, 'error')
+        });
+    },
+    formatDate(cadena) {
+      console.log('ss' + cadena + 'esto');
+      // const date = new Date(cadena);  
+      // return new Intl.DateTimeFormat('es-BO').format(date).toString();
+      if (cadena !== '' && cadena !== null && cadena !== 'undefined' && cadena !== ' ') {
+        console.log('entro?');
+        let fecha = '';
+        const datos = cadena.split('-');
+        fecha = datos[2] + '/' + datos[1] + '/' + datos[0];
+        return fecha;
+      }
+    },
+    sortGestion(data) {
+      data = data.sort((a, b) => {
+        if (a.anio_cursado < b.anio_cursado) {
+          return -1;
+        }
+      });
+      console.log(data);
+      return data;
+    },
+    certificadoCalificacioness(ci_estudiante) {
+      //console.log(this.getMateriasCursadas(ci_estudiante));
+      this.getMateriasCursadas(ci_estudiante);
+      const datos_estudiante = this.materias_cursadas;
+      //console.log(this.materias_cursadas);
+      historialAcademico(datos_estudiante);
     },
     async exportPDF(datos_estudiante) {
       //first try
@@ -868,53 +891,9 @@ export default {
   }
 }
 </script>
-
 <style>
-/*@import 'bootstrap';*/
-@import 'datatables.net-bs5';
-
-/*@import 'datatables.net-dt';*/
-@import 'datatables.net-responsive-dt';
-
-table.dtr-inline.collapsed>tbody>tr>td.dtr-control,
-table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
-  position: relative;
-  padding-left: 30px;
-  cursor: pointer;
-}
-
-table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
-table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
-  content: "-";
-  background-color: #d33333;
-}
-
-table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
-table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
-  top: 33%;
-  left: 5px;
-  height: 1em;
-  width: 1em;
-  margin-top: -5px;
-  display: block;
-  position: absolute;
-  color: white;
-  border: .15em solid white;
-  border-radius: 1em;
-  box-shadow: 0 0 0.2em #444;
-  box-sizing: content-box;
-  text-align: center;
-  text-indent: 0 !important;
-  font-family: "Courier New", Courier, monospace;
-  line-height: 1em;
-  content: "+";
-  background-color: #31b131;
-  background-color: #74a2ff;
-
-}
-
-.box-buttons {
-  display: flex;
-  justify-content: space-around;
-}
+/* body {
+    font-size: .875rem;
+    line-height: 1.25rem;
+} */
 </style>

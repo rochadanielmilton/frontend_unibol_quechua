@@ -108,13 +108,58 @@ const routes = [
     path: '/estudiante/datatable',
     name: 'estudiantesdatatable',
     component: EstudianteView
-
+  },
+  {
+    path: '/estudiantesD',
+    name: 'estudiantesD',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/estudiante_/EstudianteView.vue')
+  },
+  {
+    path: '/estudiantesCursoPreparatorio',
+    name: 'estudiantesCP',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/estudiante_/EstudianteCursoPreparatorioView.vue')
+  },
+  {
+    path: '/estudiantesHistorial/:id',
+    name: 'estudiantesH',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/estudiante_/CursadasEstudianteView.vue')
+  },
+  {
+    path: '/estudiantesNuevosHabilitados',
+    name: 'estudiantesNA',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/estudiante_/HabilitadosNuevosEstudianteView.vue')
+  },
+  {
+    path: '/estudiantesRegularesHabilitados',
+    name: 'estudiantesRA',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/estudiante_/HabilitadosRegularesEstudianteView.vue')
   },
   {
     path: '/docentes',
     name: 'docentes',
     //component: DocenteView
     component: () => import(/* webpackChunkName: "about" */ '../views/docente/DocenteView.vue')
+  },
+  {
+    path: '/docentesData',
+    name: 'docentesData',
+    //component: DocenteView
+    component: () => import(/* webpackChunkName: "about" */ '../views/docente/DocenteDataView.vue')
   },
   {
     path: '/docente/create',

@@ -1,179 +1,221 @@
 <template>
   <!-- <div class="container-fluid text-center"> -->
-  <div v-if="materias" class="container-fluid" id="contenido-global">
+  <div v-if="estudiantesP" class="container-fluid" id="contenido-global">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <div class="mb-3 fw-bold normal-letter ">
+        <div class="mb-3 fw-bold ">
 
-          <div class="mb-3 fs-5 text-center">
-            HISTORIAL ACADEMICO DE AVANCE GENERAL
+          <div class="mb-3 fs-6 text-center">
+            ESTUDIANTES DEL CURSO PREPARATORIO
           </div>
+          <!-- 
+            <div class=" mb-3">                 
+              APELLIDOS Y NOMBRES:    {{`${apellidoP} ${apellidoM} ${nombres}`}}
+            </div>
+            
+            <div class=" mb-3">                 
+              CEDULA DE IDENTIDAD:     {{`${ci_estudiante}`}}
+            </div>
 
-          <div class="  fs-6">
-            APELLIDOS Y NOMBRES: {{ `${apellidoP} ${apellidoM} ${nombres}` }}
-          </div>
+            <div class=" mb-3">                 
+              NOTA FINAL:       {{`${numero_registro}`}}
+            </div>
 
-          <div class="  fs-6">
-            CEDULA DE IDENTIDAD: {{ `${ci_estudiante}` }}
-          </div>
+           
 
-          <div class="  fs-6">
-            NRO DE REGISTRO: {{ `${numero_registro}` }}
-          </div>
-
-          <div class="  fs-6">
-            CARRERA: {{ `${nombre_carrera}` }}
-          </div>
-
-          <!-- <div class=" fs-6">                 
-              APELLIDOS Y NOMBRES:      {{`${apellidoP} ${apellidoM} ${nombres}`}}
-            </div> -->
-
-          <div class="d-flex justify-content-between ">
-            <div class=" mb-3 fs-6">
-              FECHA DE EMISION : {{ `${fecha_emision}` }}
+            <div class="d-flex justify-content-between ">
+            <div class=" mb-3">                 
+              FECHA DE EMISION :         {{`${fecha_emision}`}}
             </div>
             <div>
-              <button class="btn btn-warning " @click="exportPDF">
-                <strong> GENERAR PDF :</strong> <i class="fa-solid fa-file-pdf"></i>
+            <button   class="btn btn-warning " @click="exportPDF">                           
+              GENERAR PDF : <i class="fa-solid fa-file-pdf"></i>
               </button>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>
     </div>
 
+    <div class="row">
+      <div class="mb-3">
+        <!-- <div class="d-flex justify-content-around ">         -->
+        <div class="mb-3 d-grid gap-2 d-md-block ">
+          <button class="btn btn-outline-success rounded col-md-2 col-lg-2  me-1 float-end" @click="confirmarRegistro()">
+            REGISTRAR
+            <i class="fa-solid fa-user-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
       <div class="col-lg-10 offset-lg-1">
-        <div class="table-responsive text-center">
-          <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12 small">
-            <thead v-if="materias" class="pb-4 table-light">
+        <div class="table-responsive">
+          <DataTable ref="table" id="datatable" :data="estudiantesP" :columns="columns"
+            class="table table-bordered table-striped display fixed small" :options="{
+              select: true, responsive: true, autoWidth: true, dom: 'Bfrtip',
+              buttons: [{
+                extend: 'selected',
+                text: 'Edit',
+                name: 'edit'
+              }], pageLength: 5,
+              //responsivePriority: 1,                                                   
+              columnDefs: [{
+                width: '40%', target: [6],
+                width: '10%', target: [7],
+              },
+              { responsivePriority: 1, targets: 1 },
+              { responsivePriority: 2, targets: 2 },
+              { responsivePriority: 3, targets: 3 },
+              { responsivePriority: 4, targets: 4 },
+              ],
+              language: {
+                search: 'Buscar', zeroRecord: 'No hay registros que mostrar',
+                info: 'Mostrando desde _START_ a _END_ de _TOTAL_ registros',
+                infoFiltered: '(Filtrados de _MAX_ registros)',
+                paginate: { first: 'Primero', previous: 'Anterior', next: 'Siguiente', last: 'Ultimo' }
+              },
+            }" :key="columns.length">
+            <thead v-if="estudiantesP" class="pb-4 table-light">
               <tr>
                 <th>
                   #
                 </th>
                 <th>
-                  GESTION
+                  CEDULA DE IDENTIDAD
                 </th>
                 <th>
-                  SIGLA CODIGO
+                  NOMBRES
                 </th>
                 <th>
-                  SIGLA CONV.
+                  APELLIDO PATERNO
                 </th>
                 <th>
-                  HOMOL.
-                </th>
-                <th>
-                  ASIGNATURA
-                </th>
-                <th>
-                  HRS. ACAD.
-                </th>
-
-                <th>
-                  PREREQUISITOS
-                </th>
-                <th>
-                  CALIFICACION NUMERAL
+                  APELLIDO MATERNO
                 </th>
                 <th>
                   ESTADO
                 </th>
-                <!-- <th>
-                        INS. DE APR.
-                      </th>         
-                      <th>
-                        OBSERVACION
-                      </th>                                            
-                      <th>
-                        ACCIONES
-                      </th> -->
+                <th>
+                  CARRERA
+                </th>
+                <th>
+                  INSCRITO
+                </th>
               </tr>
             </thead>
+            <div v-else>
+              <img :src="ruta" alt="imagen">
+            </div>
             <tbody class="table-group-divider" id="contenido">
-              <tr v-for="materia, i  in materias" :key="materia">
+              <!-- <tr v-for="estudiante, i  in estudiantesP" :key="estudiante">
                 <td>{{ i + 1 }}</td>
-                <td>{{ materia.anio_cursado }}</td>
-                <td>{{ materia.codigo_asignatura }}</td>
-                <td>{{ materia.convalidacion }}</td>
-                <td>{{ materia.homologacion }}</td>
-                <td>{{ materia.nombre_asignatura }}</td>
-                <td>{{ materia.total_horas }}</td>
-                <td>{{ materia.pre_requisitos }}</td>
-                <td>{{ materia.nota_num_final }}</td>
-                <td>{{ materia.estado_gestion_espaniol }}</td>
-                <!-- <td></td>
-                        <td></td> -->
-                <!-- <td>{{ estudiante.nombre_asignatura }}</td> -->
-                <!-- <td >{{ estudiante.id_docente }}</td> -->
-
-                <!-- <td >{{ estudiante.estado_gestion_espaniol }}</td> -->
-                <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
-                <!-- <td>{{ estudiante.nota_num_final }}</td> -->
-
-
-                <!-- <td>                                                                                 
-                            <button   class="btn btn-warning" @click="clickMe"> -->
-                <!-- <i class="fa-solid fa-file-pdf"></i> -->
-                <!-- </button>                         
-                        </td> -->
-              </tr>
+                <td>{{ estudiante.ci_postulante }}</td>
+                <td>{{ estudiante.nombres_p }}</td>
+                <td>{{ estudiante.apellido_paterno_p }}</td>
+                <td>{{ estudiante.apellido_materno_p }}</td>
+                <td :class="estudiante.estado_inscrito === 'APROBADO' ? 'aprobado' : 'reprobado'">
+                  {{ estudiante.estado_ingreso }}
+                </td>
+                <td>{{ estudiante.carrera }}</td>
+                <td>{{ estudiante.registrado.toUpperCase() }}</td>
+                <td>
+                  <button class="btn btn-success btn-sm"
+                    @click="confirmarRegistro(estudiante.ci_postulante, `${estudiante.nombres_p} ${estudiante.apellido_paterno_p} ${estudiante.apellido_materno_p}`)"
+                    v-if="estudiante.registrado == 'no'">
+                    REGISTRAR
+                  </button>
+                  <button class="btn btn-warning btn-sm disabled" v-else>
+                    INSCRITO
+                  </button>
+                </td>
+              </tr> -->
             </tbody>
-          </table>
-          <!-- </div> -->
+          </DataTable>
         </div>
+
       </div>
     </div>
-    <b-table striped hover :items="materias">
-    </b-table>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-//import {ref} from 'vue';
+import { ref } from 'vue';
 import axios from "axios";
-import { show_alerta, confirmar1 } from '../../funciones';
-import { useRoute } from "vue-router";
+import { show_alerta, confirmar1, confirmarRegistroP } from '../../funciones';
+//import { useRoute } from "vue-router";
 import html2pdf from "html2pdf.js";
+
+
+import DataTable from 'datatables.net-vue3';
+import DataTableLib from 'datatables.net-bs5';
+import Select from "datatables.net-select";
+import 'datatables.net-responsive-bs5';
+//import 'datatables.net-select';
+
+DataTable.use(DataTableLib);
+DataTable.use(Select);
+
+
 
 //librerias para la exportacion en pdf
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 
+let BASE_URL = process.env.VUE_APP_BASE_URL;
 //import {ref} from 'vue';
 // const provincias = computed(()=>{
 //         return this.provincias = this.getProvincias()
 // })
 //const provincias = ref([]);
 //const contador =ref(0);
-let BASE_URL = process.env.VUE_APP_BASE_URL;
 export default {
-  name: 'AprobadasEstudianteView',
+  components: { DataTable },
+  name: 'EstudianteCursoPreparatorioView',
   data() {
     return {
-      estudiantes: null, carreras: [], principal: '',
-      ci_estudiante: '', nombres: '', apellidoP: '', apellidoM: '', numero_registro: '', nombre_carrera: '', fecha_emision: '', grado: '',
-      cantidad_aprobadas: '',
-      cantidad_todas: '',
-      promedio_todas: '',
-      promedio_aprobadas: '',
-      materias: null, message: '',
-      url: BASE_URL + '/estudiantes/obtenerAsignaturasCursadas'
+      estudiantesP: null, principal: '',
+      ci_estudiante: '', nombres: '', apellidoP: '', apellidoM: '', nota_final: '', estado_inscrito: '',
+      message: '',
+      url: BASE_URL + '/administracion/obtenerPostulates/',
+      ruta: '../loading.gif',
+      columns: [
+        {
+          data: null, render: function (data, type, row, meta) { return `${meta.row + 1}` }
+        },
+        { data: 'ci_postulante' },
+        //{ data: null, render: function (data) { return `${data.apellidoP} ${data.apellidoM} ${data.nombres}` } },
+        //{ data: `${data.nombres} ${data.apellidoP} ${data.apellidoM}` },
+
+        { data: 'nombres_p' },
+        { data: 'apellido_paterno_p' },
+        { data: 'apellido_materno_p' },
+        { data: 'estado_ingreso' },
+        { data: 'carrera' },
+        { data: 'registrado' }
+      ]
+
+    }
+  },
+  setup() {
+    const table = ref(null)
+    // ...
+    return {
+      table
     }
   },
   mounted() {
-    const route = useRoute();
-    this.id = route.params.id;
+    // const route =useRoute();
+    //  this.id = route.params.id;
 
-    this.url = this.url + '/' + this.id + '/';
-    this.getMateriasCursadas();
+    //  this.url = this.url + '/' +this.id+'/';
+    this.getPostulantes();
     //ruta de navegacion despues de la accion eliminar
     this.principal = '/estudiantes';
   },
@@ -184,6 +226,50 @@ export default {
         filename: 'reporte.pdf',
         html2canvas: { scale: 3 }
       })
+    },
+    verificarSeleccion() {
+      let datos = this.estudiantesP;
+      //console.log(datos);
+      let identificador = '';
+      let nombres = '';
+      let registrado = '';
+
+      this.table.dt.rows({ selected: true }).every(function () {
+        //TODO ESTO FUNCIONA MUY BIEN, EXCELENTE
+        const row = this.data();
+        console.log(row);
+        // console.log(datos.indexOf(this.data()));
+        let idx = datos.indexOf(this.data());
+        nombres = `${datos[idx].nombres_p} ${datos[idx].apellido_paterno_p} ${datos[idx].apellido_materno_p}`;
+        registrado = `${datos[idx].registrado}`;
+        let clave = datos[idx].ci_postulante;
+
+        identificador = clave;
+      });
+      return { identificador, nombres, registrado };
+    },
+    async confirmarRegistro() {
+      const { identificador, nombres, registrado } = this.verificarSeleccion();
+      console.log(identificador);
+
+      if (identificador) {
+        event.preventDefault();
+        if (registrado === 'no') {
+          try {
+            await confirmarRegistroP(identificador, nombres);
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          show_alerta('El Estudiante ya se encuentra Inscrito!', 'info')
+        }
+      } else {
+        const error = 'Debes Seleccionar Un Estudiante!';
+        show_alerta(error, 'info')
+      }
+      // this.estudiantesP = this.estudiantesP.filter(item => item.ci_postulante !== ci_postulante);
+      // this.getPostulantes();
+      //this.$router.push('/estudiantes');
     },
     async exportPDF() {
       //first try
@@ -275,15 +361,6 @@ export default {
       //RELLENADO DE DATOS DEL ESTUDIANTE:
       //INICIO PRIMERA FORMA
 
-      let tabla_promedios = [];
-
-
-      //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
-      tabla_promedios.push(['TOTAL DE ASIGNATURAS APROBADAS', this.cantidad_aprobadas])
-      tabla_promedios.push(['TOTAL DE ASIGNATURAS CURSADAS', this.cantidad_todas])
-      tabla_promedios.push(['PROMEDIO DE CALIFICACIÓN GNRAL.', this.promedio_todas])
-      tabla_promedios.push(['PREMEDIO DE CALIFICACIÓN APROBADAS', this.promedio_aprobadas])
-
       doc.setTextColor(10);
       doc.setFontSize(15);
 
@@ -351,46 +428,21 @@ export default {
       //añadimos 20+50 por el tamaño de las imagenes
       finalY += 15;
 
-
       doc.setTextColor(10);
-      doc.setFontSize(10).setFont(undefined, 'bold');
+      doc.setFontSize(10);
       doc.text(`
-                      HISTORIAL ACADÉMICO DE AVANCE GENERAL
-                      `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
+                       APELLIDOS Y NOMBRES: ${this.apellidoP} ${this.apellidoM} ${this.nombres}                                  
+                       CEDULA DE IDENTIDAD: ${this.ci_estudiante}
+                       NRO DE REGISTRO: ${this.numero_registro}
+                       CARRERA: ${this.nombre_carrera}
+                       FECHA DE EMISION: ${this.fecha_emision}
+                       NIVEL DE FORMACION: ${this.grado}
+                       `, 30, finalY);
       //finalY+=25;    
       //añadimos 20+50 por el tamaño de las imagenes
-      finalY += 20;
-
-      doc.setTextColor(10);
-      doc.setFontSize(8);
-      doc.text(`
-                       APELLIDOS Y NOMBRES:                                  
-                       CÉDULA DE IDENTIDAD: 
-                       NRO DE REGISTRO: 
-                       CARRERA: 
-                       FECHA DE EMISIÓN: 
-                       NIVEL DE FORMACIÓN: 
-                       `, -10, finalY);
-      //finalY+=25;    
-      //añadimos 20+50 por el tamaño de las imagenes
-      //finalY+=35; 
-      //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
-      //doc.setFontSize(9);
-
-      doc.setTextColor(100);
-      doc.text(`
-                       ${this.apellidoP} ${this.apellidoM} ${this.nombres}                         
-                       ${this.ci_estudiante}                       
-                       ${this.numero_registro}                                
-                       ${this.nombre_carrera}
-                       ${this.fecha_emision}
-                       ${this.grado}
-                       `, (doc.internal.pageSize.getWidth() / 2) - 150, finalY);
-
-
-
       finalY += 35;
-
+      //SETEAMOS EL TAMAÑO DE LETRA PARA COLOCAR LOS DATOS
+      doc.setFontSize(9);
 
 
       //PRIMERA FORMA FINALIZADA 
@@ -398,42 +450,11 @@ export default {
         startY: finalY + 20,
         html: '#materias_cursadas',
         //styles: {font: 'arial',fontSize:9}
-        //styles: {fontSize:9,halign: 'left'},
-        theme: 'plain',
-        tableLineColor: [0, 0, 0], tableLineWidth: 0.2,
-        styles: { fontSize: 6, halign: 'center' },
-        bodyStyles: { lineWidth: 0.2, lineColor: [0, 0, 0] },
-        //padding: 0                      
+        styles: { fontSize: 9, halign: 'left' }
+
       })
 
       finalY = doc.lastAutoTable.finalY
-
-      let wantedTableWidth = 100;
-      let pageWidth = doc.internal.pageSize.width;
-      let margin = (pageWidth - wantedTableWidth) / 2;
-
-      autoTable(doc, {
-        //QUITANDO ESPACIO
-        //startY: finalY + 20,               
-        startY: finalY + 10,
-        showHead: 'never',
-        body: tabla_promedios,
-        //theme:'grid',theme:'striped',theme:'plain'
-        theme: 'plain',
-        tableLineColor: [0, 0, 0], tableLineWidth: 0.2,
-        styles: { fontSize: 5, cellWidth: 'wrap', halign: 'center' },
-        bodyStyles: { lineWidth: 0.2, lineColor: [0, 0, 0] },
-        columnStyles: {
-          1: { columnWidth: 'auto' }
-        },
-        tableWidth: doc.internal.pageSize.getWidth() / 3,
-        margin: { left: margin - 20, right: margin }
-        //columnStyles:{color}
-
-      });
-      finalY = doc.lastAutoTable.finalY
-      finalY += 30;
-
 
 
       //doc.addImage("https://picsum.photos/200", "JPEG", 15, finalY+20, 10, 10);
@@ -448,10 +469,7 @@ export default {
       // });
 
       //doc.table(1, 1, this.generateData(100), headers1, { autoSize: true });
-
-      //await doc.save(`${this.apellidoP} ${this.apellidoM} ${this.nombres}`);      
-      await window.open(doc.output('bloburl'), '_blank');
-
+      await doc.save('example.pdf');
       //var doc = new jsPDF('p', 'pt', 'A4');
       // margins = {
       //     top: 80,
@@ -488,12 +506,6 @@ export default {
               this.fecha_emision = response.data['fecha_emision'],
               this.grado = response.data['grado'],
 
-              this.cantidad_aprobadas = response.data['otros_datos']['cantidad_aprobadas'],
-              this.cantidad_todas = response.data['otros_datos']['cantidad_todas'],
-              this.promedio_todas = response.data['otros_datos']['promedio_todas'],
-              this.promedio_aprobadas = response.data['otros_datos']['promedio_aprobadas'],
-
-
               this.materias = this.sortGestion(response.data['datos'])
 
             //this.materias = response.data['datos']
@@ -523,27 +535,31 @@ export default {
       confirmar1(id, nombre, ruta, this.principal);
       this.$router.push('/estudiantes')
     },
-    getCarrera(id) {
-      axios.get(BASE_URL + '/parametros/carreras/' + id + '/')
+    getPostulantes() {
+      axios.get(this.url)
         .then(
           response => (
-            this.carreras[id] = response.data['nombre_carrera']
+            //this.carreras[id] = response.data['nombre_carrera']
+            this.estudiantesP = response.data
           )
         );
-      return this.carreras[id]
+      //return this.carreras[id]
     },
 
   }
 }
 </script>
-<style scoped>
+<style>
 body {
-  font-size: .675rem;
+  font-size: .875rem;
   line-height: 1.25rem;
 }
 
-.normal-letter {
-  font-size: .675rem;
-  line-height: 1.25rem;
+.aprobado {
+  color: green;
+}
+
+.reprobado {
+  color: red;
 }
 </style>
