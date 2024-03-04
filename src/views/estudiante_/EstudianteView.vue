@@ -15,11 +15,11 @@
             <i class="fa-solid fa-user-plus"></i> <router-link to="/estudiante/create" class="nav-link active">NUEVO
               ESTUDIANTE</router-link>
           </button>
-          <button class="btn btn-outline-warning rounded col-md-2 col-lg-2  me-1" @click="editarSeleccionado()">
+          <button class="btn btn-outline-warning rounded col-md-1 col-lg-1  me-1" @click="editarSeleccionado()">
             Editar
             <i class="fa-solid fa-user-plus"></i>
           </button>
-          <button class="btn btn-danger  rounded col-md-2  col-lg-2  me-1" @click="eliminarSeleccionado()">
+          <button class="btn btn-outline-danger  rounded col-md-1  col-lg-1  me-1" @click="eliminarSeleccionado()">
             Eliminar
             <i class="fa-solid fa-trash"></i>
           </button>
@@ -40,7 +40,7 @@
       <!-- <div class=" col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
       <div class="table-responsive">
-        <DataTable ref="table" id="datatable" :data="materias" :columns="columns"
+        <DataTable ref="table" id="datatable" :data="estudiantes" :columns="columns"
           class="table table-bordered table-striped display fixed small" :options="{
             select: true, responsive: true, autoWidth: true, dom: 'Bfrtip',
             buttons: [{

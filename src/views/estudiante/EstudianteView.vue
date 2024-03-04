@@ -328,7 +328,8 @@ export default {
       console.log('ss' + cadena + 'esto');
       // const date = new Date(cadena);  
       // return new Intl.DateTimeFormat('es-BO').format(date).toString();
-      if (cadena !== '' && cadena !== null && cadena !== 'undefined' && cadena !== ' ') {
+      //if (cadena !== '' && cadena !== 'null' && cadena !== 'undefined' && cadena !== ' ') {
+        if(cadena){
         console.log('entro?');
         let fecha = '';
         const datos = cadena.split('-');
@@ -599,7 +600,10 @@ export default {
       if (estudiante1.prov_nacimiento) {
         nacimiento = estudiante1.prov_nacimiento.toUpperCase();
       }
-      fecha_nac = estudiante1.fecha_nacimiento ? this.formatDate(estudiante1.fecha_nacimiento) : '';
+      
+      fecha_nac = estudiante1.fecha_nacimiento?this.formatDate(estudiante1.fecha_nacimiento) : '';
+      
+      console.log(fecha_nac);
       console.log(fecha_nac + 'asi');
 
       doc.setTextColor(100);
