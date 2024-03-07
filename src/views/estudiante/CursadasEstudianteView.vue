@@ -461,6 +461,14 @@ export default {
       finalY = doc.lastAutoTable.finalY
       finalY += 30;
 
+      doc.setTextColor(10);
+        doc.setFontSize(6).setFont(undefined, 'bold');
+        doc.text(`                
+        APR.: APROBADO
+        REP.:REPROBADO
+        AB.:ABANDONO
+        *Documento solo válido para Trámite Interno.
+          `, 40, finalY);
 
 
       //doc.addImage("https://picsum.photos/200", "JPEG", 15, finalY+20, 10, 10);
