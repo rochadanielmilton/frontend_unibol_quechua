@@ -367,7 +367,26 @@ export default {
                       `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
       //finalY+=25;    
       //añadimos 20+50 por el tamaño de las imagenes
-      finalY += 20;
+      finalY += 10;
+
+      doc.setTextColor(10);
+      doc.setFontSize(9).setFont(undefined, 'bold');
+      doc.text(`
+                      SEGUN AJUSTE DE RM 0155/2023
+                      `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
+      //finalY+=25;    
+      //añadimos 20+50 por el tamaño de las imagenes
+      finalY += 10;
+
+      doc.setTextColor(10);
+    doc.setFontSize(6).setFont(undefined, 'bold');                      
+    doc.text(`
+      SERIE "A"-3 
+      `, (doc.internal.pageSize.getWidth()/2)+160, finalY,null,null,"center");
+      //finalY+=25;    
+      //añadimos 20+50 por el tamaño de las imagenes
+      finalY+=10;  
+
 
       doc.setTextColor(10);
       doc.setFontSize(8);
