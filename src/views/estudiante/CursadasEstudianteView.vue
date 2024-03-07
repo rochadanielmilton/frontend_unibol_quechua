@@ -60,21 +60,14 @@
                   GESTION
                 </th>
                 <th>
-                  SIGLA CODIGO
-                </th>
-                <th>
-                  SIGLA CONV.
-                </th>
-                <th>
-                  HOMOL.
-                </th>
+                  SIGLA CÓDIGO
+                </th>                
                 <th>
                   ASIGNATURA
                 </th>
                 <th>
                   HRS. ACAD.
                 </th>
-
                 <th>
                   PREREQUISITOS
                 </th>
@@ -83,6 +76,9 @@
                 </th>
                 <th>
                   ESTADO
+                </th>
+                <th>
+                  HOMOLOGACIÓN
                 </th>
                 <!-- <th>
                         INS. DE APR.
@@ -98,7 +94,8 @@
             <tbody class="table-group-divider" id="contenido">
               <tr v-for="materia, i  in materias" :key="materia">
                 <td>{{ i + 1 }}</td>
-                <td>{{ materia.anio_cursado }}</td>
+                <!-- ORDEN ANTERIOR -->
+                <!-- <td>{{ materia.anio_cursado }}</td>
                 <td>{{ materia.codigo_asignatura }}</td>
                 <td>{{ materia.convalidacion }}</td>
                 <td>{{ materia.homologacion }}</td>
@@ -106,7 +103,17 @@
                 <td>{{ materia.total_horas }}</td>
                 <td>{{ materia.pre_requisitos }}</td>
                 <td>{{ materia.nota_num_final }}</td>
-                <td>{{ materia.estado_gestion_espaniol }}</td>
+                <td>{{ materia.estado_gestion_espaniol }}</td> -->
+                <!-- FIN ORDEN ANTERIOR -->
+                <td>{{ materia[0] }}</td>
+                <td>{{ materia[1] }}</td>                                
+                <td>{{ materia[2] }}</td>
+                <td>{{ materia[3] }}</td>
+                <td>{{ materia[4] }}</td>
+                <td>{{ materia[5] }}</td>
+                <td>{{ materia[6] }}</td>
+                <td>{{ materia[7] }}</td>
+
                 <!-- <td></td>
                         <td></td> -->
                 <!-- <td>{{ estudiante.nombre_asignatura }}</td> -->
@@ -165,7 +172,8 @@ export default {
       promedio_todas: '',
       promedio_aprobadas: '',
       materias: null, message: '',
-      url: BASE_URL + '/estudiantes/obtenerAsignaturasCursadas'
+      //url: BASE_URL + '/estudiantes/obtenerAsignaturasCursadas'
+      url: BASE_URL + '/estudiantes/ObtenerHitorialAcademico2'
     }
   },
   mounted() {
@@ -488,13 +496,13 @@ export default {
               this.fecha_emision = response.data['fecha_emision'],
               this.grado = response.data['grado'],
 
-              this.cantidad_aprobadas = response.data['otros_datos']['cantidad_aprobadas'],
-              this.cantidad_todas = response.data['otros_datos']['cantidad_todas'],
-              this.promedio_todas = response.data['otros_datos']['promedio_todas'],
-              this.promedio_aprobadas = response.data['otros_datos']['promedio_aprobadas'],
+              // this.cantidad_aprobadas = response.data['otros_datos']['cantidad_aprobadas'],
+              // this.cantidad_todas = response.data['otros_datos']['cantidad_todas'],
+              // this.promedio_todas = response.data['otros_datos']['promedio_todas'],
+              // this.promedio_aprobadas = response.data['otros_datos']['promedio_aprobadas'],
 
-
-              this.materias = this.sortGestion(response.data['datos'])
+              this.materias = this.sortGestion(response.data['datos']),
+              console.log(response.data['datos'][0])
 
             //this.materias = response.data['datos']
             // }else{

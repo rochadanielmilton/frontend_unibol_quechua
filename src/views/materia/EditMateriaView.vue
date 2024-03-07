@@ -57,11 +57,11 @@
             
 
             <div class="input-group mb-3">
-              <input type="text" v-model="pre_requisito1" id="pre_requisito1" class="form-control" maxlength="50" placeholder="Pre Requisito1" required>
+              <input type="text" v-model="pre_requisito1" id="pre_requisito1" class="form-control" maxlength="50" placeholder="Pre Requisito1" >
             </div>
 
             <div class="input-group mb-3">
-              <input type="text" v-model="pre_requisito2" id="pre_requisito2" class="form-control" maxlength="50" placeholder="Pre Requisito2" required>
+              <input type="text" v-model="pre_requisito2" id="pre_requisito2" class="form-control" maxlength="50" placeholder="Pre Requisito2" >
             </div>
 
             <div class="input-group mb-3">

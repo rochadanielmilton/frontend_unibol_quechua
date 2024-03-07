@@ -64,7 +64,7 @@
                             <router-link :to="{path:'/docente/edit/'+docente.id}" class="btn btn-outline-warning">
                                 <i class="fa-solid fa-edit"></i>
                             </router-link> &nbsp;
-                            <button   class="btn btn-outline-danger" v-on:click="eliminar(docente.id,docente.nombres)">
+                            <button   class="btn btn-outline-danger" v-on:click="eliminar(docente.id,`${docente.nombres} ${docente.apellidop} ${docente.apellidom}`)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>

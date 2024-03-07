@@ -61,7 +61,22 @@
 
             <div class="input-group mb-3">   
               <input type="text" v-model="anio_ingreso" id="anio_ingreso" class="form-control" maxlength="100" placeholder="Año de Ingreso" required>
-              <input type="text" v-model="anio_cursado" id="anio_cursado" class="form-control" maxlength="100" placeholder="Año Cursado" required>
+
+              
+
+              <!-- <div class="input-group mb-3">  -->
+              
+              <select class="form-select text-center" id="anio_cursado"  v-model="anio_cursado">              
+                <!-- ARREGLAR ESTA OPCION QUE  -->
+                <option :value="anio_cursado" selected>{{anio_cursado}}
+                </option>
+                <option  v-for="anio in anios_carreras" v-bind:value="anio.nombre_anio" :key="anio.id">
+                    {{`${anio.nombre_anio}`}}
+                </option>
+              </select> 
+              <!-- <input type="text" v-model="prov_nacimiento" id="prov_nacimiento" class="form-control" maxlength="55" placeholder="Provincia Nacimiento" required> -->
+              <!-- </div> -->
+              <!-- <input type="text" v-model="anio_cursado" id="anio_cursado" class="form-control" maxlength="100" placeholder="Año Cursado" required> -->
             </div>
 
             <div class="input-group mb-3">
@@ -279,6 +294,7 @@ export default {
       numero_registro:0,obs1:'',obs2:'',obs3:'',estado:'',descripcion_estado:'',baja:'',codigo_carrera:0,nombre_carrera:'',
       ci_especial:'',photography:'',fileFoto:null,
       idiomas:null,carreras:null,principal:'',provincias:null,departamentos:null,noencontrado:true,
+      anios_carreras:'',
       url:BASE_URL+'/estudiantes/estudiantes'
     }
   },
@@ -291,6 +307,7 @@ export default {
      this.getIdiomas();
      this.getCarreras();
      this.getProvincias();    
+     this.getAnioCarrera();
      this.getDepartamentos();
     //  this.provincias.forEach(element => {
     //   if(element===this.prov_nacimiento)
@@ -416,6 +433,15 @@ export default {
             .then(            
                 response =>(
                     this.provincias = response.data                        
+                )
+            );            
+    },
+    async getAnioCarrera()
+    {
+      await axios.get(BASE_URL+'/parametros/aniosCarreras/')
+            .then(            
+                response =>(
+                    this.anios_carreras = response.data                        
                 )
             );            
     },

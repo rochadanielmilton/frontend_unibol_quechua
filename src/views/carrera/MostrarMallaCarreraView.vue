@@ -5,7 +5,7 @@
     <div class="mb-3 fw-bold ">       
 
             <div class="mb-3 fs-4 text-center">                 
-             MALLA CURRICULAR : {{ `${id}`}}
+             MALLA CURRICULAR : {{ ` ${asignaturas[0].nombre_carrera}`}}
             </div>
             
             <button   class="btn btn-warning offset-1" @click="exportPDF">                           
@@ -117,7 +117,7 @@ export default {
   data(){
     return {principal:'',
     id:0,codigo_carrera:'',nombre_carrera:'',codigo_asignatura:'',nombre_asignatura:'',descripcion:'',estado:'',
-    message:'',asignaturas:null,
+    message:'',asignaturas:null,name_career:'',
     url:BASE_URL+'/parametros/mallaAcademica'
   }
   },
@@ -127,6 +127,7 @@ export default {
       
      this.url = this.url + '/' +this.id+'/';
     this.getMallaAcademica();
+    this.name_career=this.nombre_carrera;
     //ruta de navegacion despues de la accion eliminar
     this.principal='/estudiantes';    
   },
@@ -270,7 +271,7 @@ export default {
                        finalY+=20; 
 
                     doc.setTextColor(10);
-                    doc.setFontSize(10);
+                    doc.setFontSize(10).setFont(undefined, 'bold');                    
                     doc.text(`
                        MALLA CURRICULAR  : ${this.id}  
                        ${this.asignaturas[0].nombre_carrera}  

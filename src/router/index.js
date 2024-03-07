@@ -212,26 +212,55 @@ const routes = [
     component: ReporteView
   },
   {
+    path: '/departamentos',
+    name: 'departamentos',
+  component: () => import(/* webpackChunkName: "departamento" */ '../views/departamento/DepartamentoView.vue')
+  },
+  {
+    path: '/departamento/create',
+    name: 'creardepartamento',
+    component: () => import(/* webpackChunkName: "crear-departamento" */ '../views/departamento/CreateDepartamentoView.vue')
+  },
+  {
+    path: '/departamento/edit/:id',
+    name: 'editardepartamento',
+    component: () => import(/* webpackChunkName: "edit-departamento" */ '../views/departamento/EditDepartamentoView.vue')
+  },
+  {
+    path: '/provincias',
+    name: 'provincias',
+  component: () => import(/* webpackChunkName: "provincia" */ '../views/provincia/ProvinciaView.vue')
+  },
+  {
+    path: '/provincia/create',
+    name: 'crearprovincia',
+    component: () => import(/* webpackChunkName: "crear-provincia" */ '../views/provincia/CreateProvinciaView.vue')
+  },
+  {
+    path: '/provincia/edit/:id',
+    name: 'editarprovincia',
+    component: () => import(/* webpackChunkName: "edit-provincia" */ '../views/provincia/EditProvinciaView.vue')
+  },
+  {
+    path: '/idioma-originario',
+    name: 'idioma-originario',
+  component: () => import(/* webpackChunkName: "idioma-originario" */ '../views/idioma-originario/OriginarioView.vue')
+  },
+  {
+    path: '/idioma-originario/create',
+    name: 'crearidioma',
+    component: () => import(/* webpackChunkName: "crear-idioma" */ '../views/idioma-originario/CreateOriginarioView.vue')
+  },
+  {
+    path: '/idioma-originario/edit/:id',
+    name: 'editaridioma',
+    component: () => import(/* webpackChunkName: "edit-idioma" */ '../views/idioma-originario/EditOriginarioView.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/estudiantes'
   },
-
-
-  // {
-  //   path: '/departamentos',
-  //   name: 'departamentos',
-  //   component: MateriaView
-  // },
-  // {
-  //   path: '/departamento/create',
-  //   name: 'creardepartamento',
-  //   component: CreateMateriaView
-  // },
-  // {
-  //   path: '/departamento/edit/:id',
-  //   name: 'editardepartamento',
-  //   component: EditMateriaView
-  // },
+  
 
   // {
   //   path: '/reportes',

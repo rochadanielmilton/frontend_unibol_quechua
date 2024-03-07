@@ -2,6 +2,7 @@
   <div class="container-fluid ">
     <!-- <div class="container-fluid text-center"> -->
     <div class="row">
+      
       <div class="mb-3">
         <!-- <div class="d-flex justify-content-around ">         -->
         <div class="mb-3 col-lg-10 offset-1">
@@ -16,6 +17,11 @@
               ESTUDIANTE</router-link>
           </button>
 
+        </div>
+      </div>
+      <div class="fw-bold">
+        <div class="mb-3 fs-4 text-center">                 
+             PLANILLA DE ESTUDIANTES GENERAL:
         </div>
       </div>
     </div>
@@ -110,19 +116,19 @@
               <td class="d-flex justify-content-center">
                 <div class="d-flex mb-1 ">
                   <router-link :to="{ path: '/estudiante/materias-cursadas/' + estudiante.ci_estudiante }"
-                    class="btn btn-outline-secondary me-1">
+                    class="btn btn-outline-secondary me-1" >
                     <i class="fa-solid fa-user-graduate"></i>
                   </router-link>
-                  <button class="btn btn-outline-success" @click="formularioA(estudiante.ci_estudiante)">
+                  <button class="btn btn-outline-success" @click="formularioA(estudiante.ci_estudiante)" >
                     <i class="fa-regular fa-clipboard"></i>
                   </button>
                 </div>
                 <div class="d-flex">
                   <router-link :to="{ path: '/estudiante/edit/' + estudiante.ci_estudiante }"
-                    class="btn btn-outline-warning me-1">
+                    class="btn btn-outline-warning me-1" >
                     <i class="fa-solid fa-edit"></i>
                   </router-link>
-                  <button class="btn btn-outline-success" @click="certificadoCalificaciones(estudiante.ci_estudiante)">
+                  <button class="btn btn-outline-success" @click="certificadoCalificaciones(estudiante.ci_estudiante)" >
                     <i class="fa-solid fa-sheet-plastic"></i>
                   </button>
                   <!-- <button class="btn btn-outline-danger" @click="eliminar(estudiante.ci_estudiante, estudiante.nombres)">
@@ -203,6 +209,7 @@ export default {
     this.principal = '/estudiantes';
     new Tooltip(document.body, {
       selector: "[data-bs-toggle='tooltip']",
+      html: true, trigger: 'hover'
     })
   },
   methods: {

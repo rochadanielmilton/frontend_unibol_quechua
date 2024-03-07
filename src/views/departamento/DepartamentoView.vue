@@ -4,7 +4,7 @@
     <div class="mb-3">
       <div class="d-grid col-6-mx-auto offset-md-9">
               <button class="btn btn-success">                
-                <router-link to="/asignatura/create" class="nav-link active" >Nueva Asignatura</router-link> <i class="fa-solid fa-graduation-cap"></i> 
+                <router-link to="/departamento/create" class="nav-link active" >NUEVO DEPARTAMENTO</router-link> <i class="fa-solid fa-graduation-cap"></i>
               </button>
       </div>
      </div>
@@ -18,61 +18,23 @@
                     <tr>                     
                       <th>
                         #
-                      </th>
-                      <th>
-                        CODIGO
-                      </th>
+                      </th>                     
                       <th>
                         NOMBRE
-                      </th>
-                      <th>
-                        DESCRIPCION
-                      </th>
-                      <th>
-                        DOCENTE
                       </th>                      
-                      <th>
-                        HORAS PRACTICAS
-                      </th> 
-                      <th>
-                        HORAS TEORICAS
-                      </th>
-                      <th>
-                        TOTAL HORAS
-                      </th> 
-                      <th>
-                        PRE-REQUISITO1
-                      </th>
-                      <th>
-                        PRE-REQUISITO2
-                      </th>
-                      <th>
-                        AÑO ASIGNADO
-                      </th>
                       <th class="col-2">
                         ACCIONES
                       </th>
                     </tr></thead>
                   <tbody class="table-group-divider" id="contenido">
-                    <tr v-for="materia,i in materias" :key="materia.id">
+                    <tr v-for="departamento,i in departamentos" :key="departamento.id">
                         <td>{{ i+1 }}</td>
-                        <td>{{ materia.codigo_asignatura }}</td>
-                        <td>{{ materia.nombre_asignatura }}</td>
-                        <td>{{ materia.descripcion }}</td>
-
-                        <td>{{ getDocentess(materia.id_docente,materia.codigo_asignatura) }}</td>
-
-                        <td>{{ materia.horas_practicas }}</td>
-                        <td>{{ materia.horas_teoricas }}</td>
-                        <td >{{ materia.total_horas  }}</td>
-                        <td>{{ materia.pre_requisito1  }}</td>
-                        <td >{{ materia.pre_requisito2  }}</td>
-                        <td >{{ materia.anio_asignado  }}</td>
+                        <td>{{ departamento.nombre_departamento }}</td>                        
                         <td>
-                            <router-link :to="{path:'/asignatura/edit/'+materia.codigo_asignatura}" class="btn btn-warning">
+                            <router-link :to="{path:'/departamento/edit/'+departamento.id}" class="btn btn-outline-warning">
                                 <i class="fa-solid fa-edit"></i>
                             </router-link> &nbsp;
-                            <button class="btn btn-danger" @:click="eliminar(materia.codigo_asignatura,materia.nombre_asignatura)">
+                            <button class="btn btn-outline-danger" @:click="eliminar(departamento.id,departamento.nombre_departamento)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
@@ -88,7 +50,7 @@
 <script>
 
 import axios from "axios";
-import {confirmar1, show_alerta} from '../../funciones';
+import {confirmar1} from '../../funciones';
 //import {ref} from 'vue';
 // const provincias = computed(()=>{
 //         return this.provincias = this.getProvincias()
@@ -99,46 +61,46 @@ import {confirmar1, show_alerta} from '../../funciones';
 export default {
   name: 'MateriaView',
   data(){
-    return {materias:null,docente:'',docs:[],principal:''}
+    return {departamentos:null,docente:'',docs:[],principal:''}
   },
   mounted(){
-    this.getMaterias();
-    this.principal='/asignaturas';
+    this.getDepartamentos();
+    this.principal='/departamentos';
   },
   methods:{
-    getMaterias(){
-            axios.get(BASE_URL+'/parametros/asignaturas/')
+    getDepartamentos(){
+            axios.get(BASE_URL+'/parametros/departamentos/')
             .then(            
                 response =>(
-                    this.materias = response.data                        
+                    this.departamentos = response.data                        
                 )
             );            
     },
-    getDocentess(id_doc,codigo_asignatura){
+    // getDocentess(id_doc,codigo_asignatura){
       
-      //console.log('aver'+id_doc);
-      if(id_doc===null)
-      {
-        return;
-      }else
-      if(id_doc!==null||id_doc!=='undefined'||id_doc!=='')
-      {      
-        console.log(id_doc + codigo_asignatura);
-      axios.get(BASE_URL+'/docentes/docentes/'+id_doc+'/').then(
-        response =>(                 
-          //revisar lo de fernando de objects
-          //this.docente = `${response.data['nombres']} ${response.data['apellidop']} ${response.data['apellidom']}`
-          this.docs[codigo_asignatura] = `${response.data['nombres']} ${response.data['apellidop']} ${response.data['apellidom']}`
-        )
-      ).catch(error => { 
-          console.log(error)
-          show_alerta(error,'error')
-        });
-      //console.log('mas:'+docs);
-      return this.docs[codigo_asignatura];
-      }
-    }
-    ,eliminar(id,nombre){
+    //   //console.log('aver'+id_doc);
+    //   if(id_doc===null)
+    //   {
+    //     return;
+    //   }else
+    //   if(id_doc!==null||id_doc!=='undefined'||id_doc!=='')
+    //   {      
+    //     console.log(id_doc + codigo_asignatura);
+    //   axios.get(BASE_URL+'/docentes/docentes/'+id_doc+'/').then(
+    //     response =>(                 
+    //       //revisar lo de fernando de objects
+    //       //this.docente = `${response.data['nombres']} ${response.data['apellidop']} ${response.data['apellidom']}`
+    //       this.docs[codigo_asignatura] = `${response.data['nombres']} ${response.data['apellidop']} ${response.data['apellidom']}`
+    //     )
+    //   ).catch(error => { 
+    //       console.log(error)
+    //       show_alerta(error,'error')
+    //     });
+    //   //console.log('mas:'+docs);
+    //   return this.docs[codigo_asignatura];
+    //   }
+    // }
+    eliminar(id,nombre){
     //   for (let index = 0; index < 10; index++) {
     //     sendRequest('POST',{
     //     "id":999,
@@ -147,9 +109,9 @@ export default {
     // },'http://127.0.0.1:8000/parametros/provincias/','ProvinciaS Eliminada');              
     //   }
       
-      const ruta = 'parametros/asignaturas/'+id+'/';
+      const ruta = 'parametros/departamentos/'+id+'/';
       confirmar1(id,nombre,ruta,this.principal);      
-      //this.$router.push('/materias')
+      this.$router.push({name:'departamentos'})
     }
   }
 }

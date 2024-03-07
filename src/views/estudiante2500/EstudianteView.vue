@@ -68,8 +68,8 @@
               }], pageLength: 5,
               //responsivePriority: 1,                                                   
               columnDefs: [{
-                width: '40%', target: [6],
-                width: '10%', target: [7],
+                width: '250px', target: [6],
+                width: '250px', target: [7],
               },
               { responsivePriority: 1, targets: 1 },
               { responsivePriority: 2, targets: 2 },

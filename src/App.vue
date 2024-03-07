@@ -68,6 +68,23 @@
                     </ul>
                   </li>
 
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Parametros
+                     </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li>
+                        <router-link to="/departamentos" class="nav-link active" aria-current="page" href="#">Mostrar Departamentos</router-link>                        
+                      </li>
+                      <li>
+                        <router-link to="/provincias" class="nav-link active" href="#">Mostrar Provincias</router-link>                        
+                      </li>    
+                      <li>
+                        <router-link to="/idioma-originario" class="nav-link active" href="#">Mostrar-Idioma-Originario</router-link>                        
+                      </li>                      
+                    </ul>
+                  </li>
+
                    <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Reportes
