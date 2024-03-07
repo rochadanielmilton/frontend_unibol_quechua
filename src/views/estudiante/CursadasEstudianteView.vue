@@ -6,7 +6,7 @@
         <div class="mb-3 fw-bold normal-letter ">
 
           <div class="mb-3 fs-5 text-center">
-            HISTORIAL ACADEMICO DE AVANCE GENERAL
+            HISTORIAL ACADÉMICO DE AVANCE GENERAL
           </div>
 
           <div class="  fs-6">
@@ -372,7 +372,7 @@ export default {
       doc.setTextColor(10);
       doc.setFontSize(9).setFont(undefined, 'bold');
       doc.text(`
-                      SEGUN AJUSTE DE RM 0155/2023
+                      SEGÚN AJUSTE DE RM 0155/2023
                       `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
       //finalY+=25;    
       //añadimos 20+50 por el tamaño de las imagenes
