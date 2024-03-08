@@ -348,7 +348,7 @@ export default {
       doc.setTextColor(10);
       doc.setFontSize(10).setFont(undefined, 'bold');
       doc.text(`
-                      HISTORIAL ACADÉMICO DE AVANCE GENERAL
+                      HISTORIAL ACADÉMICO 
                       `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
       //finalY+=25;    
       //añadimos 20+50 por el tamaño de las imagenes
