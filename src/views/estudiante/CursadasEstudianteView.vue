@@ -523,10 +523,10 @@ export default {
               this.fecha_emision = response.data['fecha_emision'],
               this.grado = response.data['grado'],
 
-              // this.cantidad_aprobadas = response.data['otros_datos']['cantidad_aprobadas'],
-              // this.cantidad_todas = response.data['otros_datos']['cantidad_todas'],
-              // this.promedio_todas = response.data['otros_datos']['promedio_todas'],
-              // this.promedio_aprobadas = response.data['otros_datos']['promedio_aprobadas'],
+              this.cantidad_aprobadas = response.data['otros_datos']['cantidad_aprobadas'],
+              this.cantidad_todas = response.data['otros_datos']['cantidad_todas'],
+              this.promedio_todas = response.data['otros_datos']['promedio_todas'],
+              this.promedio_aprobadas = response.data['otros_datos']['promedio_aprobadas'],
 
               this.materias = this.sortGestion(response.data['datos']),
               console.log(response.data['datos'][0])
