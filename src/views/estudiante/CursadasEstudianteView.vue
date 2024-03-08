@@ -467,6 +467,7 @@ export default {
         APR.: APROBADO
         REP.:REPROBADO
         AB.:ABANDONO
+        CONV.:CONVALIDADO
         *Documento solo válido para Trámite Interno.
           `, 40, finalY);
 
