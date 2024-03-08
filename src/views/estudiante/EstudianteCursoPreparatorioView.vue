@@ -456,4 +456,8 @@ body {
 .reprobado {
   color: red;
 }
+table,div {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+  }
 </style>

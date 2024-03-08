@@ -533,4 +533,8 @@ body {
     font-size: .875rem;
     line-height: 1.25rem;
 }
+table,div {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+  }
 </style>

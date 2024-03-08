@@ -1,3 +1,4 @@
+
 <template>
   <!-- <div class="container-fluid text-center"> -->
   <div v-if="materias" class="container-fluid" id="contenido-global">
@@ -6,7 +7,7 @@
         <div class="mb-3 fw-bold normal-letter ">
 
           <div class="mb-3 fs-5 text-center">
-            HISTORIAL ACADÉMICO DE AVANCE GENERAL
+            HISTORIAL ACADÉMICO
           </div>
 
           <div class="  fs-6">
@@ -50,11 +51,11 @@
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
       <div class="col-lg-10 offset-lg-1">
         <div class="table-responsive text-center">
-          <table id="materias_cursadas" class="table table-bordered table-hover table-striped col-12 small">
+          <table id="materias_cursadas" class="table table-bordered table-hover table-striped small table-auto">
             <thead v-if="materias" class="pb-4 table-light">
               <tr>
-                <th>
-                  #
+                <th>                  
+                  N°
                 </th>
                 <th>
                   GESTION
@@ -93,7 +94,7 @@
             </thead>
             <tbody class="table-group-divider" id="contenido">
               <tr v-for="materia, i  in materias" :key="materia">
-                <td>{{ i + 1 }}</td>
+                <td class="text-xs">{{ i + 1 }}</td>
                 <!-- ORDEN ANTERIOR -->
                 <!-- <td>{{ materia.anio_cursado }}</td>
                 <td>{{ materia.codigo_asignatura }}</td>
@@ -105,34 +106,18 @@
                 <td>{{ materia.nota_num_final }}</td>
                 <td>{{ materia.estado_gestion_espaniol }}</td> -->
                 <!-- FIN ORDEN ANTERIOR -->
-                <td>{{ materia[0] }}</td>
-                <td>{{ materia[1] }}</td>                                
-                <td>{{ materia[2] }}</td>
-                <td>{{ materia[3] }}</td>
-                <td>{{ materia[4] }}</td>
-                <td>{{ materia[5] }}</td>
-                <td>{{ materia[6] }}</td>
-                <td>{{ materia[7] }}</td>
+                <td class="text-sm">{{ materia[0] }}</td>
+                <td class="text-sm">{{ materia[1] }}</td>                                
+                <td class="text-sm">{{ materia[2] }}</td>
+                <td class="text-sm">{{ materia[3] }}</td>
+                <td class="text-sm">{{ materia[4] }}</td>
+                <td class="text-sm">{{ materia[5] }}</td>
+                <td class="text-sm">{{ materia[6] }}</td>
+                <td class="text-sm">{{ materia[7] }}</td>
 
-                <!-- <td></td>
-                        <td></td> -->
-                <!-- <td>{{ estudiante.nombre_asignatura }}</td> -->
-                <!-- <td >{{ estudiante.id_docente }}</td> -->
-
-                <!-- <td >{{ estudiante.estado_gestion_espaniol }}</td> -->
-                <!--  <td>{{ getCarrera(estudiante.id_carrera) }}</td> -->
-                <!-- <td>{{ estudiante.nota_num_final }}</td> -->
-
-
-                <!-- <td>                                                                                 
-                            <button   class="btn btn-warning" @click="clickMe"> -->
-                <!-- <i class="fa-solid fa-file-pdf"></i> -->
-                <!-- </button>                         
-                        </td> -->
               </tr>
             </tbody>
           </table>
-          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -577,6 +562,10 @@ body {
   font-size: .675rem;
   line-height: 1.25rem;
 }
+table,div {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+  }
 
 .normal-letter {
   font-size: .675rem;
