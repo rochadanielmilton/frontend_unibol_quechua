@@ -6,7 +6,7 @@
         <div class="mb-3 fw-bold normal-letter ">
 
           <div class="mb-3 fs-5 text-center">
-            HISTORIAL ACADÉMICO
+            CERTIFICADO CALIFICACIONES
           </div>
 
           <div class="  fs-6">
@@ -147,7 +147,7 @@ import axios from "axios";
 import { show_alerta, confirmar1 } from '../../funciones';
 import { historialAcademico } from '../../reportes'
 import { useRoute } from "vue-router";
-import html2pdf from "html2pdf.js";
+// import html2pdf from "html2pdf.js";
 
 //librerias para la exportacion en pdf
 import jsPDF from "jspdf";
@@ -168,7 +168,7 @@ export default {
       gestiones:[],
       
       estudiantes: null, carreras: [], principal: '',
-      ci_estudiante: '', nombres: '', apellidoP: '', apellidoM: '', numero_registro: '', nombre_carrera: '', fecha_emision: '', grado: '',
+      ci_estudiante: '', nombres: '', apellidoP: '', apellidoM: '', numero_registro: '', nombre_carrera: '', fecha_emision: '', grado: '',anio_ingreso:'',
       cantidad_aprobadas: '',
       cantidad_todas: '',
       promedio_todas: '',
@@ -184,24 +184,29 @@ export default {
 
     this.url = this.url + '/' + this.id + '/';
     this.getMateriasCursadas();
-    this.generarGestion();
+    //this.generarGestion();
     //ruta de navegacion despues de la accion eliminar
     this.principal = '/estudiantes';
   },
   methods: {
-    clickMe() {
-      html2pdf(document.getElementById('contenido-global'), {
-        margin: 1,
-        filename: 'reporte.pdf',
-        html2canvas: { scale: 3 }
-      })
-    },
-    generarGestion(){
+    // clickMe() {
+    //   html2pdf(document.getElementById('contenido-global'), {
+    //     margin: 1,
+    //     filename: 'reporte.pdf',
+    //     html2canvas: { scale: 3 }
+    //   })
+    // },
+    generarGestion(gestion){
+      console.log('esto'+gestion);
       let inicio=2023;
-      for (let index = 0; index < 5; index++) {          
-        this.gestiones.push(inicio-index)
-      }      
-      console.log(this.gestiones);
+      let numero=inicio-(gestion-1);
+      if(gestion<=inicio)
+      {
+        for (let index = 0; index < numero; index++) {          
+          this.gestiones.push(inicio-index)        
+        }      
+      }
+      console.log(this.gestiones);      
     },
     async certificadoCalificaciones(id,gestion) {
       console.log(id,gestion);
@@ -534,8 +539,7 @@ export default {
       //     left: 40,
       //     width: 522
       // };                                                                                                     
-    }
-    ,
+    },
     sortGestion(data) {
       data = data.sort((a, b) => {
         if (a.anio_cursado < b.anio_cursado) {
@@ -545,7 +549,7 @@ export default {
       console.log(data);
       return data;
     },
-    async getMateriasCursadas() {
+    async getMateriasCursadas(){
       await axios.get(this.url)
         .then(
           response => {
@@ -569,7 +573,11 @@ export default {
               this.promedio_aprobadas = response.data['otros_datos']['promedio_aprobadas'],
 
               this.materias = this.sortGestion(response.data['datos']),
-              console.log(response.data['datos'][0])
+              this.anio_ingreso=response.data['estudiante']['anio_ingreso'],
+              this.generarGestion(response.data['estudiante']['anio_ingreso'])
+              console.log(response.data['estudiante']['anio_ingreso']);
+
+              // console.log(response.data['datos'][0])
 
             //this.materias = response.data['datos']
             // }else{

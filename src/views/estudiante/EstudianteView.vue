@@ -128,9 +128,14 @@
                     class="btn btn-outline-warning" >
                     <i class="fa-solid fa-user-pen"></i>
                   </router-link>
-                  <button class="btn btn-outline-success" @click="certificadoCalificaciones(estudiante.ci_estudiante)" >
+                  <router-link :to="{ path: '/estudiante/HistorialAnual/' + estudiante.ci_estudiante }"
+                    class="btn btn-outline-success" >
                     <i class="fa-solid fa-book"></i>
-                  </button>
+                  </router-link>
+                  
+                  <!-- <button class="btn btn-outline-success" @click="certificadoCalificaciones(estudiante.ci_estudiante)" >
+                    <i class="fa-solid fa-book"></i>
+                  </button> -->
                   <!-- <button class="btn btn-outline-danger" @click="eliminar(estudiante.ci_estudiante, estudiante.nombres)">
             <i class="fa-solid fa-trash"></i>
           </button> -->
