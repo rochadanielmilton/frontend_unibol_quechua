@@ -355,10 +355,11 @@ export default {
     },
     certificadoCalificacioness(ci_estudiante) {
       //console.log(this.getMateriasCursadas(ci_estudiante));
+      let gestion = '2023'
       this.getMateriasCursadas(ci_estudiante);
       const datos_estudiante = this.materias_cursadas;
       //console.log(this.materias_cursadas);
-      historialAcademico(datos_estudiante);
+      historialAcademico(datos_estudiante,gestion);
     },
     async exportPDF(datos_estudiante) {
       //first try

@@ -33,11 +33,11 @@
             <div class=" mb-3 fs-6">
               FECHA DE EMISION : {{ `${fecha_emision}` }}
             </div>
-            <div>
+            <!-- <div>
               <button class="btn btn-warning " @click="exportPDF">
                 <strong> GENERAR PDF :</strong> <i class="fa-solid fa-file-pdf"></i>
               </button>
-            </div>
+            </div> -->
           </div>
 
         </div>
@@ -57,7 +57,7 @@
                   #
                 </th>
                 <th>
-                  GESTION
+                  GESTIÓN
                 </th>
                 <!-- <th>
                   SIGLA CÓDIGO
@@ -204,8 +204,9 @@ export default {
       console.log(this.gestiones);
     },
     async certificadoCalificaciones(id,gestion) {
-
-      const url = BASE_URL + 'estudiantes/obtenerCertificacionPorGestion/' + id + '/'+ gestion +'/';
+      console.log(id,gestion);
+      
+      const url = BASE_URL + '/estudiantes/obtenerCertificacionPorGestion/' + id + '/'+ gestion +'/';
       await axios.get(url)
         .then(
           response => {
@@ -544,8 +545,8 @@ export default {
       console.log(data);
       return data;
     },
-    getMateriasCursadas() {
-      axios.get(this.url)
+    async getMateriasCursadas() {
+      await axios.get(this.url)
         .then(
           response => {
 
