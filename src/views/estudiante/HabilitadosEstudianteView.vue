@@ -4,14 +4,14 @@
   <div class="row">
     <div class="mb-3 fw-bold">       
       <div class="mb-3 col-lg-10 offset-1">
-            <button class="btn btn-outline-success col-2">
-                <i class="fa-solid fa-table"></i> <router-link to="/estudiante/curso-preparatorio" class="nav-link active"
+            <button class="btn btn-outline-success">
+              <i class="fa-solid fa-users"></i> <router-link to="/estudiante/curso-preparatorio" class="nav-link active"
                   >ESTUDIANTES-PREPARATORIO</router-link>
             </button> &nbsp;
       </div>
 
             <div class="mb-3 fs-4 text-center">                 
-             PLANILLA DE ESTUDIANTES HABILITADOS PARA LA INSCRIPCION:
+             PLANILLA DE ESTUDIANTES HABILITADOS PARA LA INSCRIPCIÓN
             </div>
 
             <!-- <div class=" mb-3">                 
@@ -78,26 +78,26 @@
         <td>{{ estudiante.numero_boleta }}</td>
         <td>{{ estudiante.anio_cursado }}</td>
         <td>
-  <div class="btn-group" role="group">
+  <div class="btn-group" role="group" aria-label="Basic mixed styles example">
     <router-link :to="{path:'/estudiante/ofertas/'+estudiante.ci_estudiante}" class="btn btn-success btn-sm" v-if="estudiante.inscrito_gestion=='no'" :key="keycon">
       INSCRIBIR
     </router-link>
     <button class="btn btn-success btn-sm disabled" v-else>
       INSCRITO
     </button>    
-    <button class="btn btn-info btn-sm" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionNuevos(estudiante.ci_estudiante)">
+    <button class="btn btn-sm btn-info " v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionNuevos(estudiante.ci_estudiante)">
       REIMP.-N
     </button>
-    <button class="btn btn-info btn-sm" v-if="estudiante.anio_ingreso!==this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionRegulares(estudiante.ci_estudiante)">
+    <button class="btn btn-sm btn-info " v-if="estudiante.anio_ingreso!==this.anio_actual && estudiante.inscrito_gestion=='si'" @click="reimpresionRegulares(estudiante.ci_estudiante)">
       REIMP.-R
     </button>
-    <button class="btn btn-danger btn-sm" v-if="estudiante.inscrito_gestion=='si'" @click="consultaAnularInscripcion(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+    <button class="btn btn-sm btn-danger" v-if="estudiante.inscrito_gestion=='si'" @click="consultaAnularInscripcion(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
       ANULAR-INS.
     </button>
-    <button class="btn btn-info btn-sm" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='no'" @click="inscripcionDirecta(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+    <button class="btn btn-sm btn-info" v-if="estudiante.anio_ingreso===this.anio_actual && estudiante.inscrito_gestion=='no'" @click="inscripcionDirecta(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
       INS-DIRECTA
     </button>
-    <button class="btn btn-info btn-sm" v-if="sexto_anio" @click="inscripcionSextoAnio(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
+    <button class="btn btn-sm btn-info" v-if="sexto_anio" @click="inscripcionSextoAnio(estudiante.ci_estudiante, `${estudiante.nombres} ${estudiante.apellidoP} ${estudiante.apellidoM}`)">
       INSCRIBIR-6TO
     </button>
     
@@ -1349,4 +1349,8 @@ export default {
 .btn-custom:hover {
   background-color: #e53935; /* Cambia el color de fondo al pasar el ratón sobre el botón */
 }
+table,div,button {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+  }
 </style>
