@@ -59,7 +59,7 @@
                 <th>
                   GESTION
                 </th>
-                <th>
+                <!-- <th>
                   SIGLA CÓDIGO
                 </th>                
                 <th>
@@ -76,10 +76,10 @@
                 </th>
                 <th>
                   ESTADO
-                </th>
+                </th>-->
                 <th>
-                  HOMOLOGACIÓN
-                </th>
+                  REPORTE
+                </th> 
                 <!-- <th>
                         INS. DE APR.
                       </th>         
@@ -92,7 +92,7 @@
               </tr>
             </thead>
             <tbody class="table-group-divider" id="contenido">
-              <tr v-for="materia, i  in materias" :key="materia">
+              <tr v-for="gestion, i  in gestiones" :key="gestion">
                 <td>{{ i + 1 }}</td>
                 <!-- ORDEN ANTERIOR -->
                 <!-- <td>{{ materia.anio_cursado }}</td>
@@ -105,14 +105,13 @@
                 <td>{{ materia.nota_num_final }}</td>
                 <td>{{ materia.estado_gestion_espaniol }}</td> -->
                 <!-- FIN ORDEN ANTERIOR -->
-                <td>{{ materia[0] }}</td>
-                <td>{{ materia[1] }}</td>                                
-                <td>{{ materia[2] }}</td>
-                <td>{{ materia[3] }}</td>
-                <td>{{ materia[4] }}</td>
-                <td>{{ materia[5] }}</td>
-                <td>{{ materia[6] }}</td>
-                <td>{{ materia[7] }}</td>
+                <td>{{ gestion }}</td>   
+                <td>                                                                                 
+                  <button   class="btn btn-warning" @click="certificadoCalificaciones(ci_estudiante,gestion)"> 
+                      <i class="fa-solid fa-file-pdf"></i> 
+                  </button>                         
+                </td>        
+
 
                 <!-- <td></td>
                         <td></td> -->
@@ -146,6 +145,7 @@
 //import {ref} from 'vue';
 import axios from "axios";
 import { show_alerta, confirmar1 } from '../../funciones';
+import { historialAcademico } from '../../reportes'
 import { useRoute } from "vue-router";
 import html2pdf from "html2pdf.js";
 
@@ -165,6 +165,8 @@ export default {
   name: 'AprobadasEstudianteView',
   data() {
     return {
+      gestiones:[],
+      
       estudiantes: null, carreras: [], principal: '',
       ci_estudiante: '', nombres: '', apellidoP: '', apellidoM: '', numero_registro: '', nombre_carrera: '', fecha_emision: '', grado: '',
       cantidad_aprobadas: '',
@@ -182,6 +184,7 @@ export default {
 
     this.url = this.url + '/' + this.id + '/';
     this.getMateriasCursadas();
+    this.generarGestion();
     //ruta de navegacion despues de la accion eliminar
     this.principal = '/estudiantes';
   },
@@ -193,6 +196,41 @@ export default {
         html2canvas: { scale: 3 }
       })
     },
+    generarGestion(){
+      let inicio=2023;
+      for (let index = 0; index < 5; index++) {          
+        this.gestiones.push(inicio-index)
+      }      
+      console.log(this.gestiones);
+    },
+    async certificadoCalificaciones(id,gestion) {
+
+      const url = BASE_URL + 'estudiantes/obtenerCertificacionPorGestion/' + id + '/'+ gestion +'/';
+      await axios.get(url)
+        .then(
+          response => {
+            //const datos_estudiante=response.data['datos_estudiante'];
+            this.materias_cursadas = response.data;
+            //console.log(this.datos_estudiante.requisitos[0].requisito);
+            //console.log(this.datos_estudiante);
+            console.log(this.materias_cursadas.estudiante);
+            const datos = this.materias_cursadas;
+            const datos_estudiante = datos.estudiante;
+            const grado = datos.grado;
+            const fecha_emision = datos.fecha_emision;
+            const otros_datos = datos.datos;
+            if (!response.data.message) {
+              historialAcademico(datos_estudiante, grado, fecha_emision, otros_datos,gestion);
+            } else {
+              show_alerta('El estudiante no curso la gestión anterior(2023)', 'error')
+            }
+
+          }
+        ).catch(error => {
+          console.log(error)
+          show_alerta(error, 'error')
+        });
+},
     async exportPDF() {
       //first try
       //parameters:orientation,unit,format
@@ -326,70 +364,69 @@ export default {
       //    finalY+=35;     
 
       //INICIANDO LOS ENCABEZADOS Y FORMATO DE PRESENTACION
-    //   await doc.addImage("../../ministerio.jpg", "JPG", 15, finalY + 5, 60, 60);
-    //   await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width - 65, finalY + 5, 50, 50);
+      await doc.addImage("../../ministerio.jpg", "JPG", 15, finalY + 5, 60, 60);
+      await doc.addImage("../../logotipo-unibol-quechua.png", "PNG", doc.internal.pageSize.width - 65, finalY + 5, 50, 50);
 
-    //   doc.setTextColor(10);
-    //   doc.setFontSize(10).setFont(undefined, 'bold');
-    //   doc.setTextColor(18, 73, 39);
-    //   doc.text(`
-    //                    UNIVERSIDAD INDÍGENA BOLIVIANA COMUNITARIA INTERCULTURAL PRODUCTIVA
-    //                    UNIBOL QUECHUA "CASIMIRO HUANCA"
-    //                    `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
-    //   //finalY+=25;    
-    //   //añadimos 20+50 por el tamaño de las imagenes
-    //   finalY += 20;
+      doc.setTextColor(10);
+      doc.setFontSize(10).setFont(undefined, 'bold');
+      doc.setTextColor(18, 73, 39);
+      doc.text(`
+                       UNIVERSIDAD INDÍGENA BOLIVIANA COMUNITARIA INTERCULTURAL PRODUCTIVA
+                       UNIBOL QUECHUA "CASIMIRO HUANCA"
+                       `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
+      //finalY+=25;    
+      //añadimos 20+50 por el tamaño de las imagenes
+      finalY += 20;
 
-    //   doc.setTextColor(100);
-    //   doc.setFontSize(8).setFont(undefined, 'normal');
-    //   doc.text(`
-    //                    Decreto Supremo N° 29664 de 2 de agosto de 2008 - Decreto Supremo N° 3079 del 8 de febrero 2017
-    //                    R.M. 505/2013 - R.M. 1300/2018"
-    //                    `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
-    //   //finalY+=25;    
-    //   //añadimos 20+50 por el tamaño de las imagenes
-    //   finalY += 20;
+      doc.setTextColor(100);
+      doc.setFontSize(8).setFont(undefined, 'normal');
+      doc.text(`
+                       Decreto Supremo N° 29664 de 2 de agosto de 2008 - Decreto Supremo N° 3079 del 8 de febrero 2017
+                       R.M. 505/2013 - R.M. 1300/2018"
+                       `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
+      //finalY+=25;    
+      //añadimos 20+50 por el tamaño de las imagenes
+      finalY += 20;
 
-    //   doc.setTextColor(10);
-    //   doc.setFontSize(8);
-    //   doc.text(`
-    //                    Tukuy sunquwan yahcyaninchikta, ruwayninchikta, yuyayninchikta kallpachaspa sumaq kawsayman kutina                       
-    //                    `, (doc.internal.pageSize.getWidth() / 2) - 5, finalY, null, null, "center");
-    //   //finalY+=25;    
-    //   //añadimos 20+50 por el tamaño de las imagenes
-    //   finalY += 15;
+      doc.setTextColor(10);
+      doc.setFontSize(8);
+      doc.text(`
+                       Tukuy sunquwan yahcyaninchikta, ruwayninchikta, yuyayninchikta kallpachaspa sumaq kawsayman kutina                       
+                       `, (doc.internal.pageSize.getWidth() / 2) - 5, finalY, null, null, "center");
+      //finalY+=25;    
+      //añadimos 20+50 por el tamaño de las imagenes
+      finalY += 15;
 
 
-    //   doc.setTextColor(10);
-    //   doc.setFontSize(10).setFont(undefined, 'bold');
-    //   doc.text(`
-    //                   HISTORIAL ACADÉMICO 
-    //                   `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
-    //   //finalY+=25;    
-    //   //añadimos 20+50 por el tamaño de las imagenes
-    //   finalY += 10;
+      doc.setTextColor(10);
+      doc.setFontSize(10).setFont(undefined, 'bold');
+      doc.text(`
+                      HISTORIAL ACADÉMICO 
+                      `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
+      //finalY+=25;    
+      //añadimos 20+50 por el tamaño de las imagenes
+      finalY += 10;
 
-    //   doc.setTextColor(10);
-    //   doc.setFontSize(9).setFont(undefined, 'bold');
-    //   doc.text(`
-    //                   SEGÚN AJUSTE DE RM 0155/2023
-    //                   `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
-    //   //finalY+=25;    
-    //   //añadimos 20+50 por el tamaño de las imagenes
-    //   finalY += 10;
+      doc.setTextColor(10);
+      doc.setFontSize(9).setFont(undefined, 'bold');
+      doc.text(`
+                      SEGÚN AJUSTE DE RM 0155/2023
+                      `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
+      //finalY+=25;    
+      //añadimos 20+50 por el tamaño de las imagenes
+      finalY += 10;
 
-    //   doc.setTextColor(10);
-    // doc.setFontSize(6).setFont(undefined, 'bold');                      
-    // doc.text(`
-    //   SERIE "A"-3 
-    //   `, (doc.internal.pageSize.getWidth()/2)+160, finalY,null,null,"center");
-    //   //finalY+=25;    
-    //   //añadimos 20+50 por el tamaño de las imagenes
-    //   finalY+=10;  
+      doc.setTextColor(10);
+    doc.setFontSize(6).setFont(undefined, 'bold');                      
+    doc.text(`
+      SERIE "A"-3 
+      `, (doc.internal.pageSize.getWidth()/2)+160, finalY,null,null,"center");
+      //finalY+=25;    
+      //añadimos 20+50 por el tamaño de las imagenes
+      finalY+=10;  
 
-    finalY += 95;
 
-      doc.setTextColor(10).setFont(undefined, 'bold');     
+      doc.setTextColor(10);
       doc.setFontSize(8);
       doc.text(`
                        APELLIDOS Y NOMBRES:                                  
@@ -419,9 +456,6 @@ export default {
 
       finalY += 35;
 
-      // let wantedTableWidth1 = 100;
-      // let pageWidth1 = doc.internal.pageSize.width;
-      // let margin1 = (pageWidth - wantedTableWidth) / 2;
 
 
       //PRIMERA FORMA FINALIZADA 
@@ -434,7 +468,6 @@ export default {
         tableLineColor: [0, 0, 0], tableLineWidth: 0.2,
         styles: { fontSize: 6, halign: 'center' },
         bodyStyles: { lineWidth: 0.2, lineColor: [0, 0, 0] },
-        margin: { top: 105 }
         //padding: 0                      
       })
 

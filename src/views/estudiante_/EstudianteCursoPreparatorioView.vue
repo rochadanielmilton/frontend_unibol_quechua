@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="container-fluid text-center"> -->
-  <div v-if="estudiantesP" class="container-fluid" id="contenido-global">
+  <div v-if="estudiantesP" class="container" id="contenido-global">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <div class="mb-3 fw-bold ">
@@ -42,9 +42,14 @@
       <div class="mb-3">
         <!-- <div class="d-flex justify-content-around ">         -->
         <div class="mb-3 d-grid gap-2 d-md-block ">
-          <button class="btn btn-outline-success rounded col-md-2 col-lg-2  me-1 float-end" @click="confirmarRegistro()">
-            REGISTRAR
+          <button class="btn btn-outline-success rounded   me-1 float-end">
+            NUEVO ESTUDIANTE
             <i class="fa-solid fa-user-plus"></i>
+          </button>
+
+          <button class="btn btn-success rounded   me-1" @click="confirmarRegistro()">
+            INSCRIBIR
+            
           </button>
         </div>
       </div>
@@ -53,7 +58,7 @@
     <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-      <div class="col-lg-10 offset-lg-1">
+      <!-- <div class="col-lg-10 offset-lg-1"> -->
         <div class="table-responsive">
           <DataTable ref="table" id="datatable" :data="estudiantesP" :columns="columns"
             class="table table-bordered table-striped display fixed small" :options="{
@@ -138,7 +143,7 @@
           </DataTable>
         </div>
 
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </template>

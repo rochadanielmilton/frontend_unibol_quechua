@@ -48,7 +48,7 @@
   </div>
 
 
-   <div class="row">
+   <div class="row fs-6">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
         <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
           <div class="col-lg-10 offset-lg-1">
@@ -59,17 +59,18 @@
                       <th>
                         #
                       </th>
-                      <th>
+                      <!-- <th class="d-xs-block d-sm-none"> -->
+                      <th class="d-none d-xs-block">
                         CODIGO CARRERA
                       </th>
-                      <th>
+                      <th class="d-none d-sm-block">
                         CODIGO ASIGNATURA
                       </th> 
                    
-                      <th>
+                      <th >
                         NOMBRE DE ASIGNATURA
                       </th>
-                      <th >
+                      <th class="d-none d-md-block">
                         AÑO ASIGNADO
                       </th>
                                             
@@ -86,10 +87,12 @@
                   <tbody class="table-group-divider" id="contenido">
                     <tr v-for="materia,i  in ofertaMaterias" :key="materia">
                         <td>{{ i+1 }}</td>
-                        <td>{{ materia.codigo_carrera }}</td>
-                        <td>{{ materia.codigo_asignatura }}</td>
+
+                        <td class="d-none d-xs-block">{{ materia.codigo_carrera }}</td>
+
+                        <td class="d-none d-sm-block">{{ materia.codigo_asignatura }}</td>
                         <td>{{ materia.nombre_asignatura }}</td>
-                        <td>{{ materia.anio_asignado }}</td>
+                        <td class="d-none d-md-block">{{ materia.anio_asignado }}</td>
                         <!-- <td><inputcheckbox text="one" v-model="estado1" /></td> -->
                         <td><div class="form-check noselect">
                             <!-- <input class="form-check-input" type="checkbox" :id="id" :checked="estado1" :value="materia.codigo_asignatura" v-model="asignaturas" @change="addAsignatura()" /> -->

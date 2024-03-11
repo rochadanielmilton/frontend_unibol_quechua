@@ -764,8 +764,8 @@ export default {
 }
 </script>
 <style>
-/* body {
+body {
     font-size: .875rem;
     line-height: 1.25rem;
-} */
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
   <!-- <div class="container-fluid text-center"> -->
-  <div v-if="materias" class="container-fluid" id="contenido-global">
+  <div v-if="materias" class="container" id="contenido-global">
     <div class="row">
-      <div class="col-lg-10 offset-lg-1">
+      <!-- <div class="col-lg-10 offset-lg-1"> -->
         <div class="mb-3 fw-bold  normal-letter">
 
           <div class="mb-3 fs-5 text-center">
@@ -42,15 +42,15 @@
           </div>
 
         </div>
-      </div>
+      <!-- </div> -->
     </div>
 
 
     <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-      <div class="col-lg-10 offset-lg-1">
-        <div class="table-responsive text-center">
+      <!-- <div class="col-lg-10 offset-lg-1"> -->
+        <div class="table-responsive ">
           <DataTable ref="table" id="materias_cursadas" :data="materias" :columns="columns"
             class="table table-bordered table-striped display fixed small" :options="{
               select: true, responsive: true, autoWidth: true, dom: 'Bfrti',
@@ -154,9 +154,9 @@
           <!-- </div> -->
         </div>
       </div>
-    </div>
-    <b-table striped hover :items="materias">
-    </b-table>
+    <!-- </div> -->
+    <!-- <b-table striped hover :items="materias">
+    </b-table> -->
   </div>
 </template>
 

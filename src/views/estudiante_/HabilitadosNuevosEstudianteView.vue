@@ -1,14 +1,14 @@
 <template :key="keycon" >
   <!-- <div class="container-fluid text-center"> -->
-  <div class="container-fluid" id="contenido-global" v-if="estudiantes">
+  <div class="container" id="contenido-global" v-if="estudiantes">
     <div class="row">
       <div class="mb-3 fw-bold">
-        <div class="mb-3 col-lg-10 offset-1">
-          <button class="btn btn-outline-success col-2">
+        <!-- <div class="mb-3 col-lg-10 offset-1"> -->
+          <!-- <button class="btn btn-outline-success col-2 float-end">
             <i class="fa-solid fa-table"></i> <router-link to="/estudiante/curso-preparatorio"
               class="nav-link active">ESTUDIANTES-PREPARATORIO</router-link>
-          </button> &nbsp;
-        </div>
+          </button> &nbsp; -->
+        <!-- </div> -->
 
         <div class="mb-3 fs-4 text-center">
           PLANILLA DE ESTUDIANTES HABILITADOS PARA LA INSCRIPCION:
@@ -45,15 +45,20 @@
       <div class="mb-3">
         <!-- <div class="d-flex justify-content-around ">         -->
         <div class="mb-3 d-grid gap-2 d-md-block">
+
+          <button class="btn btn-outline-success float-end">
+            <i class="fa-solid fa-table"></i> <router-link to="/estudiante/curso-preparatorio"
+              class="nav-link active">ESTUDIANTES-PREPARATORIO</router-link>
+          </button> &nbsp;
+
           <button class="btn btn-outline-success  me-1" @click="inscribirEstudiante">
             <i class="fa-solid fa-user-plus"></i>INSCRIBIR
 
           </button>
-          <button class="btn btn-outline-warning rounded col-md-2 col-lg-2  me-1" @click="inscripcionDirectaN()">
-            INS.DIRECTA
-            <i class="fa-solid fa-user-plus"></i>
+          <button class="btn btn-warning rounded   me-1" @click="inscripcionDirectaN()">
+            <i class="fa-solid fa-user-plus"></i>INS.DIRECTA
           </button>
-          <button class="btn btn-danger  rounded col-md-2  col-lg-2  me-1" @click="reimprimirInscripcionNuevos()">
+          <button class="btn btn-outline-danger  rounded   me-1" @click="reimprimirInscripcionNuevos()">
             REIMPR.-N
           </button>
           <button class="btn btn-outline-secondary me-1" @click="recepcionAnularInscripcion()">
@@ -66,8 +71,8 @@
     <div class="row">
       <!-- <div class="col-lg-12 col-sm-12 offset-lg-2 align-center"> -->
       <!-- <div class="col-lg-12 col-sm-12 align-center"> -->
-      <div class="col-lg-10 offset-lg-1">
-        <div class="table-responsive text-center">
+      <!-- <div class="col-lg-10 offset-lg-1">
+        <div class="table-responsive text-center"> -->
           <div class="table-responsive">
             <!-- <table class="table table-bordered table-hover table-striped col-12 small" :key="keycon" v-if="keycon>=0"> -->
             <DataTable ref="table" id="datatable" :data="estudiantes" :columns="columns"
@@ -169,8 +174,8 @@
 
           <!-- </div> -->
         </div>
-      </div>
-    </div>
+      <!-- </div>
+    </div> -->
   </div>
 
   <div v-else class="text-center">

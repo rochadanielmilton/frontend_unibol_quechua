@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center">
+  <div class="container ">
     <!-- <div class="row">
       <div class="mb-3">
         <div class="d-grid col-6-mx-auto offset-md-9">
@@ -20,11 +20,11 @@
             <i class="fa-solid fa-user-plus"></i> <router-link to="/docente/create" class="nav-link active">NUEVO
               DOCENTE</router-link>
           </button>
-          <button class="btn btn-outline-warning rounded col-md-2 col-lg-2  me-1" @click="editarSeleccionado()">
+          <button class="btn btn-outline-warning rounded   me-1" @click="editarSeleccionado()">
             Editar
             <i class="fa-solid fa-user-plus"></i>
           </button>
-          <button class="btn btn-danger  rounded col-md-2  col-lg-2  me-1" @click="eliminarSeleccionado()">
+          <button class="btn btn-danger  rounded   me-1" @click="eliminarSeleccionado()">
             Eliminar
             <i class="fa-solid fa-trash"></i>
           </button>
@@ -38,7 +38,7 @@
       <div class="table-responsive">
         <!-- <table class="table table-bordered table-hover table-striped col-12"> -->
         <DataTable ref="table" id="datatable" :data="docentes" :columns="columns"
-          class="table table-bordered table-striped display fixed small" :options="{
+          class="table table-bordered table-striped display small" :options="{
             select: true, responsive: true, autoWidth: true, dom: 'Bfrtip',
             buttons: [{
               extend: 'selected',

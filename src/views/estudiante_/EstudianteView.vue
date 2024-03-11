@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid ">
+  <div class="container ">
     <!-- <div class="container-fluid text-center"> -->
     <div class="row">
       <div class="mb-3">
@@ -11,7 +11,7 @@
             >ESTUDIANTES-PREPARATORIO</router-link>
         </button> &nbsp; -->
 
-          <button class="btn btn-outline-success  float-end ">
+          <button class="btn btn-outline-success  float-end">
             <i class="fa-solid fa-user-plus"></i> <router-link to="/estudiante/create" class="nav-link active">NUEVO
               ESTUDIANTE</router-link>
           </button>
@@ -26,10 +26,13 @@
           <button class="btn btn-outline-secondary me-1" @click="materiasCursadas">
             <i class="fa-solid fa-user-graduate"></i>HistorialAcad.
           </button>
-          <button class="btn btn-outline-success" @click="formularioA()">
+          <button class="btn btn-outline-success me-1" @click="formularioA()">
             <i class="fa-regular fa-clipboard"></i>Form.Admisión
           </button>
-          <!-- <button class="btn btn-outline-success" @click="certificadoCalificaciones()">
+          <button class="btn btn-outline-success" @click="certificadoCalificaciones" >
+                    <i class="fa-solid fa-sheet-plastic"></i>Cert.Calificaciones
+          </button>
+          <!-- <button class="btn btn-outline-success" @click="certificadoCalificaciones(estudiante.ci_estudiante)">
           <i class="fa-solid fa-sheet-plastic"></i>
         </button> -->
 
@@ -122,7 +125,7 @@
             <img src="loading.gif" alt="iamgen">
           </div> -->
 
-          <tbody class="table-group-divider" id="contenido">
+          <tbody  id="contenido">
 
             <!-- <td class="d-flex justify-content-center">
                 <div class="d-flex mb-1 ">
@@ -361,9 +364,11 @@ export default {
     //       show_alerta(error, 'error')
     //     });
     // },
-    async certificadoCalificaciones(id) {
-
-      const url = BASE_URL + '/estudiantes/obtenerCertificacionGestionAnterior/' + id + '/';
+    //async certificadoCalificaciones(id) {
+    async certificadoCalificaciones() {
+      const { identificador } = this.verificarSeleccion();
+      if (identificador) {
+      const url = BASE_URL + '/estudiantes/obtenerCertificacionGestionAnterior/' + identificador + '/';
       await axios.get(url)
         .then(
           response => {
@@ -388,6 +393,7 @@ export default {
           console.log(error)
           show_alerta(error, 'error')
         });
+      }
     },
     async getEstudiantes() {
       //await axios.get('http://127.0.0.1:8000/estudiantes/estudiantes/')

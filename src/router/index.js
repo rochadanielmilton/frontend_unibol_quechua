@@ -134,6 +134,15 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/estudiante_/CursadasEstudianteView.vue')
   },
   {
+    path: '/estudiantesHistorialAnual/:id',
+    name: 'estudiantesAnual',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "dosmas" */ '../views/estudiante/HistorialAnualView.vue')
+  },
+  
+  {
     path: '/estudiantesNuevosHabilitados',
     name: 'estudiantesNA',
     // route level code-splitting
@@ -175,6 +184,12 @@ const routes = [
     path: '/asignaturas',
     name: 'asignaturas',
     component: MateriaView
+  },
+  {
+    path: '/asignaturasData',
+    name: 'asignaturasData',
+    //component: DocenteView
+    component: () => import(/* webpackChunkName: "about" */ '../views/materia/MateriaDataView.vue')
   },
   {
     path: '/asignatura/create',

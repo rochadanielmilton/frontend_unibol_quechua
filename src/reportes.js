@@ -1141,7 +1141,7 @@ export async function generarReporteInscripcionRegulares(asignaturas_tabla,asign
                     // };       
 }
 
-export async function historialAcademico(datos_estudiante,grado,fecha_emision,otros_datos){
+export async function historialAcademico(datos_estudiante,grado,fecha_emision,otros_datos,gestion){
   //first try
   //parameters:orientation,unit,format
   // const doc = new jsPDF('p', 'pt', 'A4');
@@ -1240,7 +1240,7 @@ export async function historialAcademico(datos_estudiante,grado,fecha_emision,ot
       // tabla_promedios.push(['PROMEDIO DE CALIFICACIÓN GNRAL.',this.promedio_todas])
       // tabla_promedios.push(['PREMEDIO DE CALIFICACIÓN APROBADAS',this.promedio_aprobadas])
 
-      const headers = [['NRO','GESTION','SIGLA CÓDIGO','ASIGNATURA', 'CALIFICACIÓN NUMERAL','CALIFICACIÓN LITERAL QUECHUA','ESTADO','OBSERVACIÓN']];
+      const headers = [['NRO','GESTIÓN','SIGLA CÓDIGO','ASIGNATURA', 'CALIFICACIÓN NUMERAL','CALIFICACIÓN LITERAL QUECHUA','ESTADO','OBSERVACIÓN']];
      
     doc.setTextColor(10);
     doc.setFontSize(15);
@@ -1322,7 +1322,7 @@ export async function historialAcademico(datos_estudiante,grado,fecha_emision,ot
     doc.setTextColor(10);
     doc.setFontSize(14).setFont(undefined, 'bold');                      
     doc.text(`
-      CERTIFICADO DE CALIFICACIONES
+      CERTIFICADO DE CALIFICACIONES GESTIÓN: ${gestion}
       `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
       //finalY+=25;    
       //añadimos 20+50 por el tamaño de las imagenes
