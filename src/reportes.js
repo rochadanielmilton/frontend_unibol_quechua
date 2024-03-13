@@ -1319,10 +1319,11 @@ export async function historialAcademico(datos_estudiante,grado,fecha_emision,ot
       //añadimos 20+50 por el tamaño de las imagenes
       finalY+=10;  
     
+      console.log(gestion);
     doc.setTextColor(10);
     doc.setFontSize(14).setFont(undefined, 'bold');                      
     doc.text(`
-      CERTIFICADO DE CALIFICACIONES GESTIÓN: ${gestion}
+      CERTIFICADO DE CALIFICACIONES 
       `, (doc.internal.pageSize.getWidth()/2)-20, finalY,null,null,"center");
       //finalY+=25;    
       //añadimos 20+50 por el tamaño de las imagenes
