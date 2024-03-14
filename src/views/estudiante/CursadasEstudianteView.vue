@@ -156,6 +156,7 @@ export default {
       cantidad_todas: '',
       promedio_todas: '',
       promedio_aprobadas: '',
+      horas_academicas:'',
       materias: null, message: '',
       //url: BASE_URL + '/estudiantes/obtenerAsignaturasCursadas'
       url: BASE_URL + '/estudiantes/ObtenerHitorialAcademico2'
@@ -272,10 +273,12 @@ export default {
 
 
       //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
-      tabla_promedios.push(['TOTAL DE ASIGNATURAS APROBADAS', this.cantidad_aprobadas])
-      tabla_promedios.push(['TOTAL DE ASIGNATURAS CURSADAS', this.cantidad_todas])
+      
+      //tabla_promedios.push(['TOTAL DE ASIGNATURAS CURSADAS', this.cantidad_todas])
+      tabla_promedios.push(['TOTAL HORAS ACADÉMICAS', this.horas_academicas])
       tabla_promedios.push(['PROMEDIO DE CALIFICACIÓN GNRAL.', this.promedio_todas])
       tabla_promedios.push(['PREMEDIO DE CALIFICACIÓN APROBADAS', this.promedio_aprobadas])
+      tabla_promedios.push(['TOTAL DE ASIGNATURAS APROBADAS', this.cantidad_aprobadas])
 
       doc.setTextColor(10);
       doc.setFontSize(15);
@@ -521,6 +524,8 @@ export default {
               this.cantidad_todas = response.data['otros_datos']['cantidad_todas'],
               this.promedio_todas = response.data['otros_datos']['promedio_todas'],
               this.promedio_aprobadas = response.data['otros_datos']['promedio_aprobadas'],
+
+              this.horas_academicas=response.data['total_horas_vencidas'],
 
               this.materias = this.sortGestion(response.data['datos']),
               console.log(response.data['datos'][0])
