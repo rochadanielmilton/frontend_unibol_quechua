@@ -370,7 +370,7 @@ export default {
     doc.setTextColor(10);
     doc.setFontSize(6).setFont(undefined, 'bold');                      
     doc.text(`
-      SERIE "A"-3 
+      SERIE "A"-2 
       `, (doc.internal.pageSize.getWidth()/2)+160, finalY,null,null,"center");
       //finalY+=25;    
       //añadimos 20+50 por el tamaño de las imagenes
