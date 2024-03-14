@@ -7,7 +7,7 @@
         <div class="mb-3 fw-bold normal-letter ">
 
           <div class="mb-3 fs-5 text-center">
-            HISTORIAL ACADÉMICO
+            HISTORIAL ACADÉMICO DE AVANCE GENERAL
           </div>
 
           <div class="  fs-6">
@@ -158,7 +158,8 @@ export default {
       promedio_aprobadas: '',
       materias: null, message: '',
       //url: BASE_URL + '/estudiantes/obtenerAsignaturasCursadas'
-      url: BASE_URL + '/estudiantes/ObtenerHitorialAcademico2'
+      //url: BASE_URL + '/estudiantes/ObtenerHitorialAcademico2'
+      url: BASE_URL + '/estudiantes/ObtenerHitorialAcademicoAvanceGeneral'
     }
   },
   mounted() {
@@ -349,20 +350,20 @@ export default {
       doc.setTextColor(10);
       doc.setFontSize(10).setFont(undefined, 'bold');
       doc.text(`
-                      HISTORIAL ACADÉMICO 
+                      HISTORIAL ACADÉMICO DE AVANCE GENERAL 
                       `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
       //finalY+=25;    
       //añadimos 20+50 por el tamaño de las imagenes
       finalY += 10;
 
-      doc.setTextColor(10);
-      doc.setFontSize(9).setFont(undefined, 'bold');
-      doc.text(`
-                      SEGÚN AJUSTE DE RM 0155/2023
-                      `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
-      //finalY+=25;    
-      //añadimos 20+50 por el tamaño de las imagenes
-      finalY += 10;
+      // doc.setTextColor(10);
+      // doc.setFontSize(9).setFont(undefined, 'bold');
+      // doc.text(`
+      //                 SEGÚN AJUSTE DE RM 0155/2023
+      //                 `, (doc.internal.pageSize.getWidth() / 2) - 20, finalY, null, null, "center");
+      // //finalY+=25;    
+      // //añadimos 20+50 por el tamaño de las imagenes
+      // finalY += 10;
 
     
 

@@ -115,6 +115,10 @@
               <td>{{ estudiante.inscrito_gestion }}</td>
               <td class="d-flex justify-content-center">
                 <div class="d-flex mb-1 ">
+                  <router-link :to="{ path: '/estudiante/historial-avance-general/' + estudiante.ci_estudiante }"
+                  class="btn btn-outline-success">
+                    <i class="fa-solid fa-passport"></i>
+                  </router-link>
                   <router-link :to="{ path: '/estudiante/materias-cursadas/' + estudiante.ci_estudiante }"
                   class="btn btn-outline-info">
                     <i class="fa-solid fa-layer-group"></i>

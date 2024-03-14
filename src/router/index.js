@@ -141,6 +141,15 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "dosmas" */ '../views/estudiante/HistorialAnualView.vue')
   },
+  {
+    path: '/estudiante/historial-avance-general/:id',
+    name: 'estudiantesavancegeneral',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "dosmas" */ '../views/estudiante/HistorialAvanceGeneralView.vue')
+  },
+  
   
   {
     path: '/estudiantesNuevosHabilitados',
