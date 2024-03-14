@@ -1371,12 +1371,13 @@ export async function historialAcademico(datos_estudiante,grado,fecha_emision,ot
 
        finalY+=35; 
 
-       let asignaturas_tabla =[];
-       for (let index = 0; index < otros_datos.length; index++){
-        //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
-        asignaturas_tabla.push([index+1,otros_datos[index].anio_cursado,otros_datos[index].codigo_asignatura,otros_datos[index].nombre_asignatura,otros_datos[index].nota_num_final,
-                                otros_datos[index].nota_literal_quechua,otros_datos[index].estado_gestion_espaniol,''])
-      }
+       //let asignaturas_tabla =[];
+       let asignaturas_tabla =otros_datos;
+      //  for (let index = 0; index < otros_datos.length; index++){
+      //   //asignaturas_tabla.push([index+1,datos[index].anio_asignado ,datos[index].codigo_asignatura,datos[index].nombre_asignatura])          
+      //   asignaturas_tabla.push([index+1,otros_datos[index].anio_cursado,otros_datos[index].codigo_asignatura,otros_datos[index].nombre_asignatura,otros_datos[index].nota_num_final,
+      //                           otros_datos[index].nota_literal_quechua,otros_datos[index].estado_gestion_espaniol,''])
+      // }
     
     
 

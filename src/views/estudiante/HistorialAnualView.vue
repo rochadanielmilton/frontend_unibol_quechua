@@ -225,6 +225,7 @@ export default {
             const grado = datos.grado;
             const fecha_emision = datos.fecha_emision;
             const otros_datos = datos.datos;
+            console.log(otros_datos+'ss');
             if (!response.data.message) {
               historialAcademico(datos_estudiante, grado, fecha_emision, otros_datos,gestion);
             } else {
