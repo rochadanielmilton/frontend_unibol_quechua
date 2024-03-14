@@ -447,7 +447,7 @@ export default {
           1: { columnWidth: 'auto' }
         },
         tableWidth: doc.internal.pageSize.getWidth() / 3,
-        margin: { left: margin - 20, right: margin }
+        margin: { left: margin - 20, right: margin ,top:105}
         //columnStyles:{color}
 
       });
