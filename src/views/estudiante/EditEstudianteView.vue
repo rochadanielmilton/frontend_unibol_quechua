@@ -204,22 +204,38 @@
             <div class="input-group mb-3">   
               <input type="text" v-model="estado_convalidacion" id="estado_convalidacion" class="form-control" maxlength="100" placeholder="Estado Convalidacion" >
             </div>
-            <div class="input-group mb-3">   
+            <!-- <div class="input-group mb-3">   
               <input type="text" v-model="egresado" id="egresado" class="form-control" maxlength="100" placeholder="Egresado" >
             </div>
             <div class="input-group mb-3">   
               <input type="text" v-model="estado_egresado" id="estado_egresado" class="form-control" maxlength="100" placeholder="Estado Egresado" >
-            </div>
+            </div> -->
 
             <div class="input-group mb-3">   
-              <input type="text" v-model="titulado_tecnico_superior" id="titulado_tecnico_superior" class="form-control" maxlength="100" placeholder="Titulado Técnico Superior" >
+              <select class="form-select text-center" id="titulado_tecnico_superior"  v-model="titulado_tecnico_superior">
+                <option value="" selected>-------Titulado Técnico Superior-------</option>
+                <option value="si">Si</option>
+                <option value="no">No</option>
+              </select>    
+              
             </div>
+            <!-- <div class="input-group mb-3">   
+              <input type="text" v-model="titulado_tecnico_superior" id="titulado_tecnico_superior" class="form-control" maxlength="100" placeholder="Titulado Técnico Superior" >
+            </div> -->
             <div class="input-group mb-3">   
               <input type="text" v-model="descripcion_titulado_superior" id="descripcion_titulado_superior" class="form-control" maxlength="100" placeholder="Descripcion Titulado Superior" >
             </div>
             <div class="input-group mb-3">   
-              <input type="text" v-model="titulado_licenciatura" id="titulado_licenciatura" class="form-control" maxlength="100" placeholder="Titulado Licenciatura" >
+              <select class="form-select text-center" id="titulado_licenciatura"  v-model="titulado_licenciatura">
+                <option value="" selected>-------Titulado Licenciatura-------</option>
+                <option value="si">Si</option>
+                <option value="no">No</option>
+              </select>                  
             </div>
+
+            <!-- <div class="input-group mb-3">   
+              <input type="text" v-model="titulado_licenciatura" id="titulado_licenciatura" class="form-control" maxlength="100" placeholder="Titulado Licenciatura" >
+            </div> -->
             <div class="input-group mb-3">   
               <input type="text" v-model="descripcion_titulado_licenciatura" id="descripcion_titulado_licenciatura" class="form-control" maxlength="100" placeholder="Descripcion Titulado Licenciatura" >
             </div>
@@ -396,10 +412,10 @@ export default {
           //campos modificados
           // this.titulado=response.data['titulado'],
           // this.descripcion_titulado=response.data['descripcion_titulado'],
-          this.titulado_tecnico_superior=response.data['titulado_tecnico_superior'],
-          this.descripcion_titulado_superior=response.data['descripcion_titulado_superior'],
-          this.titulado_licenciatura=response.data['titulado_licenciatura'],
-          this.descripcion_titulado_licenciatura=response.data['descripcion_titulado_licenciatura'],
+          this.titulado_tecnico_superior=response.data['titulado_tecnico_superior']?response.data['titulado_tecnico_superior']:'',
+          this.descripcion_titulado_superior=response.data['descripcion_titulado_superior']?response.data['descripcion_titulado_superior']:'',
+          this.titulado_licenciatura=response.data['titulado_licenciatura']?response.data['titulado_licenciatura']:'',
+          this.descripcion_titulado_licenciatura=response.data['descripcion_titulado_licenciatura']?response.data['descripcion_titulado_licenciatura']:'',
 
           this.numero_registro=response.data['numero_registro'],
           this.obs1=response.data['obs1'],
