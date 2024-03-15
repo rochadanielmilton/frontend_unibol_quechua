@@ -223,7 +223,7 @@
               <input type="text" v-model="titulado_tecnico_superior" id="titulado_tecnico_superior" class="form-control" maxlength="100" placeholder="Titulado Técnico Superior" >
             </div> -->
             <div class="input-group mb-3">   
-              <input type="text" v-model="descripcion_titulado_superior" id="descripcion_titulado_superior" class="form-control" maxlength="100" placeholder="Descripcion Titulado Superior" >
+              <input type="text" v-model="descripcion_titulado_superior" id="descripcion_titulado_superior" class="form-control" maxlength="255" placeholder="Descripcion Titulado Superior" >
             </div>
             <div class="input-group mb-3">   
               <select class="form-select text-center" id="titulado_licenciatura"  v-model="titulado_licenciatura">
@@ -237,7 +237,7 @@
               <input type="text" v-model="titulado_licenciatura" id="titulado_licenciatura" class="form-control" maxlength="100" placeholder="Titulado Licenciatura" >
             </div> -->
             <div class="input-group mb-3">   
-              <input type="text" v-model="descripcion_titulado_licenciatura" id="descripcion_titulado_licenciatura" class="form-control" maxlength="100" placeholder="Descripcion Titulado Licenciatura" >
+              <input type="text" v-model="descripcion_titulado_licenciatura" id="descripcion_titulado_licenciatura" class="form-control" maxlength="255" placeholder="Descripcion Titulado Licenciatura" >
             </div>
             <!-- CAMBIADO POR OTROS CAMPOS -->
             <!-- <div class="input-group mb-3">   
