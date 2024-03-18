@@ -115,6 +115,10 @@
               <td>{{ estudiante.inscrito_gestion }}</td>
               <td class="d-flex justify-content-center">
                 <div class="d-flex mb-1 ">
+                                    
+                  <button class="btn btn-outline-success" @click="inscribirEstudianteSextoAnio(estudiante.ci_estudiante)" >
+                    <i class="fa-solid fa-building-columns"></i>
+                  </button>
                   <router-link :to="{ path: '/estudiante/historial-avance-general/' + estudiante.ci_estudiante }"
                   class="btn btn-outline-success">
                     <i class="fa-solid fa-passport"></i>
@@ -184,7 +188,7 @@
 //import {ref} from 'vue';
 import axios from "axios";
 import { confirmar1, show_alerta } from '../../funciones';
-import { historialAcademico } from '../../reportes'
+import { historialAcademico, generarReporteInscripcionEgresados} from '../../reportes'
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -222,6 +226,30 @@ export default {
     })
   },
   methods: {
+    async inscribirEstudianteSextoAnio(ci){
+      const url = BASE_URL+'/administracion/inscripcionParaDefensa/'+ci+'/';
+
+      await axios.get(url).then(resultado=>{
+      //const datos_estudiante = this.datos_estudiante_sexto_anio['estudiante'];
+      //console.log(this.datos_estudiante_sexto_anio+'as');
+      const datos = resultado.data;
+      //const datos_estudiante = datos['estudiante'];
+      const {estudiantes,fecha_emision,numero_archivo,numero_boleta}= datos;
+
+      //console.log(this.datos_estudiante_sexto_anio);
+      const modalidad_egreso=[];
+      //const bodyE = `${modalidad_egreso} ${anio_actual}`;      
+
+      const anio_actual = datos['anio_actual'];
+      //console.log(anio_actual);
+      modalidad_egreso.push([`DEFENSA DE GRADO GESTIÓN ${anio_actual}`,'PENDIENTE']);
+      console.log(estudiantes);
+      generarReporteInscripcionEgresados(modalidad_egreso, estudiantes, fecha_emision, numero_boleta, numero_archivo, anio_actual);
+      this.$router.push('/estudiante/habilitados');
+      });
+
+      }
+    ,
     async formularioA(id) {
       const url = BASE_URL + '/estudiantes/formularioAdmision/' + id + '/';
       await axios.get(url)
